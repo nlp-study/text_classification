@@ -4,15 +4,13 @@ import classifier.AbstractInfer;
 
 public class LogisticInfer implements AbstractInfer {
 
-	@Override
-	public void init(String path) throws Exception {
-		// TODO Auto-generated method stub
-
+	public  void init(String path)throws Exception
+	{
+		
 	}
-
-	@Override
-	public int infer(double[] input) {
-		// TODO Auto-generated method stub
+	
+	public int infer(double[] input)
+	{
 		return 0;
 	}
 

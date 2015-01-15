@@ -1,5 +1,11 @@
 package classifier;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
+import base.InputFeature;
 import base.VSMBuilder;
 
 
@@ -10,13 +16,25 @@ import base.VSMBuilder;
  * 创建于：2014年12月29日
  * 抽象的训练类
  */
-public interface AbstractTrainer {
+public abstract class AbstractTrainer {
 	
-	public void init(VSMBuilder vsmBuilder);
+	public abstract void init(InputFeature inputFeature);
 	
-	public  void train();
+	public  abstract void train();
 
 	
-	public void saveModel(String path)throws Exception;
+	public <T> void saveModel(String path,T model) throws IOException
+	{
+		FileOutputStream fo = new FileOutputStream(path);   
+	     ObjectOutputStream so = new ObjectOutputStream(fo);   
+	  
+	     try {   
+	            so.writeObject(model);   
+	            so.close();   
+	  
+	     } catch (IOException e) {   
+	            System.out.println(e);   
+	     }   
+	}
 	
 }

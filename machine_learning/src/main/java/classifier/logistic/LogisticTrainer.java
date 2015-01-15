@@ -3,13 +3,12 @@ package classifier.logistic;
 import java.util.Arrays;
 import java.util.List;
 
-import manager.TrainerManager;
 
 import org.apache.log4j.Logger;
 
+import base.InputFeature;
+import base.InstanceD;
 import util.VectorOperation;
-import vsm.VSM;
-import vsm.VSMBuilder;
 import classifier.AbstractTrainer;
 
 /**
@@ -24,7 +23,7 @@ public class LogisticTrainer implements AbstractTrainer {
 	double[] weight;
 	
 	//输入的特征和类别标签
-	List<VSM> vsms;
+	List<InstanceD> vsms;
 	
 	//特征的维度
 	int dim;
@@ -35,27 +34,27 @@ public class LogisticTrainer implements AbstractTrainer {
 	//学习率
 	private double rate;
 	
-	@Override
-	public void init(VSMBuilder vsmBuilder) {
+
+	public void init(InputFeature inputFeature) {
 		// TODO Auto-generated method stub
-		this.vsms = vsmBuilder.getVsms();
+		this.vsms = inputFeature.getInstances();
 		if(vsms.size() == 0 )
 		{
 			logger.error("输入的特征向量为空！");
 		}
 		
-		dim = vsms.get(0).getSize();
+		dim = inputFeature.getLength();
 		
 		Arrays.fill(weight, 0);
 		
 		rate = 0.001;
 	}
 
-	@Override
+
 	public void train() {
 		 for(int i=0;i<ITERATIONS_NUMB;++i)
 		 {
-			 for(VSM vsm:vsms)
+			 for(InstanceD vsm:vsms)
 			 {
 				 double prediction = sigmoid(vsm.getVector());
 				 double diff  = prediction - vsm.getType();

@@ -6,23 +6,28 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import base.InputFeature;
+import base.InstanceD;
 import classifier.bayes.BayesTrainer;
 import util.FileRead;
-import vsm.VSM;
-import vsm.VSMBuilder;
 
 public class Iris {
 	Logger logger = Logger.getLogger(BayesTrainer.class);
 
-	VSMBuilder vsmBuilder = new VSMBuilder();
+	InputFeature inputFeature = new InputFeature();
 	
-	public VSMBuilder getVsmBuilder() {
-		return vsmBuilder;
+	
+	
+	
+	public InputFeature getInputFeature() {
+		return inputFeature;
 	}
 
-	public void setVsmBuilder(VSMBuilder vsmBuilder) {
-		this.vsmBuilder = vsmBuilder;
+	public void setInputFeature(InputFeature inputFeature) {
+		this.inputFeature = inputFeature;
 	}
+
+
 
 	public void init(String path) throws IOException
 	{
@@ -31,12 +36,12 @@ public class Iris {
 	public void readData(String path) throws IOException
 	{
 		List<String> data = FileRead.readLine(path);
-		List<VSM> vsms = new ArrayList<VSM>();
+		List<InstanceD> instances = new ArrayList<InstanceD>();
 		
+		inputFeature.setLength(4);
 		for(String str:data)
 		{
 			String[] temp = str.split(",");
-			VSM.size = 4;
 			double[] vector = new double[4];
 			int classid = -1;
 			for(int i=0;i<4;i++)
@@ -56,19 +61,19 @@ public class Iris {
 			{
 				classid = 2;
 			}
-			VSM vsm = new VSM(classid,vector);
-			vsms.add(vsm);
+			InstanceD instance = new InstanceD(classid,4,vector);
+			inputFeature.add(instance);
 		}
 		
-		vsmBuilder.setVsms(vsms);
+		
 	}
 	
 	public static void main(String[] args) throws IOException
 	{
-		String path = "data/corpus/iris/iris.data";
+		String path = "data/corpus/iris.data";
 		Iris iris = new Iris();
 		iris.readData(path);
-		VSMBuilder vsmBuilder = iris.getVsmBuilder();
+		InputFeature vsmBuilder = iris.getInputFeature();
 		System.out.println(vsmBuilder);
 	}
 }

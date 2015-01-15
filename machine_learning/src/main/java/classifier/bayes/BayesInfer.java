@@ -7,17 +7,19 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
 
+
 import base.ClassifyResult;
 import classifier.AbstractInfer;
 
 
-public class BayesInfer implements AbstractInfer {
+public class BayesInfer extends AbstractInfer {
 	Logger logger = Logger.getLogger(BayesInfer.class);
 
 	// 导入的训练模型文件
@@ -35,24 +37,24 @@ public class BayesInfer implements AbstractInfer {
 	// 类别的数量
 	int classNumb = 0;
 
-
 	public void init(String path) throws ClassNotFoundException, IOException {
-		FileInputStream fi = new FileInputStream(path);
-
-		ObjectInputStream si = new ObjectInputStream(fi);
-
-		try {
-
-			model = (BayesModel) si.readObject();
-
-			si.close();
-
-		} catch (IOException e)
-
-		{
-			System.out.println(e);
-		}
-
+//		FileInputStream fi = new FileInputStream(path);
+//
+//		ObjectInputStream si = new ObjectInputStream(fi);
+//
+//		try {
+//
+//			model = (BayesModel) si.readObject();
+//
+//			si.close();
+//
+//		} catch (IOException e)
+//
+//		{
+//			System.out.println(e);
+//		}
+		model = new BayesModel();
+		super.init(path,model);
 		likelihood = model.getLikelihood();
 		prior = model.getPrior();
 		ajs = model.getAjs();
@@ -61,18 +63,18 @@ public class BayesInfer implements AbstractInfer {
 
 	public int infer(double[] vector) {
 		double prevalue = 0.0;
-		double currvalue = 0.0;
+		double currentValue = 0.0;
 		int resultClass = 0;
 
 		for (int i = 0; i < classNumb; ++i) {
-			currvalue = calcualteEveryClass(vector, i);
-			logger.info("currvalue:" + currvalue);
-			if (currvalue > prevalue) {
-				prevalue = currvalue;
+			currentValue = calcualteEveryClass(vector, i);
+			logger.info("currvalue:" + currentValue);
+			if (currentValue > prevalue) {
+				prevalue = currentValue;
 				resultClass = i;
 			}
 		}
-
+		
 		return resultClass;
 	}	
 
@@ -80,9 +82,11 @@ public class BayesInfer implements AbstractInfer {
 	
 	private double calcualteEveryClass(double[] vector, int classid) {
 		double result = prior[classid];
+		logger.info("prior:"+result);
 		for (int i = 0; i < vector.length; ++i) {
 			int index = featureID(i, vector[i]);
 			result *= likelihood[classid][i][index];
+			logger.info("likehood:"+likelihood[classid][i][index]);
 		}
 		return result;
 	}

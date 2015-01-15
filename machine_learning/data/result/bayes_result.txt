@@ -1,0 +1,13 @@
+0.4117647058823529 0.5882352941176471 
+class:0 feature id:0 feature value:0  0.4444444444444444
+class:0 feature id:0 feature value:1  0.3333333333333333
+class:0 feature id:0 feature value:2  0.2222222222222222
+class:0 feature id:1 feature value:0  0.4444444444444444
+class:0 feature id:1 feature value:1  0.3333333333333333
+class:0 feature id:1 feature value:2  0.2222222222222222
+class:1 feature id:0 feature value:0  0.25
+class:1 feature id:0 feature value:1  0.3333333333333333
+class:1 feature id:0 feature value:2  0.4166666666666667
+class:1 feature id:1 feature value:0  0.16666666666666666
+class:1 feature id:1 feature value:1  0.4166666666666667
+class:1 feature id:1 feature value:2  0.4166666666666667

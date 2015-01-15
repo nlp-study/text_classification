@@ -18,6 +18,8 @@ public class BayesModel extends AbstractModel {
     
     //类别的数量
     int classNumb = 0;
+    
+    public BayesModel(){}
 
 	public BayesModel(Double[][][] likelihood, Double[] prior,
 			List<Double[]> ajs, int classNumb) {

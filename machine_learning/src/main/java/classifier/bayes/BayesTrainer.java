@@ -11,12 +11,15 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
+import base.InputFeature;
+import base.InstanceD;
+import base.InstanceI;
 import base.VSMBuilder;
 import util.FileRead;
 import vsm.VSM;
 import classifier.AbstractTrainer;
 
-public class BayesTrainer implements AbstractTrainer {
+public class BayesTrainer extends AbstractTrainer {
 	Logger logger = Logger.getLogger(BayesTrainer.class);
 
 	BayesModel model = null;
@@ -35,7 +38,7 @@ public class BayesTrainer implements AbstractTrainer {
 	List<Double[]> ajs = new ArrayList<Double[]>();
 	
 	//输入的每个特征
-	List<VSM> vsms = new ArrayList<VSM>();
+	List<InstanceD> instances = new ArrayList<InstanceD>();
 	
 	//似然概率
 	Double[][][] likelihood;
@@ -45,16 +48,15 @@ public class BayesTrainer implements AbstractTrainer {
 
 	public BayesTrainer()
 	{
-		
 	}
 	
 	public BayesTrainer(int featureNumb, int classNumb, List<Double[]> ajs,
-			List<VSM> vsms,int lambda) {
+			List<InstanceD> vsms,int lambda) {
 		this.lambda = lambda;
 		this.featureNumb = featureNumb;
 		this.classNumb = classNumb;
 		this.ajs = ajs;
-		this.vsms = vsms;
+		this.instances = vsms;
 		this.prior = new Double[classNumb];
 		this.likelihood = new Double[classNumb][featureNumb][];
 		
@@ -70,13 +72,12 @@ public class BayesTrainer implements AbstractTrainer {
 		priorNumb = new int[classNumb];
 	}
 	
-	public void init(VSMBuilder vsmBuilder)
+	public void init(InputFeature inputFeature)
 	{
 		this.lambda = 1;
-		this.featureNumb = vsmBuilder.getFeatureSize();
-		this.classNumb = vsmBuilder.getClassSize();
-		VSM.size = featureNumb;
-		this.vsms = vsmBuilder.getVsms();
+		this.featureNumb = inputFeature.getSize();
+		this.classNumb = inputFeature.getClassNumb();
+		this.instances = inputFeature.getInstances();
 		calculateAJS();
 		
 		this.prior = new Double[classNumb];
@@ -90,25 +91,19 @@ public class BayesTrainer implements AbstractTrainer {
 			}
 		}
 		
-		docNumb = vsms.size();
+		docNumb = instances.size();
 		priorNumb = new int[classNumb];
 	}
 	
 	//计算每个特征总共有几个值，用值得排序来确定
 	public void calculateAJS()
 	{
-//		ajs = new ArrayList<Double[]>();
-//		for (int i = 0; i < featureNumb; ++i) {
-//			Double[] features = { 0.0, 1.0 };
-//			ajs.add(features);
-//		}
-		
 		ajs = new ArrayList<Double[]>();
 		
 		for(int i=0;i<VSM.getSize();++i)
 		{
 			List<Double> featureValues = new ArrayList<Double>();
-			for(VSM vsm:vsms)
+			for(InstanceD vsm:instances)
 			{
 				if(!featureValues.contains(vsm.getFeature(i)))
 				{
@@ -168,7 +163,7 @@ public class BayesTrainer implements AbstractTrainer {
 			priorNumb[i] = 0;
 		}
 		
-		for(VSM vsm:vsms)
+		for(InstanceD vsm:instances)
 		{
 			priorNumb[vsm.getType()] = priorNumb[vsm.getType()]+1;
 		}
@@ -198,7 +193,7 @@ public class BayesTrainer implements AbstractTrainer {
 		}
 		
 		//统计各个特征的数量
-		for(VSM vsm:vsms)
+		for(InstanceD vsm:instances)
 		{
 			int typeID = vsm.getType();
 			for(int j=0;j<featureNumb;++j)
@@ -250,16 +245,17 @@ public class BayesTrainer implements AbstractTrainer {
 	{
 		model = new BayesModel(likelihood, prior,ajs, classNumb);
 		
-		 FileOutputStream fo = new FileOutputStream(path);   
-	     ObjectOutputStream so = new ObjectOutputStream(fo);   
-	  
-	     try {   
-	            so.writeObject(model);   
-	            so.close();   
-	  
-	     } catch (IOException e) {   
-	            System.out.println(e);   
-	     }   
+		super.saveModel(path, model);
+//		 FileOutputStream fo = new FileOutputStream(path);   
+//	     ObjectOutputStream so = new ObjectOutputStream(fo);   
+//	  
+//	     try {   
+//	            so.writeObject(model);   
+//	            so.close();   
+//	  
+//	     } catch (IOException e) {   
+//	            System.out.println(e);   
+//	     }   
 	}
 	
 	public void writeFile(String path) throws IOException
@@ -289,11 +285,11 @@ public class BayesTrainer implements AbstractTrainer {
 	
 	/**
 	 * @return
-	 * @throws IOException
 	 * @return BayesTrain
+	 * @throws Exception 
 	 * @comment:统计学习方法中的例题，用来验证算法是否正确
 	 */
-	public static BayesTrainer bookTest() throws IOException
+	public static BayesTrainer bookTest() throws Exception
 	{
 		int featureNumb  = 2;
 		int classNumb = 2;
@@ -303,9 +299,9 @@ public class BayesTrainer implements AbstractTrainer {
 	    ajs.add(a1);
 	    ajs.add(a2);
 	    
-		List<VSM> input = new ArrayList<VSM>();
+		List<InstanceD> input = new ArrayList<InstanceD>();
 		VSM.size = 2;
-		List<String> temp = FileRead.readLine("data/temp/bayes_sample.txt");
+		List<String> temp = FileRead.readLine("data/corpus/bayes.txt");
 		
 		for(int i=0;i<temp.size();++i)
 		{
@@ -331,24 +327,28 @@ public class BayesTrainer implements AbstractTrainer {
 				y = 0;
 			}
 			double[] vector = {x1,x2}; 
-			VSM vsm = new VSM(y,vector);
+			InstanceD vsm = new InstanceD(y,2,vector);
 			input.add(vsm);
 		}
 		
 		
 		BayesTrainer bayesTrain = new BayesTrainer(featureNumb, classNumb, ajs, input,1);
 		bayesTrain.train();
-		bayesTrain.writeFile("data/temp/bayes_result.txt");
-		bayesTrain.saveModel("data/train/bayes_model.m");
+		bayesTrain.writeFile("data/result/bayes_result.txt");
+		bayesTrain.saveModel("data/result/bayes_model.m");
+		
+		BayesInfer bayesInfer = new BayesInfer();
+		bayesInfer.init("data/result/bayes_model.m");
+		int result = bayesInfer.infer(new double[]{2,4});
+		System.out.println(result);
+		
 		return bayesTrain;
 	}
 	
-	public static void main(String[] args) throws IOException
+	public static void main(String[] args) throws Exception
 	{
 		PropertyConfigurator.configure("log4j.properties");
 
 		bookTest();
 	}
-	
-
 }
