@@ -66,7 +66,7 @@ public class DecTreeBuilder {
 			title.add(i);
 		}
 		
-		VSMtransformer vsmFromDoubleToInt = new VSMtransformer(vsms);
+		InstanceDoubleToInt vsmFromDoubleToInt = new InstanceDoubleToInt(vsms);
 		vsmFromDoubleToInt.excute();
 		features = vsmFromDoubleToInt.getFeatures();
 	}

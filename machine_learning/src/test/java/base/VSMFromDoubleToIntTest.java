@@ -14,7 +14,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class VSMFromDoubleToIntTest {
-	private static VSMtransformer vsmFromDoubleToInt = new VSMtransformer();
+	private static InstanceDoubleToInt vsmFromDoubleToInt = new InstanceDoubleToInt();
 
 	
 	@BeforeClass
@@ -28,14 +28,14 @@ public class VSMFromDoubleToIntTest {
 		
 		InstanceD vsm1 = new InstanceD(1,3,x1);
 		InstanceD vsm2 = new InstanceD(1,3,x2);
-		InstanceD vsm3 = new InstanceD(1,3,x3);
+		InstanceD vsm3 = new InstanceD(0,3,x3);
 		
-		List<InstanceD> vsms = new ArrayList<InstanceD>();
-		vsms.add(vsm1);
-		vsms.add(vsm2);
-		vsms.add(vsm3);
+		List<InstanceD> instances = new ArrayList<InstanceD>();
+		instances.add(vsm1);
+		instances.add(vsm2);
+		instances.add(vsm3);
 		
-		vsmFromDoubleToInt.setVsms(vsms);
+		vsmFromDoubleToInt.setVsms(instances);
     }
 	
 	

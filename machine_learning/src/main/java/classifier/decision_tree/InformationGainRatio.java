@@ -189,7 +189,7 @@ public class InformationGainRatio {
 	
 	public void transVSM2Int()
 	{
-		VSMtransformer vsmFromDoubleToInt = new VSMtransformer(vsms);
+		InstanceDoubleToInt vsmFromDoubleToInt = new InstanceDoubleToInt(vsms);
 		vsmFromDoubleToInt.excute();
 		features = vsmFromDoubleToInt.getFeatures();
 		intVsms = vsmFromDoubleToInt.getVsmints();

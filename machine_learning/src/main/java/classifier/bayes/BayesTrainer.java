@@ -113,7 +113,6 @@ public class BayesTrainer extends AbstractTrainer {
 			Double[] features = (Double[])featureValues.toArray(new Double[featureValues.size()]);
 			ajs.add(features);
 		}
-
 	}
 
 	public int getClassNumb() {
