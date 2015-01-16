@@ -14,9 +14,7 @@ import org.apache.log4j.PropertyConfigurator;
 import base.InputFeature;
 import base.InstanceD;
 import base.InstanceI;
-import base.VSMBuilder;
 import util.FileRead;
-import vsm.VSM;
 import classifier.AbstractTrainer;
 
 public class BayesTrainer extends AbstractTrainer {
@@ -100,7 +98,7 @@ public class BayesTrainer extends AbstractTrainer {
 	{
 		ajs = new ArrayList<Double[]>();
 		
-		for(int i=0;i<VSM.getSize();++i)
+		for(int i=0;i<featureNumb;++i)
 		{
 			List<Double> featureValues = new ArrayList<Double>();
 			for(InstanceD vsm:instances)
@@ -282,73 +280,8 @@ public class BayesTrainer extends AbstractTrainer {
 		buffWriter.close();
 	}
 	
-	
-	/**
-	 * @return
-	 * @return BayesTrain
-	 * @throws Exception 
-	 * @comment:统计学习方法中的例题，用来验证算法是否正确
-	 */
-	public static BayesTrainer bookTest() throws Exception
-	{
-		int featureNumb  = 2;
-		int classNumb = 2;
-		List<Double[]> ajs = new ArrayList<Double[]>();
-	    Double[] a1 = {1.0,2.0,3.0};
-	    Double[] a2 = {4.0,5.0,6.0};
-	    ajs.add(a1);
-	    ajs.add(a2);
-	    
-		List<InstanceD> input = new ArrayList<InstanceD>();
-		VSM.size = 2;
-		List<String> temp = FileRead.readLine("data/corpus/bayes.txt");
-		
-		for(int i=0;i<temp.size();++i)
-		{
-			String[] tempArray = temp.get(i).split(",");
-			double x1 = Double.parseDouble(tempArray[0]);
-			double x2 = 0.0;
-			if(tempArray[1].equals("S"))
-			{
-				x2 = 4.0;
-			}
-			else if(tempArray[1].equals("M"))
-			{
-				x2 = 5.0;
-			}
-			else
-			{
-				x2 = 6.0;
-			}
-			
-			int y = Integer.parseInt(tempArray[2]);
-			if(y == -1)
-			{
-				y = 0;
-			}
-			double[] vector = {x1,x2}; 
-			InstanceD vsm = new InstanceD(y,2,vector);
-			input.add(vsm);
-		}
-		
-		
-		BayesTrainer bayesTrain = new BayesTrainer(featureNumb, classNumb, ajs, input,1);
-		bayesTrain.train();
-		bayesTrain.writeFile("data/result/bayes_result.txt");
-		bayesTrain.saveModel("data/result/bayes_model.m");
-		
-		BayesInfer bayesInfer = new BayesInfer();
-		bayesInfer.init("data/result/bayes_model.m");
-		int result = bayesInfer.infer(new double[]{2,4});
-		System.out.println(result);
-		
-		return bayesTrain;
-	}
-	
 	public static void main(String[] args) throws Exception
 	{
-		PropertyConfigurator.configure("log4j.properties");
-
-		bookTest();
+		
 	}
 }

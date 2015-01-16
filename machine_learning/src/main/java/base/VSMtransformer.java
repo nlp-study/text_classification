@@ -1,10 +1,11 @@
-package vsm;
+package base;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import manager.BinaryClassValidation;
 
 import org.apache.log4j.Logger;
 
@@ -27,39 +28,47 @@ public class VSMtransformer {
 	private int[][] featuresNumb;
 
 	// 输入的特征向量
-	private List<VSM> vsms = new ArrayList<VSM>();
+	private List<InstanceD> vsms = new ArrayList<InstanceD>();
 
 	// 转化成功的int型的vsm
-	private List<VSMInt> vsmints;
+	private List<InstanceI> vsmints;
 	
 	public VSMtransformer() {
 	}
 
-	public VSMtransformer(List<VSM> vsms) {
+	public VSMtransformer(List<InstanceD> vsms) {
 		this.vsms = vsms;
-		VSMInt.size = VSM.size;
-		vsmints = new ArrayList<VSMInt>();
+		vsmints = new ArrayList<InstanceI>();
 		
 		if(vsms.size()>0)
 		{
-			dim = vsms.get(0).getSize();
+			dim = vsms.get(0).getLength();
 		}
 	}
 
 	
-	public List<VSM> getVsms() {
+	
+	public int getDim() {
+		return dim;
+	}
+
+	public void setDim(int dim) {
+		this.dim = dim;
+	}
+
+	public List<InstanceD> getVsms() {
 		return vsms;
 	}
 
-	public void setVsms(List<VSM> vsms) {
+	public void setVsms(List<InstanceD> vsms) {
 		this.vsms = vsms;
 	}
 
-	public List<VSMInt> getVsmints() {
+	public List<InstanceI> getVsmints() {
 		return vsmints;
 	}
 
-	public void setVsmints(List<VSMInt> vsmints) {
+	public void setVsmints(List<InstanceI> vsmints) {
 		this.vsmints = vsmints;
 	}
 	
@@ -81,16 +90,13 @@ public class VSMtransformer {
 
 	//用带参数的构造函数的时候，就不需要再调用这个方法
 	public void init() {
-		VSMInt.size = VSM.size;
 
-		vsmints = new ArrayList<VSMInt>();
+		vsmints = new ArrayList<InstanceI>();
 		
 		if(vsms.size()>0)
 		{
-			dim = vsms.get(0).getSize();
+			dim = vsms.get(0).getLength();
 		}
-		
-		logger.info("VSMINT size:"+VSMInt.size);
 	}
 	
 	public void excute()
@@ -139,7 +145,7 @@ public class VSMtransformer {
                  }
 			}
 			
-			VSMInt vsmint = new VSMInt(vsms.get(j).getType(), temp);
+			InstanceI vsmint = new InstanceI(vsms.get(j).getType(),dim, temp);
 			vsmints.add(j, vsmint);
 		}
 		

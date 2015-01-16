@@ -23,7 +23,7 @@ public class BayesInfer extends AbstractInfer {
 	Logger logger = Logger.getLogger(BayesInfer.class);
 
 	// 导入的训练模型文件
-	BayesModel model = null;
+	BayesModel model = new BayesModel();
 
 	// 似然概率
 	Double[][][] likelihood;
@@ -53,8 +53,7 @@ public class BayesInfer extends AbstractInfer {
 //		{
 //			System.out.println(e);
 //		}
-		model = new BayesModel();
-		super.init(path,model);
+		model = (BayesModel)super.initModel(path);
 		likelihood = model.getLikelihood();
 		prior = model.getPrior();
 		ajs = model.getAjs();
@@ -64,7 +63,7 @@ public class BayesInfer extends AbstractInfer {
 	public int infer(double[] vector) {
 		double prevalue = 0.0;
 		double currentValue = 0.0;
-		int resultClass = 0;
+		int resultClass = -1;
 
 		for (int i = 0; i < classNumb; ++i) {
 			currentValue = calcualteEveryClass(vector, i);

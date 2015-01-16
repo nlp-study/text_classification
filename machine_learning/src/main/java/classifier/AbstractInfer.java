@@ -21,7 +21,7 @@ public abstract class AbstractInfer {
 	 * @throws ClassNotFoundException 
 	 * @comment:导入模型文件
 	 */
-	public <T>  void init(String path,T model) throws IOException, ClassNotFoundException
+	public Object initModel(String path) throws IOException, ClassNotFoundException
 	{
 		FileInputStream fi = new FileInputStream(path);
 
@@ -29,15 +29,16 @@ public abstract class AbstractInfer {
 
 		try {
 
-			model = (T) si.readObject();
+			Object model = si.readObject();
 
 			si.close();
-			
+			return model;
 
 		} catch (IOException e)
 		{
 			System.out.println(e);
-		}	
+		}
+		return null;
 	}
 	
 	public abstract void init(String path)throws Exception;

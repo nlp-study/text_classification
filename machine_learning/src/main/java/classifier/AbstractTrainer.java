@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 import base.InputFeature;
-import base.VSMBuilder;
 
 
 
