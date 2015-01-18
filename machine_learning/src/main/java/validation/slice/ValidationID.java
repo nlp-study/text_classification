@@ -1,4 +1,4 @@
-package classifier.validation;
+package validation.slice;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -6,7 +6,7 @@ import java.util.Set;
 /**
  * @author xiaohe
  * 2015年1月17日
- * 这个类包含两个成员，一个成员是训练的向量在所有向量中的id,一个是推导向量的id
+ * 这个类包含两个成员，一个成员是训练的向量在所有向量中的id,一个是推导向量的id，需要和输入的特征配合使用
  */
 public class ValidationID {
 	Set<Integer> trainids = new HashSet<Integer>();

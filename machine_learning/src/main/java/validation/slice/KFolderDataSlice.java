@@ -1,4 +1,4 @@
-package classifier.validation;
+package validation.slice;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 import util.ClassDistribution;
+import validation.Iris;
 import base.InputFeature;
 
 /**
@@ -15,7 +16,8 @@ import base.InputFeature;
  * 2015年1月17日
  * 产生交叉验证的数据
  */
-public class CrossSections {
+public class KFolderDataSlice implements DataSlice
+{
 	//测试数据占所有数据的
 	private static final int CROSS_NUMB = 10;
 	
@@ -24,12 +26,14 @@ public class CrossSections {
 	InputFeature inputFeature;
 	int size;
 	private int[] stones;
+	
+	//最终求出来的用于交叉验证的id，需要和输入的特征配合使用
 	List<ValidationID> verificationIDs = new ArrayList<ValidationID>();
 	
 	List<Integer> randoms = new ArrayList<Integer>();
    
 	
-	public CrossSections(InputFeature inputFeature)
+	public KFolderDataSlice(InputFeature inputFeature)
 	{
 		this.inputFeature = inputFeature;
 		size = inputFeature.getSize();
@@ -140,7 +144,7 @@ public class CrossSections {
 		iris.readData(path);
 		InputFeature inputFeature = iris.getInputFeature();
 		
-		CrossSections crossVerification = new CrossSections(inputFeature);
+		KFolderDataSlice crossVerification = new KFolderDataSlice(inputFeature);
 		crossVerification.excute();
 		crossVerification.checkVerifications();
 		  

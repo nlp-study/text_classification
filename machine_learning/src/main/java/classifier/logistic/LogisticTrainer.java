@@ -10,6 +10,7 @@ import java.util.List;
 
 
 
+
 import manager.SingleValidation;
 
 import org.apache.log4j.Logger;
@@ -18,8 +19,8 @@ import org.apache.log4j.PropertyConfigurator;
 import base.InputFeature;
 import base.InstanceD;
 import util.VectorOperation;
+import validation.Iris;
 import classifier.AbstractTrainer;
-import classifier.validation.Iris;
 
 /**
  * @author xiaohe
