@@ -7,16 +7,15 @@ import org.apache.log4j.Logger;
 
 public class InputFeature {
 	Logger logger = Logger.getLogger(InputFeature.class);
-	
-	//输入的实例的数量
-	private int size;
-	
-	//向量的维度
-	private int length;
-	
-	int classNumb;
-	
+		
 	List<InstanceD> instances = new ArrayList<InstanceD>();
+	
+	public InputFeature(){}
+	
+	public InputFeature(List<InstanceD> instances)
+	{
+		this.instances = instances;
+	}
 	
 	public void add(InstanceD instance)
 	{
@@ -28,12 +27,12 @@ public class InputFeature {
 	}
 
 	public int getLength() {
-		return length;
-	}
-
-	public void setLength(int length) {
-		this.length = length;
-	}
+		if(instances.size() > 0)
+		{
+			return instances.get(0).getLength();
+		}
+		return 0;
+	}	
 
 	public List<InstanceD> getInstances() {
 		return instances;
@@ -43,13 +42,7 @@ public class InputFeature {
 		this.instances = instances;
 	}
 
-	public int getClassNumb() {
-		return classNumb;
-	}
-
-	public void setClassNumb(int classNumb) {
-		this.classNumb = classNumb;
-	}
+	
 	
 	public String toString()
 	{
@@ -57,10 +50,7 @@ public class InputFeature {
 	}
 	
 	public void clear()
-	{
-		size = 0;
-		length = 0;
-		classNumb = 0;
+	{		
 		instances.clear();
 	}
 	
@@ -74,5 +64,13 @@ public class InputFeature {
 		return instances.get(index);
 	}
 	
-
+	public int getClassID(int index)
+	{
+		if(index>instances.size()-1)
+		{
+			logger.error("out of size!");
+		}
+		
+		return instances.get(index).getType();
+	}
 }

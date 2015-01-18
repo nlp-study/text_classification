@@ -30,40 +30,50 @@ public class InstanceDoubleToInt {
 	private int[][] featuresNumb;
 
 	// 输入的特征向量
-	private List<InstanceD> vsms = new ArrayList<InstanceD>();
+	private List<InstanceD> instanceDs = new ArrayList<InstanceD>();
 
 	// 转化成功的int型的vsm
-	private List<InstanceI> vsmints = new ArrayList<InstanceI>();;
+	private List<InstanceI> instanceIs = new ArrayList<InstanceI>();;
 	
 	public InstanceDoubleToInt() {
 	}
 
-	public InstanceDoubleToInt(List<InstanceD> vsms) {
-		this.vsms = vsms;
+	public InstanceDoubleToInt(List<InstanceD> instanceDs) {
+		this.instanceDs = instanceDs;
+		if(instanceDs.size()>0)
+		{
+			dim = instanceDs.get(0).getLength();
+		}	
 	}
 	
+	
+	public int getK() {
+		return K;
+	}
+
+	public void setK(int k) {
+		K = k;
+	}
+
 	public int getDim() {
 		return dim;
 	}
 
-	public void setDim(int dim) {
-		this.dim = dim;
-	}
-
+	
 	public List<InstanceD> getVsms() {
-		return vsms;
+		return instanceDs;
 	}
 
-	public void setVsms(List<InstanceD> vsms) {
-		this.vsms = vsms;
+	public void setVsms(List<InstanceD> instanceDs) {
+		this.instanceDs = instanceDs;
 	}
 
 	public List<InstanceI> getVsmints() {
-		return vsmints;
+		return instanceIs;
 	}
 
 	public void setVsmints(List<InstanceI> vsmints) {
-		this.vsmints = vsmints;
+		this.instanceIs = vsmints;
 	}
 	
 	public double[][] getFeatures() {
@@ -85,19 +95,27 @@ public class InstanceDoubleToInt {
 	//用带参数的构造函数的时候，就不需要再调用这个方法
 	public void init() {
 		
-		if(vsms.size()>0)
+		if(instanceDs.size()>0)
 		{
-			dim = vsms.get(0).getLength();
+			dim = instanceDs.get(0).getLength();
 		}	
-		
-		
-		
 	}
 	
 	public void excute()
 	{
+		calcualteClassNumb();
 		calculateFeatures();
 		vsm2Int();
+	}
+	
+	public void calcualteClassNumb()
+	{
+		Set<Integer> temp = new HashSet<Integer>();
+		for(int i=0;i<instanceDs.size();++i)
+		{
+			temp.add(instanceDs.get(i).getType());
+		}
+		K = temp.size();
 	}
 
 	
@@ -111,9 +129,9 @@ public class InstanceDoubleToInt {
 
 		for (int i = 0; i < dim; ++i) {
 			List<Double> temp = new ArrayList<Double>();
-			for (int j = 0; j < vsms.size(); ++j) {
-				if (!temp.contains(vsms.get(j).getVector()[i])) {
-					temp.add(vsms.get(j).getVector()[i]);
+			for (int j = 0; j < instanceDs.size(); ++j) {
+				if (!temp.contains(instanceDs.get(j).getVector()[i])) {
+					temp.add(instanceDs.get(j).getVector()[i]);
 				}
 			}
 
@@ -129,28 +147,28 @@ public class InstanceDoubleToInt {
 	}
 
 	public void vsm2Int() {
-		logger.info("vsmints size:"+vsmints.size());
+		logger.info("vsmints size:"+instanceIs.size());
 
-		for (int j = 0; j < vsms.size(); ++j) {
+		for (int j = 0; j < instanceDs.size(); ++j) {
 			
 			int[] temp = new int[dim];
 			
 			for (int i = 0; i < dim; ++i) {
                  for(int k=0;k<features[i].length;++k)
                  {
-                	 if(vsms.get(j).getVector()[i] == features[i][k])
+                	 if(instanceDs.get(j).getVector()[i] == features[i][k])
                 	 {
                 		 temp[i] = k;
                 	 }
                  }
 			}
 			
-			InstanceI vsmint = new InstanceI(vsms.get(j).getType(),dim, temp);
-			vsmints.add(j, vsmint);
+			InstanceI vsmint = new InstanceI(instanceDs.get(j).getType(),dim, temp);
+			instanceIs.add(j, vsmint);
 		}
 		
-		logger.info("vsmints size:"+vsmints.size());
-		logger.info(vsmints.toString());
+		logger.info("vsmints size:"+instanceIs.size());
+		logger.info(instanceIs.toString());
 	}
 
 }

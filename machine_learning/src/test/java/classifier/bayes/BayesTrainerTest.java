@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.log4j.PropertyConfigurator;
 
 import util.FileRead;
+import base.InputFeature;
 import base.InstanceD;
 import junit.framework.TestCase;
 
@@ -61,23 +62,24 @@ public class BayesTrainerTest extends TestCase {
 			input.add(vsm);
 		}
 		
-		bayesTrain = new BayesTrainer(featureNumb, classNumb, ajs, input,1);
+//		bayesTrain = new BayesTrainer(featureNumb, classNumb, ajs, input,1);
+		InputFeature inputFeature = new InputFeature(input);
+		bayesTrain = new BayesTrainer();
+		bayesTrain.init(inputFeature);
 		
 	}
 
-	public void testTrain() throws IOException {
-		
+	public void testTrain() throws IOException, ClassNotFoundException {		
 		bayesTrain.train();
 		bayesTrain.writeFile("data/result/bayes_result.txt");
 		bayesTrain.saveModel("data/result/bayes_model.m");
-	}
-	
-	public void testInfer() throws ClassNotFoundException, IOException
-	{
+		
 		bayesInfer = new BayesInfer();
 		bayesInfer.init("data/result/bayes_model.m");
 		int result = bayesInfer.infer(new double[]{2,4});
 		assertEquals(0,result);
 	}
+	
+	
 
 }

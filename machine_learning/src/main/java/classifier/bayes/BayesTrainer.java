@@ -1,10 +1,8 @@
 package classifier.bayes;
 
 import java.io.BufferedWriter;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +11,7 @@ import org.apache.log4j.PropertyConfigurator;
 
 import base.InputFeature;
 import base.InstanceD;
-import base.InstanceI;
+import base.InstanceDoubleToInt;
 import util.FileRead;
 import classifier.AbstractTrainer;
 
@@ -44,39 +42,18 @@ public class BayesTrainer extends AbstractTrainer {
 	//先验概率
 	Double[] prior;
 
-	public BayesTrainer()
-	{
-	}
+	public BayesTrainer(){}
 	
-	public BayesTrainer(int featureNumb, int classNumb, List<Double[]> ajs,
-			List<InstanceD> vsms,int lambda) {
-		this.lambda = lambda;
-		this.featureNumb = featureNumb;
-		this.classNumb = classNumb;
-		this.ajs = ajs;
-		this.instances = vsms;
-		this.prior = new Double[classNumb];
-		this.likelihood = new Double[classNumb][featureNumb][];
-		
-		for(int i=0;i<classNumb;++i)
-		{
-			for(int j=0;j<ajs.size();++j)
-			{
-				likelihood[i][j] = new Double[ajs.get(j).length];
-			}
-		}
-		
-		docNumb = vsms.size();
-		priorNumb = new int[classNumb];
-	}
 	
 	public void init(InputFeature inputFeature)
 	{
-		this.lambda = 1;
-		this.featureNumb = inputFeature.getSize();
-		this.classNumb = inputFeature.getClassNumb();
+		InstanceDoubleToInt instanceDoubleToInt = new InstanceDoubleToInt(inputFeature.getInstances());
+		instanceDoubleToInt.excute();
+		this.lambda = 1;    //设置平滑参数
+		this.featureNumb = inputFeature.getLength();
 		this.instances = inputFeature.getInstances();
-		calculateAJS();
+		this.classNumb = instanceDoubleToInt.getK();
+		calculateAJS(instanceDoubleToInt.getFeatures());
 		
 		this.prior = new Double[classNumb];
 		this.likelihood = new Double[classNumb][featureNumb][];
@@ -94,24 +71,21 @@ public class BayesTrainer extends AbstractTrainer {
 	}
 	
 	//计算每个特征总共有几个值，用值得排序来确定
-	public void calculateAJS()
+	public void calculateAJS(double[][] features)
 	{
 		ajs = new ArrayList<Double[]>();
 		
-		for(int i=0;i<featureNumb;++i)
+		for(int i=0;i<features.length;++i)
 		{
 			List<Double> featureValues = new ArrayList<Double>();
-			for(InstanceD vsm:instances)
+			for(int j=0;j<features[i].length;++j)
 			{
-				if(!featureValues.contains(vsm.getFeature(i)))
-				{
-					featureValues.add(vsm.getFeature(i));
-				}
+				featureValues.add(features[i][j]);
 			}
 			
 			logger.info(featureValues);
-			Double[] features = (Double[])featureValues.toArray(new Double[featureValues.size()]);
-			ajs.add(features);
+			Double[] tempFeature = (Double[])featureValues.toArray(new Double[featureValues.size()]);
+			ajs.add(tempFeature);
 		}
 	}
 
@@ -243,16 +217,6 @@ public class BayesTrainer extends AbstractTrainer {
 		model = new BayesModel(likelihood, prior,ajs, classNumb);
 		
 		super.saveModel(path, model);
-//		 FileOutputStream fo = new FileOutputStream(path);   
-//	     ObjectOutputStream so = new ObjectOutputStream(fo);   
-//	  
-//	     try {   
-//	            so.writeObject(model);   
-//	            so.close();   
-//	  
-//	     } catch (IOException e) {   
-//	            System.out.println(e);   
-//	     }   
 	}
 	
 	public void writeFile(String path) throws IOException
@@ -279,8 +243,12 @@ public class BayesTrainer extends AbstractTrainer {
 		buffWriter.close();
 	}
 	
+	
+	
 	public static void main(String[] args) throws Exception
 	{
+		PropertyConfigurator.configure("log4j.properties");
+		
 		
 	}
 }

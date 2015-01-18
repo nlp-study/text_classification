@@ -21,6 +21,9 @@ public abstract class AbstractTrainer {
 	
 	public  abstract void train();
 
+	public void saveModel(String path)throws Exception{}
+	
+	public abstract int getClassNumb();
 	
 	public <T> void saveModel(String path,T model) throws IOException
 	{
