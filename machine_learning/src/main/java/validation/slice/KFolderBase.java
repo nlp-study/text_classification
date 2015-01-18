@@ -6,16 +6,19 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 import validation.Iris;
 import base.InputFeature;
 
 public class KFolderBase {
+	Logger logger = Logger.getLogger(KFolderDataSlice.class);
+
 	//测试数据占所有数据的
 		private  int crossNumb = 10;
 		
 		private int stepSize;
 		private int step;
-		InputFeature inputFeature;
 		int size;
 		private int[] stones;
 		
@@ -64,10 +67,11 @@ public class KFolderBase {
 		
 		public void shuffle()
 		{
-			for(int i=0;i<size;++i)
-			{
-				randoms.add(i);
-			}
+//			for(int i=0;i<size;++i)
+//			{
+//				randoms.add(i);
+//			}
+			logger.info("shuffle:"+randoms);
 			Collections.shuffle(randoms);
 		}
 		

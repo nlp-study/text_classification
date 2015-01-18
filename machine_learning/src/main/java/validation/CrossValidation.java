@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import validation.slice.KFolderDataSlice;
 import validation.slice.KFolderDataSliceLess;
 import validation.slice.ValidationID;
 import classifier.AbstractInfer;
@@ -18,17 +19,21 @@ import base.InstanceD;
 
 public class CrossValidation {
 	InputFeature inputFeature ;
+	List<ValidationID> verificationIDs;
 	
 	public CrossValidation(InputFeature inputFeature)
 	{
 		this.inputFeature = inputFeature;
 	}
 	
-	public void crossCheck(AbstractTrainer trainer,AbstractInfer infer,String path) throws Exception
+	public void sliceData(KFolderDataSlice crossSections)
 	{
-		KFolderDataSliceLess crossSections = new KFolderDataSliceLess(inputFeature);
 		crossSections.excute();
-		List<ValidationID> verificationIDs = crossSections.getVerificationIDs();
+		verificationIDs = crossSections.getVerificationIDs();
+	}
+	
+	public void crossCheck(AbstractTrainer trainer,AbstractInfer infer,String path) throws Exception
+	{	
 		
 		for(int i=0;i<verificationIDs.size();++i)
 		{

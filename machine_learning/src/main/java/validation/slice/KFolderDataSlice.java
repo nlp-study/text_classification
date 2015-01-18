@@ -54,19 +54,19 @@ public class KFolderDataSlice implements DataSlice{
 		List<Integer> randoms = new ArrayList<Integer>();
 	   
 		
-		public KFolderDataSlice(InputFeature inputFeature)
+		public KFolderDataSlice()
 		{
-			this.inputFeature = inputFeature;
-			size = inputFeature.getSize();
+			
 		}
 		
 		public List<ValidationID> getVerificationIDs() {
 			return verificationIDs;
 		}
 
-		public void init()
+		public void init(InputFeature inputFeature)
 		{
-			
+			this.inputFeature = inputFeature;
+			size = inputFeature.getSize();
 		}
 		
 		public void excute()
@@ -100,7 +100,7 @@ public class KFolderDataSlice implements DataSlice{
 					everyClassDistrip.put(classid, temp);			
 				}
 			}
-			logger.info(everyClassDistrip);
+//			logger.info(everyClassDistrip);
 		}
 		
 		public void selectEveryClass()
@@ -111,7 +111,7 @@ public class KFolderDataSlice implements DataSlice{
 				KFolderBase kFolderBase = new KFolderBase(temp,CROSS_NUMB);
 				kFolderBase.excute();
 				List<ValidationID> tempID = kFolderBase.getVerificationIDs();
-				logger.info(tempID);
+//				logger.info(tempID);
 				everyClassSlice.put(i, tempID);
 			}
 		}
@@ -135,7 +135,14 @@ public class KFolderDataSlice implements DataSlice{
 			}
 		}
 		
-		
+		public void checkVerifications()
+		{
+			for(int i=0;i<verificationIDs.size();++i)
+			{
+				System.out.println("i:"+verificationIDs.get(i).checkValidity(size));
+			}
+			
+		}
 		
 		public static void main(String[] args) throws Exception {
 			PropertyConfigurator.configure("log4j.properties");
@@ -145,8 +152,10 @@ public class KFolderDataSlice implements DataSlice{
 			iris.readData(path);
 			InputFeature inputFeature = iris.getInputFeature();
 			
-			KFolderDataSlice crossVerification = new KFolderDataSlice(inputFeature);
+			KFolderDataSlice crossVerification = new KFolderDataSlice();
+			crossVerification.init(inputFeature);
 			crossVerification.excute();
+			crossVerification.checkVerifications();
 		}
 
 }
