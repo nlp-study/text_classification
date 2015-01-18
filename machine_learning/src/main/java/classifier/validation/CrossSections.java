@@ -13,7 +13,7 @@ import base.InputFeature;
 /**
  * @author xiaohe
  * 2015年1月17日
- * 
+ * 产生交叉验证的数据
  */
 public class CrossSections {
 	//测试数据占所有数据的
