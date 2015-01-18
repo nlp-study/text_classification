@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import validation.slice.DataSlice;
 import validation.slice.KFolderDataSlice;
 import validation.slice.KFolderDataSliceLess;
 import validation.slice.ValidationID;
@@ -26,10 +27,10 @@ public class CrossValidation {
 		this.inputFeature = inputFeature;
 	}
 	
-	public void sliceData(KFolderDataSlice crossSections)
+	public void sliceData(DataSlice dataSlice)
 	{
-		crossSections.excute();
-		verificationIDs = crossSections.getVerificationIDs();
+		dataSlice.excute();
+		verificationIDs = dataSlice.getVerificationIDs();
 	}
 	
 	public void crossCheck(AbstractTrainer trainer,AbstractInfer infer,String path) throws Exception
@@ -76,6 +77,7 @@ public class CrossValidation {
 	
 	public void train(AbstractTrainer trainer,InputFeature inputFeature,String path) throws Exception
 	{
+		trainer.clear();
 		trainer.init(inputFeature);
 		trainer.train();
 		trainer.saveModel(path);
@@ -121,5 +123,20 @@ public class CrossValidation {
 			classifyEvaluationIndex.calculate();
 		}
 	}
-
+	
+	public static void main(String[] args) throws Exception
+	{
+		String path = "data/corpus/iris.data";
+		Iris iris = new Iris();
+		iris.readData(path);
+		InputFeature inputFeature = iris.getInputFeature();
+		
+		CrossValidation crossValidation = new CrossValidation(inputFeature);
+		DataSlice dataSlice = new KFolderDataSlice();
+		crossValidation.sliceData(dataSlice);
+		AbstractTrainer trainer = new BayesTrainer();
+		AbstractInfer infer = new BayesInfer();
+		String modelPath = "data/result/model.m";
+		crossValidation.crossCheck(trainer,infer,modelPath);
+	}
 }

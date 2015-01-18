@@ -67,11 +67,7 @@ public class KFolderBase {
 		
 		public void shuffle()
 		{
-//			for(int i=0;i<size;++i)
-//			{
-//				randoms.add(i);
-//			}
-			logger.info("shuffle:"+randoms);
+//			logger.info("shuffle:"+randoms);
 			Collections.shuffle(randoms);
 		}
 		

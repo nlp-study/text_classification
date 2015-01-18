@@ -70,6 +70,20 @@ public class BayesTrainer extends AbstractTrainer {
 		priorNumb = new int[classNumb];
 	}
 	
+	public void clear()
+	{
+		model = null;
+		featureNumb = 0;
+		classNumb = 0;
+		docNumb = 0;
+		priorNumb = null;
+		lambda = 0;
+		ajs.clear();
+	    instances.clear();
+        likelihood = null;
+		prior = null;
+	}
+	
 	//计算每个特征总共有几个值，用值得排序来确定
 	public void calculateAJS(double[][] features)
 	{

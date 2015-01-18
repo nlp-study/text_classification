@@ -25,6 +25,8 @@ public abstract class AbstractTrainer {
 	
 	public abstract int getClassNumb();
 	
+	public abstract void clear();
+	
 	public <T> void saveModel(String path,T model) throws IOException
 	{
 		FileOutputStream fo = new FileOutputStream(path);   

@@ -19,7 +19,7 @@ import base.InputFeature;
  * 可能会出现某个类没有训练而全部在测试集中的情况，
  * 因此这个数据分隔类只能用在类别比较少，而且各个类的数据都很多的情况下
  */
-public class KFolderDataSliceLess implements DataSlice
+public class KFolderDataSliceLess 
 {
 	//测试数据占所有数据的
 	private static final int CROSS_NUMB = 10;
