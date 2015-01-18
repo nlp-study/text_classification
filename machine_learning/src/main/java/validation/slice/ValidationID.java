@@ -50,8 +50,8 @@ public class ValidationID {
 	
 	public String toString()
 	{
-		String str = trainids.toString()+"\r\n";
-		str += inferids.toString()+"\r\n";
+		String str = "traindata:"+trainids.toString()+"\r\n";
+		str +="testdata:"+ inferids.toString()+"\r\n";
 		return str;
 	}
 
