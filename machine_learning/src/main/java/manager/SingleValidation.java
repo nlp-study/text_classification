@@ -51,7 +51,7 @@ public class SingleValidation {
 	private List<ClassifyResult> classifyResults = new ArrayList<ClassifyResult>();
 		
 	//各类的测试指标
-	private List<ClassifyEvaluationIndex> classifyEvaluationIndexs = new ArrayList<ClassifyEvaluationIndex>();
+	private List<ClassifyEvaluation> classifyEvaluationIndexs = new ArrayList<ClassifyEvaluation>();
 		
 	//给每一个class赋予一个id
 	private Map<String, Integer> classIDs = new HashMap<String, Integer>();
@@ -150,7 +150,7 @@ public class SingleValidation {
 				}
 			}
 
-			ClassifyEvaluationIndex classifyEvaluationIndex = new ClassifyEvaluationIndex(i,nt,nf,ntf);
+			ClassifyEvaluation classifyEvaluationIndex = new ClassifyEvaluation(i,nt,nf,ntf);
 			classifyEvaluationIndex.calculate();
 			classifyEvaluationIndexs.add(classifyEvaluationIndex);
 			
@@ -166,7 +166,7 @@ public class SingleValidation {
 	{
         BufferedWriter buffWriter = new BufferedWriter(new FileWriter(path));
 		
-	    for(ClassifyEvaluationIndex classifyEvaluationIndex:classifyEvaluationIndexs)
+	    for(ClassifyEvaluation classifyEvaluationIndex:classifyEvaluationIndexs)
 	    {
 	    	buffWriter.write(classifyEvaluationIndex.toString()+"\r\n");
 	    }

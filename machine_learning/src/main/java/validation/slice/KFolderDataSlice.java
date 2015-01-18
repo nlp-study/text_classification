@@ -141,7 +141,7 @@ public class KFolderDataSlice implements DataSlice{
 			{
 				System.out.println("i:"+verificationIDs.get(i).checkValidity(size));
 			}
-			
+			System.out.println(verificationIDs);
 		}
 		
 		public static void main(String[] args) throws Exception {

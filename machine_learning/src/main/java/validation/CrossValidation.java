@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.log4j.PropertyConfigurator;
+
 import validation.slice.DataSlice;
 import validation.slice.KFolderDataSlice;
 import validation.slice.KFolderDataSliceLess;
@@ -13,7 +15,7 @@ import classifier.AbstractInfer;
 import classifier.AbstractTrainer;
 import classifier.bayes.BayesInfer;
 import classifier.bayes.BayesTrainer;
-import evaluation.ClassifyEvaluationIndex;
+import evaluation.ClassifyEvaluation;
 import base.ClassifyResult;
 import base.InputFeature;
 import base.InstanceD;
@@ -21,6 +23,7 @@ import base.InstanceD;
 public class CrossValidation {
 	InputFeature inputFeature ;
 	List<ValidationID> verificationIDs;
+	List<Double> recalls = new ArrayList<Double>();
 	
 	public CrossValidation(InputFeature inputFeature)
 	{
@@ -35,7 +38,6 @@ public class CrossValidation {
 	
 	public void crossCheck(AbstractTrainer trainer,AbstractInfer infer,String path) throws Exception
 	{	
-		
 		for(int i=0;i<verificationIDs.size();++i)
 		{
 			Set<Integer> trains = verificationIDs.get(i).getTrainids();
@@ -69,7 +71,7 @@ public class CrossValidation {
 				classifyResults.add(classifyResult);
 			}
 			
-			calcualteIndex(classifyResults,trainer.getClassNumb());
+			calculateRecall(classifyResults);
 						
 		}
 		
@@ -97,7 +99,38 @@ public class CrossValidation {
 		return results;		
 	}
 	
+	public void calculateRecall(List<ClassifyResult> classifyResults)
+	{
+		int numb = 0;
+		for(ClassifyResult classifyResult:classifyResults)
+		{
+			if(classifyResult.isSame())
+			{
+				++numb;
+			}
+		}
+		
+		double recall = (double)numb/(double)classifyResults.size();
+		recalls.add(recall);
+	}
 	
+	public void showResult()
+	{
+		for(Double d:recalls)
+		{
+			System.out.println("recall:"+d);
+		}
+	}
+	
+	
+	/**
+	 * @comment:
+	 * @param classifyResults
+	 * @param classNumb
+	 * @throws IOException
+	 * @return void
+	 * 暂时没有用
+	 */
 	public void calcualteIndex(List<ClassifyResult> classifyResults,int classNumb) throws IOException {
 		int nt = 0; // 训练集中某个类别的数量
 		int ntf = 0; // 测试集和训练集中分类结果相同的
@@ -119,13 +152,16 @@ public class CrossValidation {
 				}
 			}
 
-			ClassifyEvaluationIndex classifyEvaluationIndex = new ClassifyEvaluationIndex(i,nt,nf,ntf);
-			classifyEvaluationIndex.calculate();
+			ClassifyEvaluation classifyEvaluation = new ClassifyEvaluation(i,nt,nf,ntf);
+			classifyEvaluation.calculate();
 		}
+		
 	}
 	
 	public static void main(String[] args) throws Exception
 	{
+		PropertyConfigurator.configure("log4j.properties");
+		
 		String path = "data/corpus/iris.data";
 		Iris iris = new Iris();
 		iris.readData(path);
@@ -138,5 +174,6 @@ public class CrossValidation {
 		AbstractInfer infer = new BayesInfer();
 		String modelPath = "data/result/model.m";
 		crossValidation.crossCheck(trainer,infer,modelPath);
+		crossValidation.showResult();
 	}
 }

@@ -60,7 +60,7 @@ Logger logger = Logger.getLogger(BinaryClassValidation.class);
 	List<ClassifyResult> classifyResults = new ArrayList<ClassifyResult>();
 		
 	//各类的测试指标
-	List<ClassifyEvaluationIndex> classifyEvaluationIndexs = new ArrayList<ClassifyEvaluationIndex>();
+	List<ClassifyEvaluation> classifyEvaluationIndexs = new ArrayList<ClassifyEvaluation>();
 		
 	//给每一个class赋予一个id
 	Map<String, Integer> classIDs = new HashMap<String, Integer>();
@@ -175,7 +175,7 @@ Logger logger = Logger.getLogger(BinaryClassValidation.class);
 				}
 			}
 
-			ClassifyEvaluationIndex classifyEvaluationIndex = new ClassifyEvaluationIndex(i,nt,nf,ntf);
+			ClassifyEvaluation classifyEvaluationIndex = new ClassifyEvaluation(i,nt,nf,ntf);
 			classifyEvaluationIndex.calculate();
 			classifyEvaluationIndexs.add(classifyEvaluationIndex);
 			
@@ -191,7 +191,7 @@ Logger logger = Logger.getLogger(BinaryClassValidation.class);
 	{
         BufferedWriter buffWriter = new BufferedWriter(new FileWriter(path));
 		
-	    for(ClassifyEvaluationIndex classifyEvaluationIndex:classifyEvaluationIndexs)
+	    for(ClassifyEvaluation classifyEvaluationIndex:classifyEvaluationIndexs)
 	    {
 	    	buffWriter.write(classifyEvaluationIndex.toString()+"\r\n");
 	    }

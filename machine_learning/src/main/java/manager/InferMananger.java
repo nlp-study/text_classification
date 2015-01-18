@@ -45,7 +45,7 @@ public class InferMananger {
 	List<ClassifyResult> classifyResults = new ArrayList<ClassifyResult>();
 	
 	//各类的测试指标
-	List<ClassifyEvaluationIndex> classifyEvaluationIndexs = new ArrayList<ClassifyEvaluationIndex>();
+	List<ClassifyEvaluation> classifyEvaluationIndexs = new ArrayList<ClassifyEvaluation>();
 	
 	
 	public InferMananger()
