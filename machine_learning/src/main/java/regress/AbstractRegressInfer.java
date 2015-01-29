@@ -1,9 +1,8 @@
-package classifier;
+package regress;
 
 
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
@@ -12,7 +11,7 @@ import java.io.ObjectInputStream;
  * 创建于：2014年12月29日
  * 抽象的推理类
  */
-public abstract class AbstractInfer {
+public abstract class AbstractRegressInfer {
 	
 	/**
 	 * @param path
@@ -49,7 +48,7 @@ public abstract class AbstractInfer {
 	 * @return:Object
 	 * @comment:推导
 	 */
-	public abstract int infer(int[] input);
+	public abstract int infer(double[] input);
 	
 	public <T> void test()
 	{

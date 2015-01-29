@@ -16,7 +16,7 @@ import manager.SingleValidation;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
-import base.InputFeature;
+import base.InputFeatureD;
 import base.InstanceD;
 import util.VectorOperation;
 import validation.Iris;
@@ -48,7 +48,7 @@ public class LogisticTrainer extends AbstractTrainer {
 	private double rate;
 	
 
-	public void init(InputFeature inputFeature) {
+	public void init(InputFeatureD inputFeature) {
 		// TODO Auto-generated method stub
 		this.instances = inputFeature.getInstances();
 		if(instances.size() == 0 )
@@ -118,7 +118,7 @@ public class LogisticTrainer extends AbstractTrainer {
 		String path = "data/corpus/iris_bin.data";
 		Iris iris = new Iris();
 		iris.readData(path);
-		InputFeature inputFeature = iris.getInputFeature();
+		InputFeatureD inputFeature = iris.getInputFeature();
 		
 		LogisticTrainer logisticTrainer = new LogisticTrainer();
 		logisticTrainer.init(inputFeature);

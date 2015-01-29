@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import base.InputFeature;
+import base.InputFeatureD;
 import base.InstanceD;
 import classifier.bayes.BayesTrainer;
 import util.FileRead;
@@ -14,13 +14,13 @@ import util.FileRead;
 public class Iris {
 	Logger logger = Logger.getLogger(BayesTrainer.class);
 
-	InputFeature inputFeature = new InputFeature();
+	InputFeatureD inputFeature = new InputFeatureD();
 		
-	public InputFeature getInputFeature() {
+	public InputFeatureD getInputFeature() {
 		return inputFeature;
 	}
 
-	public void setInputFeature(InputFeature inputFeature) {
+	public void setInputFeature(InputFeatureD inputFeature) {
 		this.inputFeature = inputFeature;
 	}
 
@@ -69,7 +69,7 @@ public class Iris {
 		String path = "data/corpus/iris.data";
 		Iris iris = new Iris();
 		iris.readData(path);
-		InputFeature inputFeature = iris.getInputFeature();
+		InputFeatureD inputFeature = iris.getInputFeature();
 		System.out.println(inputFeature);
 	}
 }

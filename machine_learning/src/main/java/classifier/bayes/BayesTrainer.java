@@ -9,11 +9,13 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
-import base.InputFeature;
+import base.InputFeatureD;
+import base.InputFeatureI;
 import base.InstanceD;
-import base.InstanceDoubleToInt;
+import base.InstanceI;
 import util.FileRead;
 import classifier.AbstractTrainer;
+import classifier.util.InputFeatureCensus;
 
 public class BayesTrainer extends AbstractTrainer {
 	Logger logger = Logger.getLogger(BayesTrainer.class);
@@ -31,10 +33,10 @@ public class BayesTrainer extends AbstractTrainer {
 	int lambda;
 	
 	//每个特诊取值的范围
-	List<Double[]> ajs = new ArrayList<Double[]>();
+	List<Integer[]> ajs = new ArrayList<Integer[]>();
 	
 	//输入的每个特征
-	List<InstanceD> instances = new ArrayList<InstanceD>();
+	List<InstanceI> instances = new ArrayList<InstanceI>();
 	
 	//似然概率
 	Double[][][] likelihood;
@@ -45,15 +47,15 @@ public class BayesTrainer extends AbstractTrainer {
 	public BayesTrainer(){}
 	
 	
-	public void init(InputFeature inputFeature)
+	public void init(InputFeatureI inputFeature)
 	{
-		InstanceDoubleToInt instanceDoubleToInt = new InstanceDoubleToInt(inputFeature.getInstances());
-		instanceDoubleToInt.excute();
+		InputFeatureCensus inputFeatureCensus = new InputFeatureCensus(inputFeature.getInstances());
+		inputFeatureCensus.excute();
 		this.lambda = 1;    //设置平滑参数
 		this.featureNumb = inputFeature.getLength();
 		this.instances = inputFeature.getInstances();
-		this.classNumb = instanceDoubleToInt.getK();
-		calculateAJS(instanceDoubleToInt.getFeatures());
+		this.classNumb = inputFeatureCensus.getK();
+		calculateAJS(inputFeatureCensus.getFeatures());
 		
 		this.prior = new Double[classNumb];
 		this.likelihood = new Double[classNumb][featureNumb][];
@@ -85,20 +87,20 @@ public class BayesTrainer extends AbstractTrainer {
 	}
 	
 	//计算每个特征总共有几个值，用值得排序来确定
-	public void calculateAJS(double[][] features)
+	public void calculateAJS(int[][] features)
 	{
-		ajs = new ArrayList<Double[]>();
+		ajs = new ArrayList<Integer[]>();
 		
 		for(int i=0;i<features.length;++i)
 		{
-			List<Double> featureValues = new ArrayList<Double>();
+			List<Integer> featureValues = new ArrayList<Integer>();
 			for(int j=0;j<features[i].length;++j)
 			{
 				featureValues.add(features[i][j]);
 			}
 			
 			logger.info(featureValues);
-			Double[] tempFeature = (Double[])featureValues.toArray(new Double[featureValues.size()]);
+			Integer[] tempFeature = (Integer[])featureValues.toArray(new Integer[featureValues.size()]);
 			ajs.add(tempFeature);
 		}
 	}
@@ -111,11 +113,11 @@ public class BayesTrainer extends AbstractTrainer {
 		this.classNumb = classNumb;
 	}
 
-	public List<Double[]> getAjs() {
+	public List<Integer[]> getAjs() {
 		return ajs;
 	}
 
-	public void setAjs(List<Double[]> ajs) {
+	public void setAjs(List<Integer[]> ajs) {
 		this.ajs = ajs;
 	}
 
@@ -148,7 +150,7 @@ public class BayesTrainer extends AbstractTrainer {
 			priorNumb[i] = 0;
 		}
 		
-		for(InstanceD vsm:instances)
+		for(InstanceI vsm:instances)
 		{
 			priorNumb[vsm.getType()] = priorNumb[vsm.getType()]+1;
 		}
@@ -178,14 +180,15 @@ public class BayesTrainer extends AbstractTrainer {
 		}
 		
 		//统计各个特征的数量
-		for(InstanceD vsm:instances)
+		for(InstanceI vsm:instances)
 		{
 			int typeID = vsm.getType();
 			for(int j=0;j<featureNumb;++j)
 			{
-				double value = vsm.getFeature(j);
+				int value = vsm.getFeature(j);
 				int index = featureID(j, value);
-				likelihoodNumb[typeID][j][index] +=1;  
+				logger.info(typeID+" "+j+" "+index);
+				likelihoodNumb[typeID][j][index] +=1;
 			}
 		}
 		
@@ -206,7 +209,7 @@ public class BayesTrainer extends AbstractTrainer {
 		}
 	}
 	
-	public int featureID(int index,Double value)
+	public int featureID(int index,int value)
 	{
 		if(index<0||index>ajs.size())
 		{

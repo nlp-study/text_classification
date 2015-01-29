@@ -2,7 +2,7 @@ package validation.slice;
 
 import java.util.List;
 
-import base.InputFeature;
+import base.InputFeatureD;
 
 /**
  * @author xiaohe
@@ -10,7 +10,7 @@ import base.InputFeature;
  * 产生交叉验证的接口
  */
 public interface DataSlice {
-	public void init(InputFeature inputFeature);
+	public void init(InputFeatureD inputFeature);
 	public void excute();	
 	public List<ValidationID> getVerificationIDs();
 

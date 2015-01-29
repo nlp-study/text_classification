@@ -1,12 +1,10 @@
-package classifier;
+package regress;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 import base.InputFeatureD;
-import base.InputFeatureI;
 
 
 /**
@@ -14,9 +12,9 @@ import base.InputFeatureI;
  * 创建于：2014年12月29日
  * 抽象的训练类
  */
-public abstract class AbstractTrainer {
+public abstract class AbstractRegressTrainer {
 	
-	public abstract void init(InputFeatureI inputFeature);
+	public abstract void init(InputFeatureD inputFeature);
 	
 	public  abstract void train();
 

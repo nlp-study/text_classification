@@ -32,27 +32,13 @@ public class BayesInfer extends AbstractInfer {
 	Double[] prior;
 
 	// 每个特诊取值的范围
-	List<Double[]> ajs = new ArrayList<Double[]>();
+	List<Integer[]> ajs = new ArrayList<Integer[]>();
 
 	// 类别的数量
 	int classNumb = 0;
 
 	public void init(String path) throws ClassNotFoundException, IOException {
-//		FileInputStream fi = new FileInputStream(path);
-//
-//		ObjectInputStream si = new ObjectInputStream(fi);
-//
-//		try {
-//
-//			model = (BayesModel) si.readObject();
-//
-//			si.close();
-//
-//		} catch (IOException e)
-//
-//		{
-//			System.out.println(e);
-//		}
+
 		model = (BayesModel)super.initModel(path);
 		likelihood = model.getLikelihood();
 		prior = model.getPrior();
@@ -60,7 +46,7 @@ public class BayesInfer extends AbstractInfer {
 		classNumb = model.getClassNumb();
 	}
 
-	public int infer(double[] vector) {
+	public int infer(int[] vector) {
 		double prevalue = 0.0;
 		double currentValue = 0.0;
 		int resultClass = -1;
@@ -79,7 +65,7 @@ public class BayesInfer extends AbstractInfer {
 
 	
 	
-	private double calcualteEveryClass(double[] vector, int classid) {
+	private double calcualteEveryClass(int[] vector, int classid) {
 		double result = prior[classid];
 		logger.info("prior:"+result);
 		for (int i = 0; i < vector.length; ++i) {
@@ -90,7 +76,7 @@ public class BayesInfer extends AbstractInfer {
 		return result;
 	}
 
-	private int featureID(int index, Double value) {
+	private int featureID(int index, Integer value) {
 		if (index < 0 || index > ajs.size()) {
 			logger.error("ajs下标出界！");
 			return -1;

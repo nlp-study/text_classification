@@ -14,7 +14,7 @@ public class BayesModel extends AbstractModel {
     Double[] prior;
     
     //每个特诊取值的范围
-    List<Double[]> ajs = new ArrayList<Double[]>();
+    List<Integer[]> ajs = new ArrayList<Integer[]>();
     
     //类别的数量
     int classNumb = 0;
@@ -22,7 +22,7 @@ public class BayesModel extends AbstractModel {
     public BayesModel(){}
 
 	public BayesModel(Double[][][] likelihood, Double[] prior,
-			List<Double[]> ajs, int classNumb) {
+			List<Integer[]> ajs, int classNumb) {
 		super();
 		this.likelihood = likelihood;
 		this.prior = prior;
@@ -46,11 +46,11 @@ public class BayesModel extends AbstractModel {
 		this.prior = prior;
 	}
 
-	public List<Double[]> getAjs() {
+	public List<Integer[]> getAjs() {
 		return ajs;
 	}
 
-	public void setAjs(List<Double[]> ajs) {
+	public void setAjs(List<Integer[]> ajs) {
 		this.ajs = ajs;
 	}
 

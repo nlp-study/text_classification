@@ -14,7 +14,7 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
 import validation.Iris;
-import base.InputFeature;
+import base.InputFeatureD;
 import base.InstanceD;
 
 /**
@@ -36,7 +36,7 @@ public class KFolderDataSlice implements DataSlice{
 		//记录数据被分成多少份
 		private Map<Integer,Integer> step;
 		
-		InputFeature inputFeature;
+		InputFeatureD inputFeature;
 		int size;
 		private int[] stones;
 		
@@ -63,7 +63,7 @@ public class KFolderDataSlice implements DataSlice{
 			return verificationIDs;
 		}
 
-		public void init(InputFeature inputFeature)
+		public void init(InputFeatureD inputFeature)
 		{
 			this.inputFeature = inputFeature;
 			size = inputFeature.getSize();
@@ -150,7 +150,7 @@ public class KFolderDataSlice implements DataSlice{
 			String path = "data/corpus/iris.data";
 			Iris iris = new Iris();
 			iris.readData(path);
-			InputFeature inputFeature = iris.getInputFeature();
+			InputFeatureD inputFeature = iris.getInputFeature();
 			
 			KFolderDataSlice crossVerification = new KFolderDataSlice();
 			crossVerification.init(inputFeature);

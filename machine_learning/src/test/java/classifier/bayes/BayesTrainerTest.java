@@ -7,8 +7,10 @@ import java.util.List;
 import org.apache.log4j.PropertyConfigurator;
 
 import util.FileRead;
-import base.InputFeature;
+import base.InputFeatureD;
+import base.InputFeatureI;
 import base.InstanceD;
+import base.InstanceI;
 import junit.framework.TestCase;
 
 /**
@@ -31,25 +33,25 @@ public class BayesTrainerTest extends TestCase {
 	    ajs.add(a1);
 	    ajs.add(a2);
 	    
-		List<InstanceD> input = new ArrayList<InstanceD>();
+		List<InstanceI> input = new ArrayList<InstanceI>();
 		List<String> temp = FileRead.readLine("data/corpus/bayes.txt");
 		
 		for(int i=0;i<temp.size();++i)
 		{
 			String[] tempArray = temp.get(i).split(",");
-			double x1 = Double.parseDouble(tempArray[0]);
-			double x2 = 0.0;
+			int x1 = Integer.parseInt(tempArray[0]);
+			int x2 = 0;
 			if(tempArray[1].equals("S"))
 			{
-				x2 = 4.0;
+				x2 = 4;
 			}
 			else if(tempArray[1].equals("M"))
 			{
-				x2 = 5.0;
+				x2 = 5;
 			}
 			else
 			{
-				x2 = 6.0;
+				x2 = 6;
 			}
 			
 			int y = Integer.parseInt(tempArray[2]);
@@ -57,13 +59,13 @@ public class BayesTrainerTest extends TestCase {
 			{
 				y = 0;
 			}
-			double[] vector = {x1,x2}; 
-			InstanceD vsm = new InstanceD(y,2,vector);
+			int[] vector = {x1,x2}; 
+			InstanceI vsm = new InstanceI(y,2,vector);
 			input.add(vsm);
 		}
 		
 //		bayesTrain = new BayesTrainer(featureNumb, classNumb, ajs, input,1);
-		InputFeature inputFeature = new InputFeature(input);
+		InputFeatureI inputFeature = new InputFeatureI(input);
 		bayesTrain = new BayesTrainer();
 		bayesTrain.init(inputFeature);
 		
@@ -76,7 +78,7 @@ public class BayesTrainerTest extends TestCase {
 		
 		bayesInfer = new BayesInfer();
 		bayesInfer.init("data/result/bayes_model.m");
-		int result = bayesInfer.infer(new double[]{2,4});
+		int result = bayesInfer.infer(new int[]{2,4});
 		assertEquals(0,result);
 	}
 	

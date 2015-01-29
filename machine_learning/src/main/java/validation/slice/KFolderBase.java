@@ -9,7 +9,7 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 
 import validation.Iris;
-import base.InputFeature;
+import base.InputFeatureD;
 
 public class KFolderBase {
 	Logger logger = Logger.getLogger(KFolderDataSlice.class);
@@ -100,7 +100,7 @@ public class KFolderBase {
 				if(i == stones.length-1)
 				{
 					Set<Integer> test = new HashSet<Integer>();
-					test.addAll(randoms.subList(stones[i], randoms.size()-1));
+					test.addAll(randoms.subList(stones[i], randoms.size()));
 					
 					Set<Integer> all = new HashSet<Integer>();
 					all.addAll(randoms);
@@ -145,7 +145,7 @@ public class KFolderBase {
 			String path = "data/corpus/iris.data";
 			Iris iris = new Iris();
 			iris.readData(path);
-			InputFeature inputFeature = iris.getInputFeature();
+			InputFeatureD inputFeature = iris.getInputFeature();
 			
 //			KFolderDataSliceLess crossVerification = new KFolderDataSliceLess(inputFeature);
 //			crossVerification.excute();
