@@ -1,21 +1,15 @@
 package validation.slice;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import manager.SingleValidation;
-
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
-
 import validation.Iris;
 import base.InputFeatureD;
-import base.InstanceD;
 
 /**
  * @author xiaohe

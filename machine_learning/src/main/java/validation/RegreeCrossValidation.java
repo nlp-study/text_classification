@@ -7,19 +7,16 @@ import java.util.Set;
 
 import org.apache.log4j.PropertyConfigurator;
 
+import regress.AbstractRegressInfer;
+import regress.AbstractRegressTrainer;
+import regress.knn.KNNInfer;
+import regress.knn.KNNTrainer;
 import validation.slice.DataSlice;
 import validation.slice.KFolderDataSlice;
 import validation.slice.ValidationID;
 import base.ClassifyResult;
 import base.InputFeatureD;
-import base.InputFeatureI;
 import base.InstanceD;
-import base.InstanceI;
-import classifier.AbstractInfer;
-import classifier.AbstractTrainer;
-import classifier.bayes.BayesInfer;
-import classifier.bayes.BayesTrainer;
-import classifier.util.FeatureDoubleToInt;
 import evaluation.ClassifyEvaluation;
 
 public class RegreeCrossValidation {
@@ -45,7 +42,7 @@ public class RegreeCrossValidation {
 		return verificationIDs;
    }
 
-	public void crossCheck(AbstractTrainer trainer,AbstractInfer infer,String path) throws Exception
+	public void crossCheck(AbstractRegressTrainer trainer,AbstractRegressInfer infer,String path) throws Exception
 	{	
 		for(int i=0;i<verificationIDs.size();++i)
 		{
@@ -67,20 +64,11 @@ public class RegreeCrossValidation {
 			{
 				InstanceD instance = inputFeature.getInstanceD(j);
 				inferFeature.add(instance);
-			}
+			}			
 			
-			//把double的特征整理成int型
-			FeatureDoubleToInt featureDoubleToInt = new FeatureDoubleToInt(trainFeature);
-			featureDoubleToInt.trans();
-			InputFeatureI trainFeatureI = featureDoubleToInt.getOutputfeature();
+			train(trainer, trainFeature, path);
 			
-			featureDoubleToInt.init(inferFeature);
-			featureDoubleToInt.trans();
-			InputFeatureI inferFeatureI = featureDoubleToInt.getOutputfeature();
-			
-			train( trainer, trainFeatureI, path);
-			
-			int[] result = infer( infer, inferFeatureI,path);
+			int[] result = infer( infer, inferFeature,path);
 			
 			for(int j=0;j<result.length;++j)
 			{
@@ -94,7 +82,7 @@ public class RegreeCrossValidation {
 		
 	}
 	
-	public void train(AbstractTrainer trainer,InputFeatureI inputFeature,String path) throws Exception
+	public void train(AbstractRegressTrainer trainer,InputFeatureD inputFeature,String path) throws Exception
 	{
 		trainer.clear();
 		trainer.init(inputFeature);
@@ -102,13 +90,13 @@ public class RegreeCrossValidation {
 		trainer.saveModel(path);
 	}
 	
-	public int[] infer(AbstractInfer infer,
-			InputFeatureI inputFeature,String path) throws Exception	{
+	public int[] infer(AbstractRegressInfer infer,
+			InputFeatureD inputFeature,String path) throws Exception	{
 		
 		infer.init(path);
 		int[] results = new int[inputFeature.getSize()];
 		int i=0;
-		for(InstanceI instance:inputFeature.getInstances())
+		for(InstanceD instance:inputFeature.getInstances())
 		{
 			results[i] = infer.infer(instance.getVector());
 			++i;
@@ -180,18 +168,21 @@ public class RegreeCrossValidation {
 	{
 		PropertyConfigurator.configure("log4j.properties");
 		
+		//产生数据
 		String path = "data/corpus/iris.data";
 		Iris iris = new Iris();
 		iris.readData(path);
 		InputFeatureD inputFeature = iris.getInputFeature();
 		
-		ClassifierCrossValidation crossValidation = new ClassifierCrossValidation(inputFeature);
+		//使用的回归数据
+		AbstractRegressTrainer trainer = new KNNTrainer();
+		AbstractRegressInfer infer = new KNNInfer();
+		
+		//交叉运行的数据
+		RegreeCrossValidation crossValidation = new RegreeCrossValidation(inputFeature);
 		DataSlice dataSlice = new KFolderDataSlice();
-		crossValidation.sliceData(dataSlice);
-		AbstractTrainer trainer = new BayesTrainer();
-		AbstractInfer infer = new BayesInfer();
+		crossValidation.sliceData(dataSlice);		
 		String modelPath = "data/result/model.m";
-		List<ValidationID> validationIDs = crossValidation.getVerificationIDs();
 		crossValidation.crossCheck(trainer,infer,modelPath);
 		crossValidation.showResult();
 	}
