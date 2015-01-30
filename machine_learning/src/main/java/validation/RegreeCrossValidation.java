@@ -178,7 +178,7 @@ public class RegreeCrossValidation {
 		AbstractRegressTrainer trainer = new KNNTrainer();
 		AbstractRegressInfer infer = new KNNInfer();
 		
-		//交叉运行的数据
+		//交叉运行
 		RegreeCrossValidation crossValidation = new RegreeCrossValidation(inputFeature);
 		DataSlice dataSlice = new KFolderDataSlice();
 		crossValidation.sliceData(dataSlice);		
