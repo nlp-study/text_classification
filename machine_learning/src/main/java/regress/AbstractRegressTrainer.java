@@ -20,8 +20,6 @@ public abstract class AbstractRegressTrainer {
 
 	public void saveModel(String path)throws Exception{}
 	
-	public abstract int getClassNumb();
-	
 	public abstract void clear();
 	
 	public <T> void saveModel(String path,T model) throws IOException

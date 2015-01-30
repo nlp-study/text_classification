@@ -6,7 +6,6 @@ import java.util.Arrays;
 import org.apache.log4j.Logger;
 
 public class InstanceD extends Instance {
-	Logger logger = Logger.getLogger(InstanceD.class);
 	
 	public double[] vector;  //需要改成基本类型double
 
@@ -37,7 +36,7 @@ public class InstanceD extends Instance {
 		}
 		else
 		{
-			logger.error("outoff the vector length!");
+			System.out.println("outoff the vector length!");
 			return -1.0;
 		}
 	}

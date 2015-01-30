@@ -10,24 +10,24 @@ import org.apache.log4j.PropertyConfigurator;
 import validation.slice.DataSlice;
 import validation.slice.KFolderDataSlice;
 import validation.slice.ValidationID;
+import base.ClassifyResult;
+import base.InputFeatureD;
+import base.InputFeatureI;
+import base.InstanceD;
+import base.InstanceI;
 import classifier.AbstractInfer;
 import classifier.AbstractTrainer;
 import classifier.bayes.BayesInfer;
 import classifier.bayes.BayesTrainer;
 import classifier.util.FeatureDoubleToInt;
 import evaluation.ClassifyEvaluation;
-import base.ClassifyResult;
-import base.InputFeatureD;
-import base.InputFeatureI;
-import base.InstanceD;
-import base.InstanceI;
 
-public class ClassifierCrossValidation {
+public class RegreeCrossValidation {
 	InputFeatureD inputFeature ;
 	List<ValidationID> verificationIDs;
 	List<Double> recalls = new ArrayList<Double>();
 	
-	public ClassifierCrossValidation(InputFeatureD inputFeature)
+	public RegreeCrossValidation(InputFeatureD inputFeature)
 	{
 		this.inputFeature = inputFeature;
 	}
@@ -195,4 +195,5 @@ public class ClassifierCrossValidation {
 		crossValidation.crossCheck(trainer,infer,modelPath);
 		crossValidation.showResult();
 	}
+
 }

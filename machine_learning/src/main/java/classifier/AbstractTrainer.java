@@ -34,7 +34,6 @@ public abstract class AbstractTrainer {
 	     try {   
 	            so.writeObject(model);   
 	            so.close();   
-	  
 	     } catch (IOException e) {   
 	            System.out.println(e);   
 	     }   
