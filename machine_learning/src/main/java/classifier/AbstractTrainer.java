@@ -5,8 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-import base.InputFeatureD;
-import base.InputFeatureI;
+import base.InstanceSetD;
+import base.InstanceSetI;
 
 
 /**
@@ -16,7 +16,7 @@ import base.InputFeatureI;
  */
 public abstract class AbstractTrainer {
 	
-	public abstract void init(InputFeatureI inputFeature);
+	public abstract void init(InstanceSetI inputFeature);
 	
 	public  abstract void train();
 

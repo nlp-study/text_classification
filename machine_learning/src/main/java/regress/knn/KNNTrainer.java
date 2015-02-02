@@ -10,7 +10,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import regress.AbstractRegressTrainer;
-import base.InputFeatureD;
+import base.InstanceSetD;
 import base.InstanceD;
 import classifier.AbstractTrainer;
 import classifier.bayes.BayesModel;
@@ -29,7 +29,7 @@ public class KNNTrainer extends AbstractRegressTrainer {
     List<InstanceD> instances = new ArrayList<InstanceD>();
 	
 
-	public void init(InputFeatureD inputFeature) {
+	public void init(InstanceSetD inputFeature) {
 		// TODO Auto-generated method stub
 		instances.addAll(inputFeature.getInstances());
 		logger.info("输入特诊的数量："+instances.size());

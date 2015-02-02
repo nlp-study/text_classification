@@ -4,10 +4,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
-
-
-
-
 import org.apache.log4j.Logger;
 
 import syntax.word.StopWords;

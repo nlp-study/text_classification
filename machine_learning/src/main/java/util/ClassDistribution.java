@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import base.InputFeatureD;
+import base.InstanceSetD;
 import base.InstanceD;
 import base.InstanceI;
 
@@ -31,7 +31,7 @@ public class ClassDistribution {
 		this.numb = numb;
 	}
 
-	public ClassDistribution(InputFeatureD inputFeature)
+	public ClassDistribution(InstanceSetD inputFeature)
 	{
 		this.instances = inputFeature.getInstances();
 		length = inputFeature.getLength();

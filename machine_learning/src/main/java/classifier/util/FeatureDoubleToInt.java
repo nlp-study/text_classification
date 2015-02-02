@@ -1,8 +1,8 @@
 package classifier.util;
 
 import org.apache.log4j.Logger;
-import base.InputFeatureD;
-import base.InputFeatureI;
+import base.InstanceSetD;
+import base.InstanceSetI;
 import base.InstanceD;
 import base.InstanceI;
 
@@ -12,16 +12,16 @@ import base.InstanceI;
 public class FeatureDoubleToInt {
 	Logger logger = Logger.getLogger(FeatureDoubleToInt.class);
 	
-	InputFeatureD inputfeature = new InputFeatureD();
+	InstanceSetD inputfeature = new InstanceSetD();
 	
-	InputFeatureI outputfeature = new InputFeatureI();
+	InstanceSetI outputfeature = new InstanceSetI();
 	
-	public FeatureDoubleToInt(InputFeatureD inputfeature)
+	public FeatureDoubleToInt(InstanceSetD inputfeature)
 	{
 		this.inputfeature = inputfeature;
 	}
 	
-	public void init(InputFeatureD inputfeature)
+	public void init(InstanceSetD inputfeature)
 	{
 		outputfeature.clear();
 		this.inputfeature = inputfeature;
@@ -50,7 +50,7 @@ public class FeatureDoubleToInt {
 		}
 	}
 
-	public InputFeatureI getOutputfeature() {
+	public InstanceSetI getOutputfeature() {
 		return outputfeature;
 	}
 

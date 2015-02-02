@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
 import regress.AbstractRegressTrainer;
-import base.InputFeatureD;
+import base.InstanceSetD;
 import base.InstanceD;
 import util.DistanceCalculation;
 import util.VectorOperation;
@@ -42,7 +42,7 @@ public class LogisticTrainer extends AbstractRegressTrainer {
 	//学习率
 	private double rate;
 
-	public void init(InputFeatureD inputFeature) {
+	public void init(InstanceSetD inputFeature) {
 		// TODO Auto-generated method stub
 //		this.instances = inputFeature.getInstances();
 		
@@ -67,7 +67,7 @@ public class LogisticTrainer extends AbstractRegressTrainer {
 	 * @comment:让输入的向量的长度加1，并且在最后赋值为1，表示截距
 	 * @return:void
 	 */
-	public void trans2logist(InputFeatureD inputFeature)
+	public void trans2logist(InstanceSetD inputFeature)
 	{
 		for(InstanceD instance:inputFeature.getInstances())
 		{
@@ -202,7 +202,7 @@ public class LogisticTrainer extends AbstractRegressTrainer {
 		String path = "data/corpus/iris_bin.data";
 		Iris iris = new Iris();
 		iris.readData(path);
-		InputFeatureD inputFeature = iris.getInputFeature();
+		InstanceSetD inputFeature = iris.getInputFeature();
 		
 		LogisticTrainer logisticTrainer = new LogisticTrainer();
 		logisticTrainer.init(inputFeature);

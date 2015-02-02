@@ -9,7 +9,7 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import validation.Iris;
-import base.InputFeatureD;
+import base.InstanceSetD;
 
 /**
  * @author xiaohe
@@ -30,7 +30,7 @@ public class KFolderDataSlice implements DataSlice{
 		//记录数据被分成多少份
 		private Map<Integer,Integer> step;
 		
-		InputFeatureD inputFeature;
+		InstanceSetD inputFeature;
 		int size;
 		private int[] stones;
 		
@@ -57,7 +57,7 @@ public class KFolderDataSlice implements DataSlice{
 			return verificationIDs;
 		}
 
-		public void init(InputFeatureD inputFeature)
+		public void init(InstanceSetD inputFeature)
 		{
 			this.inputFeature = inputFeature;
 			size = inputFeature.getSize();
@@ -144,7 +144,7 @@ public class KFolderDataSlice implements DataSlice{
 			String path = "data/corpus/iris.data";
 			Iris iris = new Iris();
 			iris.readData(path);
-			InputFeatureD inputFeature = iris.getInputFeature();
+			InstanceSetD inputFeature = iris.getInputFeature();
 			
 			KFolderDataSlice crossVerification = new KFolderDataSlice();
 			crossVerification.init(inputFeature);

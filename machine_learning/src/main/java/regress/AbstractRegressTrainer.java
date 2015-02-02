@@ -4,7 +4,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-import base.InputFeatureD;
+import base.InstanceSetD;
 
 
 /**
@@ -14,7 +14,7 @@ import base.InputFeatureD;
  */
 public abstract class AbstractRegressTrainer {
 	
-	public abstract void init(InputFeatureD inputFeature);
+	public abstract void init(InstanceSetD inputFeature);
 	
 	public  abstract void train();
 

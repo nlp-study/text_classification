@@ -17,17 +17,17 @@ import classifier.bayes.BayesTrainer;
 import classifier.util.FeatureDoubleToInt;
 import evaluation.ClassifyEvaluation;
 import base.ClassifyResult;
-import base.InputFeatureD;
-import base.InputFeatureI;
+import base.InstanceSetD;
+import base.InstanceSetI;
 import base.InstanceD;
 import base.InstanceI;
 
 public class ClassifierCrossValidation {
-	InputFeatureD inputFeature ;
+	InstanceSetD inputFeature ;
 	List<ValidationID> verificationIDs;
 	List<Double> recalls = new ArrayList<Double>();
 	
-	public ClassifierCrossValidation(InputFeatureD inputFeature)
+	public ClassifierCrossValidation(InstanceSetD inputFeature)
 	{
 		this.inputFeature = inputFeature;
 	}
@@ -53,8 +53,8 @@ public class ClassifierCrossValidation {
 			Set<Integer> infers = verificationIDs.get(i).getInferids();
 			List<ClassifyResult> classifyResults = new ArrayList<ClassifyResult>();
 			
-			InputFeatureD trainFeature = new InputFeatureD();
-			InputFeatureD inferFeature = new InputFeatureD();
+			InstanceSetD trainFeature = new InstanceSetD();
+			InstanceSetD inferFeature = new InstanceSetD();
 			
 			
 			for(Integer j:trains)
@@ -72,11 +72,11 @@ public class ClassifierCrossValidation {
 			//把double的特征整理成int型
 			FeatureDoubleToInt featureDoubleToInt = new FeatureDoubleToInt(trainFeature);
 			featureDoubleToInt.trans();
-			InputFeatureI trainFeatureI = featureDoubleToInt.getOutputfeature();
+			InstanceSetI trainFeatureI = featureDoubleToInt.getOutputfeature();
 			
 			featureDoubleToInt.init(inferFeature);
 			featureDoubleToInt.trans();
-			InputFeatureI inferFeatureI = featureDoubleToInt.getOutputfeature();
+			InstanceSetI inferFeatureI = featureDoubleToInt.getOutputfeature();
 			
 			train( trainer, trainFeatureI, path);
 			
@@ -94,7 +94,7 @@ public class ClassifierCrossValidation {
 		
 	}
 	
-	public void train(AbstractTrainer trainer,InputFeatureI inputFeature,String path) throws Exception
+	public void train(AbstractTrainer trainer,InstanceSetI inputFeature,String path) throws Exception
 	{
 		trainer.clear();
 		trainer.init(inputFeature);
@@ -103,7 +103,7 @@ public class ClassifierCrossValidation {
 	}
 	
 	public int[] infer(AbstractInfer infer,
-			InputFeatureI inputFeature,String path) throws Exception	{
+			InstanceSetI inputFeature,String path) throws Exception	{
 		
 		infer.init(path);
 		int[] results = new int[inputFeature.getSize()];
@@ -183,7 +183,7 @@ public class ClassifierCrossValidation {
 		String path = "data/corpus/iris.data";
 		Iris iris = new Iris();
 		iris.readData(path);
-		InputFeatureD inputFeature = iris.getInputFeature();
+		InstanceSetD inputFeature = iris.getInputFeature();
 		
 		ClassifierCrossValidation crossValidation = new ClassifierCrossValidation(inputFeature);
 		DataSlice dataSlice = new KFolderDataSlice();

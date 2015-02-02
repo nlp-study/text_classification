@@ -7,8 +7,8 @@ import java.util.List;
 import org.apache.log4j.PropertyConfigurator;
 
 import util.FileRead;
-import base.InputFeatureD;
-import base.InputFeatureI;
+import base.InstanceSetD;
+import base.InstanceSetI;
 import base.InstanceD;
 import base.InstanceI;
 import junit.framework.TestCase;
@@ -65,7 +65,7 @@ public class BayesTrainerTest extends TestCase {
 		}
 		
 //		bayesTrain = new BayesTrainer(featureNumb, classNumb, ajs, input,1);
-		InputFeatureI inputFeature = new InputFeatureI(input);
+		InstanceSetI inputFeature = new InstanceSetI(input);
 		bayesTrain = new BayesTrainer();
 		bayesTrain.init(inputFeature);
 		

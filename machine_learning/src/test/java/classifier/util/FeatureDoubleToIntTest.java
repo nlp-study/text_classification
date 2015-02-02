@@ -8,7 +8,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import base.InputFeatureD;
+import base.InstanceSetD;
 import base.InstanceD;
 
 public class FeatureDoubleToIntTest {
@@ -29,7 +29,7 @@ public class FeatureDoubleToIntTest {
 		instances.add(vsm2);
 		instances.add(vsm3);
 		
-		InputFeatureD inputfeature = new InputFeatureD(instances);
+		InstanceSetD inputfeature = new InstanceSetD(instances);
 		
 		featureDoubleToInt = new FeatureDoubleToInt(inputfeature);
 	}

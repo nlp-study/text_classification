@@ -9,8 +9,8 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
-import base.InputFeatureD;
-import base.InputFeatureI;
+import base.InstanceSetD;
+import base.InstanceSetI;
 import base.InstanceD;
 import base.InstanceI;
 import util.FileRead;
@@ -47,7 +47,7 @@ public class BayesTrainer extends AbstractTrainer {
 	public BayesTrainer(){}
 	
 	
-	public void init(InputFeatureI inputFeature)
+	public void init(InstanceSetI inputFeature)
 	{
 		InputFeatureCensus inputFeatureCensus = new InputFeatureCensus(inputFeature.getInstances());
 		inputFeatureCensus.excute();

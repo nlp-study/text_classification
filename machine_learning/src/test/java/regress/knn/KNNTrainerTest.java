@@ -9,7 +9,7 @@ import org.apache.log4j.PropertyConfigurator;
 import org.junit.Before;
 import org.junit.Test;
 
-import base.InputFeatureD;
+import base.InstanceSetD;
 import base.InstanceD;
 
 public class KNNTrainerTest {
@@ -34,7 +34,7 @@ public class KNNTrainerTest {
 		instances.add(vsm2);
 		instances.add(vsm3);
 		
-		InputFeatureD inputfeature = new InputFeatureD(instances);
+		InstanceSetD inputfeature = new InstanceSetD(instances);
 		knnTrainer.init(inputfeature);
 	}
 

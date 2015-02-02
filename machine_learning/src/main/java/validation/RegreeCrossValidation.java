@@ -15,16 +15,16 @@ import validation.slice.DataSlice;
 import validation.slice.KFolderDataSlice;
 import validation.slice.ValidationID;
 import base.ClassifyResult;
-import base.InputFeatureD;
+import base.InstanceSetD;
 import base.InstanceD;
 import evaluation.ClassifyEvaluation;
 
 public class RegreeCrossValidation {
-	InputFeatureD inputFeature ;
+	InstanceSetD inputFeature ;
 	List<ValidationID> verificationIDs;
 	List<Double> recalls = new ArrayList<Double>();
 	
-	public RegreeCrossValidation(InputFeatureD inputFeature)
+	public RegreeCrossValidation(InstanceSetD inputFeature)
 	{
 		this.inputFeature = inputFeature;
 	}
@@ -50,8 +50,8 @@ public class RegreeCrossValidation {
 			Set<Integer> infers = verificationIDs.get(i).getInferids();
 			List<ClassifyResult> classifyResults = new ArrayList<ClassifyResult>();
 			
-			InputFeatureD trainFeature = new InputFeatureD();
-			InputFeatureD inferFeature = new InputFeatureD();
+			InstanceSetD trainFeature = new InstanceSetD();
+			InstanceSetD inferFeature = new InstanceSetD();
 			
 			
 			for(Integer j:trains)
@@ -82,7 +82,7 @@ public class RegreeCrossValidation {
 		
 	}
 	
-	public void train(AbstractRegressTrainer trainer,InputFeatureD inputFeature,String path) throws Exception
+	public void train(AbstractRegressTrainer trainer,InstanceSetD inputFeature,String path) throws Exception
 	{
 		trainer.clear();
 		trainer.init(inputFeature);
@@ -91,7 +91,7 @@ public class RegreeCrossValidation {
 	}
 	
 	public int[] infer(AbstractRegressInfer infer,
-			InputFeatureD inputFeature,String path) throws Exception	{
+			InstanceSetD inputFeature,String path) throws Exception	{
 		
 		infer.init(path);
 		int[] results = new int[inputFeature.getSize()];
@@ -172,7 +172,7 @@ public class RegreeCrossValidation {
 		String path = "data/corpus/iris.data";
 		Iris iris = new Iris();
 		iris.readData(path);
-		InputFeatureD inputFeature = iris.getInputFeature();
+		InstanceSetD inputFeature = iris.getInputFeature();
 		
 		//使用的回归数据
 		AbstractRegressTrainer trainer = new KNNTrainer();
