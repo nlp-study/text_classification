@@ -3,6 +3,7 @@ package document;
 import java.util.List;
 
 import base.ClassName;
+import document.Document;
 
 public class TrainDoc extends Document{
 	ClassName className;

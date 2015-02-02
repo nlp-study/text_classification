@@ -3,15 +3,11 @@ package dict.inverted_index;
 import java.io.IOException;
 import java.util.List;
 import java.util.Set;
-
 import org.apache.log4j.Logger;
-
 import syntax.word.StopWords;
 
 public class InvertedIndexBuilder {
 	Logger logger = Logger.getLogger(InvertedIndexBuilder.class);
-	
-	
 	
 	private StopWords stopWords = new StopWords();
 	private InvertedIndex invertedIndex = new InvertedIndex();

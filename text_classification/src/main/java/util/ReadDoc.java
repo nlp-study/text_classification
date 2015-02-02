@@ -7,6 +7,7 @@ import java.util.List;
 
 import document.DictDoc;
 
+
 public class ReadDoc {
 	public List<DictDoc> readAll(String path) throws IOException
 	{

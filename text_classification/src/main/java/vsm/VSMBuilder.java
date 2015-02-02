@@ -22,6 +22,7 @@ import file.classify.FileClassifyList;
 import syntax.word.StopWords;
 import util.FileRead;
 
+
 /**
  * @author xiaohe
  * 从文本中提取vsm值组成向量
@@ -69,10 +70,10 @@ public class VSMBuilder {
 	}
 
 	public void init(String path,FileClassifyList fileProcess) throws IOException {
-		buildFeatureWords(path+"train/vsmword.txt");
+		buildFeatureWords(path+"result/train/vsmword.txt");
 		featureSize = featureWords.size();
 		VSM.setSize(featureSize);
-		createClassMap(path+"file/classid.txt");
+		createClassMap(path+"result/file/classid.txt");
 		docPreprocess.init(path);
 		this.fileProcess = fileProcess;
 	}

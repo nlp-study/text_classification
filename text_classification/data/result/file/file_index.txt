@@ -1,0 +1,5 @@
+0-data/corpus/C3-AGRICULTURE/C3-Art0002.txt-AGRICULTURE
+1-data/corpus/C3-AGRICULTURE/C3-Art0003.txt-AGRICULTURE
+2-data/corpus/C3-AGRICULTURE/C3-Art0005.txt-AGRICULTURE
+3-data/corpus/C4-POLITICS/C4-Literature01.txt-POLITICS
+4-data/corpus/C4-POLITICS/C4-Literature03.txt-POLITICS
