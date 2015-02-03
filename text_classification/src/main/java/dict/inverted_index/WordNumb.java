@@ -64,7 +64,7 @@ public class WordNumb {
 		
 		bwriter.close();
 		fw.close();		
-	}
+	}	
 	
 	public void clear()
 	{

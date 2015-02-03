@@ -1,7 +1,9 @@
 package base;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 
@@ -77,5 +79,17 @@ public class InstanceSetD {
 		}
 		
 		return instances.get(index).getType();
+	}
+	
+	public int getClassNumb()
+	{
+		Set<Integer> numb = new HashSet<Integer>();
+		
+		for(InstanceD instance:instances)
+		{
+			numb.add(instance.getType());
+		}
+		
+		return numb.size();
 	}
 }
