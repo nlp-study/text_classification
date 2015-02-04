@@ -52,6 +52,7 @@ public class CleanResultFolder {
 	public static void main(String[] args) throws IOException,
 			ClassNotFoundException {
 		CleanResultFolder.cleanFolder("data/result/");
+		CleanResultFolder.cleanFolder("logs/");
 	}
 
 }
