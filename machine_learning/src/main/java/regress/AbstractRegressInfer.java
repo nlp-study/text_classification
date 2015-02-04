@@ -50,10 +50,6 @@ public abstract class AbstractRegressInfer {
 	 */
 	public abstract int infer(double[] input);
 	
-	public <T> void test()
-	{
-		
-	}
 	
 
 }

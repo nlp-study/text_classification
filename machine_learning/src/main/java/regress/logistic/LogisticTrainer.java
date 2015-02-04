@@ -100,6 +100,7 @@ public class LogisticTrainer extends AbstractRegressTrainer {
 			 {
 				 double prediction = sigmoid(instance.getVector());
 				 double diff  = instance.getType() - prediction;
+				 logger.info("diff:"+diff);
 				 diff = rate * diff;
 				 double[] temp = VectorOperation.constantMultip(instance.getVector(), diff);
 				 
