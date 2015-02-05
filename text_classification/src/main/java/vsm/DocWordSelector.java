@@ -21,11 +21,10 @@ import org.apache.log4j.PropertyConfigurator;
 public class DocWordSelector {
 	Logger logger = Logger.getLogger(DocWordSelector.class);
 
-	public static final int EVERY_CLASS_FEATURE_SIZE = 300;	
+	public static final int EVERY_CLASS_FEATURE_SIZE = 600;	
 	Set<String> types = new HashSet<String>(); // 所有的类别
 
 	public void init(String path) throws IOException {
-		PropertyConfigurator.configure("log4j.properties");
 		buildTypes(path);
 	}
 	
@@ -86,7 +85,6 @@ public class DocWordSelector {
 			}
 		}
 
-		logger.info(words);
 		return words;
 	}
 

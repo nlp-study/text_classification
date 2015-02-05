@@ -21,6 +21,7 @@ import syntax.word.StopWords;
 import syntax.word.WordTagging;
 import util.CleanResultFolder;
 import util.FileRead;
+import vsm.FeatureMergerSelect;
 import vsm.VSMBuilder;
 import vsm.VSMWordSelector;
 
@@ -109,6 +110,11 @@ public class DictManager {
 		String sourceFile = FileRead.readFile(file);
 		sourceFile = CodePrase.full2HalfChange(sourceFile);
 		List<String> words = WordTagging.segForWord(sourceFile);
+//		if(words.contains("高,="))
+//		{
+//			logger.info("高,=");
+//			System.exit(0);
+//		}
 		addWords(words, docID);
 	}	
 
@@ -119,18 +125,24 @@ public class DictManager {
 	public void createDict() {
 		invertedIndexBuilder.createDict();
 	}
+	
+	public void clear()
+	{
+		stopWords.clear();
+		invertedIndexBuilder.clear();
+	}
 
 	public static void main(String[] args) throws IOException {
 		PropertyConfigurator.configure("log4j.properties");
 		String path = "data/";
 		
 		//清除输出目录中的文件
-//		CleanResultFolder.cleanFolder("data/result/");
+		CleanResultFolder.cleanFolder("data/result/");
 		CleanResultFolder.cleanFolder("logs/");
 				
-//		String sourcePath = "C:/projectStudy/data/text_classify/data/answer/";
+		String sourcePath = "C:/projectStudy/data/text_classify/data/answer/";
 //		String sourcePath = "data/corpus/";
-		String sourcePath = "F:/分类数据/复旦语料库/answer/";
+//		String sourcePath = "F:/分类数据/复旦语料库/answer/";
 		FileClassifyList fileProcess = new FileClassifyList();
 		fileProcess.processFolder(sourcePath);
 		fileProcess.writeFileAndClass("data/result/file/");
@@ -143,30 +155,38 @@ public class DictManager {
 		//创建词典
 		DictManager dictManager = new DictManager();		
 		dictManager.init(fileProcess,stopWords);
-//		dictManager.createEveryClassDict("data/result/");
+		dictManager.createEveryClassDict("data/result/");
 		dictManager.mergeIndex("data/result/dict/");
-		
-		/***********chi square select****************/
-		//从词中选择特征
-	    CHiSquareManager chiSquareManager = new CHiSquareManager();
-		chiSquareManager.init("data/result/",fileProcess);
-		chiSquareManager.excute();
-		
-		//从各个类中收集特征组成一个总的特征集合
-		VSMWordSelector vsmWordSelector = new VSMWordSelector();
-		String slectedPath = "data/result/chi_square/";
-		vsmWordSelector.init(slectedPath);
-		vsmWordSelector.writeFeatureWords("data/result/train/vsmword.txt");
-		/***********chi square select****************/
-		
+		dictManager.clear();
+	
+		/*********************base  select*****************************/
 //		BaseFeatureSelection baseFeatureSelection = new BaseFeatureSelection("data/result/dict/wordNumb.txt");
 //		baseFeatureSelection.init();
 //		baseFeatureSelection.execute();
 //		baseFeatureSelection.writeFeature("data/result/train/vsmword.txt");
 //		baseFeatureSelection.clear();
+		/*************************base  select*************************/
 		
-//		System.out.println(getEMS());
+			
+		/***********chi square select****************/
+		//从词中选择特征
+	    CHiSquareManager chiSquareManager = new CHiSquareManager();
+		chiSquareManager.init("data/result/",fileProcess);
+		chiSquareManager.excute();
+//		
+//		//从各个类中收集特征组成一个总的特征集合
+		VSMWordSelector vsmWordSelector = new VSMWordSelector();
+		String slectedPath = "data/result/chi_square/";
+		vsmWordSelector.init(slectedPath);
+		vsmWordSelector.writeFeatureWords("data/result/train/vsmword.txt");
 		
+		//新的特征合并挑选类
+//		FeatureMergerSelect featureMergerSelect = new FeatureMergerSelect();
+//		featureMergerSelect.init("data/result/chi_square/");
+//		featureMergerSelect.writeFeatureSet("data/result/chi_square/allword.txt");
+		/***********chi square select****************/
+		
+
 		
 		//把每一篇文档都处理成一个向量
 		VSMBuilder vsmBuilder = new VSMBuilder();		

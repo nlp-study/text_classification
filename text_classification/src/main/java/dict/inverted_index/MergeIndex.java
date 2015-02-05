@@ -128,6 +128,11 @@ public class MergeIndex {
 		logger.info("path:"+path);
 		dictBuilder.saveDict(path);
 	}
+	
+	public void clear()
+	{
+		
+	}
 
 	public static void main(String[] args) throws IOException {
 		MergeIndex mergeIndex = new MergeIndex();

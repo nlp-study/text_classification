@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.ansj.util.FilterModifWord;
 import org.apache.log4j.Logger;
 
 import util.FileRead;
@@ -35,6 +36,11 @@ public class StopWords {
 		this.words = words;
 	}
 	
+	public void clear()
+	{
+		words.clear();
+	}
+	
 	public boolean isStopWord(String word)
 	{
 		if(word.trim().length() == 0)
@@ -56,6 +62,13 @@ public class StopWords {
 	    {
 	    	return true;
 	    }
+	    
+	    //排除了英文
+	    if(word.matches(".*[a-zA-Z].*"))
+	    {
+	    	return true;
+	    }
+	    
 	    return false;
 	}
     

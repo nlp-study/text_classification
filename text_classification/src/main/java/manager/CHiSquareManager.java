@@ -17,7 +17,6 @@ import file.classify.FileClassifyList;
  */
 public class CHiSquareManager {
 	Logger logger = Logger.getLogger(CHiSquareManager.class);
-
 	
 	ChiSquareBuilder chiSquareBuilder = new ChiSquareBuilder();
 	

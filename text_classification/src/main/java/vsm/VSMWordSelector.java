@@ -34,7 +34,6 @@ public class VSMWordSelector {
 	
 	public void init(String path) throws IOException
 	{
-		PropertyConfigurator.configure("log4j.properties");
 		docWordSelector.init(path);		
 		
 		selectFeatureWord(path);
@@ -76,7 +75,6 @@ public class VSMWordSelector {
 			++i;
 		}
 		
-		logger.info(featureWords);
 	}
 	
 	

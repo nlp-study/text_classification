@@ -10,6 +10,8 @@ public class InvertedIndexBuilder {
 	Logger logger = Logger.getLogger(InvertedIndexBuilder.class);
 	
 	private StopWords stopWords = new StopWords();
+	//标点符号，分词结果不是很好，会有很多的标点和词不能分开
+//	private StopWords stopPunc = new StopWords();
 	private InvertedIndex invertedIndex = new InvertedIndex();
 	private WordFreq wordFreq = new WordFreq();
 	private WordNumb wordNumb = new WordNumb();
@@ -33,7 +35,8 @@ public class InvertedIndexBuilder {
 		for(int i=0;i<words.size();++i)
 		{
 			String word = words.get(i).trim();
-			
+
+			//原来判断停用词的方法	
 			if(!isStopword(word))
 			{
 				invertedIndex.insert(word, id, i);
@@ -43,8 +46,6 @@ public class InvertedIndexBuilder {
 	
 	public boolean isStopword(String input)
 	{
-		
-		
 		if(stopWords.isStopWord(input))
 		{
 			return true;
