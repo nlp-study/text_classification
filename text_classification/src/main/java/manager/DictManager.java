@@ -110,11 +110,6 @@ public class DictManager {
 		String sourceFile = FileRead.readFile(file);
 		sourceFile = CodePrase.full2HalfChange(sourceFile);
 		List<String> words = WordTagging.segForWord(sourceFile);
-//		if(words.contains("高,="))
-//		{
-//			logger.info("高,=");
-//			System.exit(0);
-//		}
 		addWords(words, docID);
 	}	
 
@@ -140,9 +135,9 @@ public class DictManager {
 		CleanResultFolder.cleanFolder("data/result/");
 		CleanResultFolder.cleanFolder("logs/");
 				
-		String sourcePath = "C:/projectStudy/data/text_classify/data/answer/";
+//		String sourcePath = "C:/projectStudy/data/text_classify/data/answer/";
 //		String sourcePath = "data/corpus/";
-//		String sourcePath = "F:/分类数据/复旦语料库/answer/";
+		String sourcePath = "F:/分类数据/复旦语料库/answer/";
 		FileClassifyList fileProcess = new FileClassifyList();
 		fileProcess.processFolder(sourcePath);
 		fileProcess.writeFileAndClass("data/result/file/");
@@ -158,7 +153,7 @@ public class DictManager {
 		dictManager.createEveryClassDict("data/result/");
 		dictManager.mergeIndex("data/result/dict/");
 		dictManager.clear();
-	
+
 		/*********************base  select*****************************/
 //		BaseFeatureSelection baseFeatureSelection = new BaseFeatureSelection("data/result/dict/wordNumb.txt");
 //		baseFeatureSelection.init();

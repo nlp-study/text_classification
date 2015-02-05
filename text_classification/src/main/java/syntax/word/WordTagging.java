@@ -41,7 +41,7 @@ public class WordTagging {
 	
 	public static List<String> segForWord(String input)
 	{
-		List<Term> parses = BaseAnalysis.parse(input);
+		List<Term> parses = NlpAnalysis.parse(input);
 		
 		List<String> terms = new ArrayList<String>();
 		for(Term parse:parses)
