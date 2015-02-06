@@ -29,10 +29,10 @@ public class MaxEntropyTrainer extends AbstractTrainer {
 	//第二维是xi的取值的id，即在features中的第二位的下标
 	int[][] featuresID;
 	
-	//特征所有不同值的数量
+	//所有不同值特征的个数
 	int size;
 	
-	//特征函数
+	//特征函数  Pair<特征，类别id>
 	List<Pair<Integer,Integer>> featureFunctionList = new ArrayList<Pair<Integer,Integer>>();
    
 	//各个特征函数的数量
@@ -40,15 +40,18 @@ public class MaxEntropyTrainer extends AbstractTrainer {
    
     //经过处理的特征向量，特征值都是features中的id
   	private List<InstanceI> instanceSet = new ArrayList<InstanceI>();
-    
-  	//每个输入向量对应的类别
-  	private List<Integer>  labels = new ArrayList<Integer>();
   	
   	//所有特征函数数量的和
   	private int C = 0;
   	
+  	//不同特征函数的数量，不是特征函数的总数
+  	private int functionSize = 0;
+  	
   	//特征向量的长度
   	int length;
+  	
+  	//特征的数量
+  	int classNumb;
   	
 	@Override
 	public void init(InstanceSetI instanceSet) {
@@ -56,16 +59,20 @@ public class MaxEntropyTrainer extends AbstractTrainer {
 		instanceSetCensus.excute();
 		this.features = instanceSetCensus.getFeatures();
 		this.instanceSet = instanceSetCensus.getOutputFeature();
-		this.labels = instanceSet.getLabels();
+		this.classNumb = instanceSetCensus.getK();
 		this.length = instanceSet.getLength();
 		
 		setFeatureFunctionID();
 		calculateFeatureFunction();
 		
-		weight = new double[featureFunctionList.size()];
+		functionSize = featureFunctionList.size();
+		
+		weight = new double[functionSize];
 		Arrays.fill(weight, 0);
 		
 		C = length*instanceSet.getSize();
+		
+		
 	}
 	
 	public void setFeatureFunctionID()
@@ -121,9 +128,14 @@ public class MaxEntropyTrainer extends AbstractTrainer {
 		for(int i=0;i<ITERATIONS_NUMB;++i)
 		{
 			lastWeight = weight;
-			double[] delta = calculateDelta();
-			weight = VectorOperation.addition(weight, delta);
+			double[] delta = new double[functionSize];
 			
+			for(int j=0;j<instanceSet.size();++j)
+			{
+				delta = calculateDelta(instanceSet.get(i).getType(),instanceSet.get(i).getVector());
+				weight = VectorOperation.addition(weight, delta);
+			}
+						
 			lastWeight = weight;
 			
 			double eps = DistanceCalculation.EuclideanDistance(lastWeight,weight);
@@ -134,8 +146,45 @@ public class MaxEntropyTrainer extends AbstractTrainer {
 		}
 	}
 	
-	private double[] calculateDelta(){
-		return null;
+	private double[] calculateDelta(int typeid,int[] vector){
+		double[] EEmp = new double[functionSize];
+		double[] EReal = new double[functionSize];	
+		double[] delta = new double[functionSize];
+		
+		Arrays.fill(EEmp, 0);
+		Arrays.fill(EReal, 0);
+		Arrays.fill(delta, 0);
+		
+		for(int i=0;i<length;++i)
+		{
+			int temp = featuresID[i][vector[i]];
+			Pair pair = new Pair(temp,typeid);
+			int index = featureFunctionList.indexOf(pair);
+			EEmp[index] = featureFunctionNumb.get(index);
+			
+		}
+		
+		return delta;
+	}
+	
+	private double[] calculateRealEstimation(int x,int typeid)
+	{
+		
+	}
+	
+	private double infer(int[] vector,int typeid)
+	{
+		double[] porb = new double[functionSize];
+		double sum = 0;
+		
+		for(int i=0;i<length;++i)
+		{
+			for(int j=0;j<classNumb;++j)
+			{
+				int temp
+			}
+			porb[i] = 
+		}
 	}
 
 	@Override
