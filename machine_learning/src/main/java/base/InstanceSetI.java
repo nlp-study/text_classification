@@ -78,5 +78,17 @@ public class InstanceSetI {
 		
 		return instances.get(index).getType();
 	}
+	
+	public List<Integer> getLabels()
+	{
+		List<Integer> labels = new ArrayList<Integer>();
+
+		for(InstanceI instance:instances)
+		{
+			labels.add(instance.getType());	
+		}
+		
+		return labels;
+	}
 
 }

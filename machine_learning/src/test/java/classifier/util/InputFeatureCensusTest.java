@@ -13,7 +13,7 @@ import base.InstanceI;
 
 public class InputFeatureCensusTest {
 	
-	private static InputFeatureCensus inputFeatureCensus = new InputFeatureCensus();
+	private static InstanceSetCensus inputFeatureCensus = new InstanceSetCensus();
 
 	@Before
 	public void setUp() throws Exception {

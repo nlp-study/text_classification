@@ -15,7 +15,7 @@ import base.InstanceD;
 import base.InstanceI;
 import util.FileRead;
 import classifier.AbstractTrainer;
-import classifier.util.InputFeatureCensus;
+import classifier.util.InstanceSetCensus;
 
 public class BayesTrainer extends AbstractTrainer {
 	Logger logger = Logger.getLogger(BayesTrainer.class);
@@ -49,7 +49,7 @@ public class BayesTrainer extends AbstractTrainer {
 	
 	public void init(InstanceSetI inputFeature)
 	{
-		InputFeatureCensus inputFeatureCensus = new InputFeatureCensus(inputFeature.getInstances());
+		InstanceSetCensus inputFeatureCensus = new InstanceSetCensus(inputFeature.getInstances());
 		inputFeatureCensus.excute();
 		this.lambda = 1;    //设置平滑参数
 		this.featureNumb = inputFeature.getLength();

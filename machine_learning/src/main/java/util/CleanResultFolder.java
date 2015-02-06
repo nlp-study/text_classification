@@ -8,6 +8,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+/**
+ * @author xiaohe
+ * 创建于：2015年2月6日
+ * 清除文件下的所有文件，不会清除子文件夹
+ */
 public class CleanResultFolder {
 	public static void cleanFolder(String path)
 	{

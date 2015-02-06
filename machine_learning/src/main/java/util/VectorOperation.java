@@ -3,6 +3,11 @@ package util;
 import org.apache.log4j.Logger;
 
 
+/**
+ * @author xiaohe
+ * 创建于：2015年2月6日
+ * 一个向量计算的类，只有比较简单的运算
+ */
 public class VectorOperation {
 	static Logger logger = Logger.getLogger(VectorOperation.class);
 	
