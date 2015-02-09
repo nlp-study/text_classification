@@ -54,7 +54,7 @@ public class BayesTrainer extends AbstractTrainer {
 		this.lambda = 1;    //设置平滑参数
 		this.featureNumb = inputFeature.getLength();
 		this.instances = inputFeature.getInstances();
-		this.classNumb = inputFeatureCensus.getK();
+		this.classNumb = inputFeatureCensus.getClassNumb();
 		calculateAJS(inputFeatureCensus.getFeatures());
 		
 		this.prior = new Double[classNumb];

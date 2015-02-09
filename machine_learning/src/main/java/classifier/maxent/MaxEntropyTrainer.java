@@ -1,19 +1,25 @@
 package classifier.maxent;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import base.InstanceI;
 import base.InstanceSetI;
 import classifier.AbstractTrainer;
+import classifier.bayes.BayesModel;
 import classifier.util.InstanceSetCensus;
 import util.DistanceCalculation;
 import util.Pair;
 import util.VectorOperation;
+import validation.Maxent;
 
 public class MaxEntropyTrainer extends AbstractTrainer {
-	
+	Logger logger = Logger.getLogger(MaxEntropyTrainer.class);
+
 	//最大迭代次数
 	static final int ITERATIONS_NUMB = 1000;
 		
@@ -30,7 +36,7 @@ public class MaxEntropyTrainer extends AbstractTrainer {
 	int[][] featuresID;
 	
 	//所有不同值特征的个数
-	int size;
+	int featureSize;
 	
 	//特征函数  Pair<特征，类别id>
 	List<Pair<Integer,Integer>> featureFunctionList = new ArrayList<Pair<Integer,Integer>>();
@@ -50,7 +56,11 @@ public class MaxEntropyTrainer extends AbstractTrainer {
   	//特征向量的长度
   	int length;
   	
-  	//特征的数量
+  	MaxEntropyModel  model;
+  	
+  	/**
+  	 * 类别的数量
+  	 */
   	int classNumb;
   	
 	@Override
@@ -59,7 +69,7 @@ public class MaxEntropyTrainer extends AbstractTrainer {
 		instanceSetCensus.excute();
 		this.features = instanceSetCensus.getFeatures();
 		this.instanceSet = instanceSetCensus.getOutputFeature();
-		this.classNumb = instanceSetCensus.getK();
+		this.classNumb = instanceSetCensus.getClassNumb();
 		this.length = instanceSet.getLength();
 		
 		setFeatureFunctionID();
@@ -70,7 +80,7 @@ public class MaxEntropyTrainer extends AbstractTrainer {
 		weight = new double[functionSize];
 		Arrays.fill(weight, 0);
 		
-		C = length*instanceSet.getSize();
+		this.C = length*instanceSet.getSize();
 		
 		
 	}
@@ -91,7 +101,7 @@ public class MaxEntropyTrainer extends AbstractTrainer {
 			}
 		}
 		
-		this.size = index;
+		this.featureSize = index;
 	}
 	
 	
@@ -104,7 +114,7 @@ public class MaxEntropyTrainer extends AbstractTrainer {
 				int temp = instanceSet.get(i).getFeature(j);
 				temp = featuresID[j][temp];
 				
-				Pair pair = new Pair(temp,instanceSet.get(i).getType());
+				Pair<Integer,Integer> pair = new Pair(temp,instanceSet.get(i).getType());
 				int index = featureFunctionList.indexOf(pair);
 				
 				if(index == -1)
@@ -122,69 +132,120 @@ public class MaxEntropyTrainer extends AbstractTrainer {
 
 	@Override
 	public void train() {
+		logger.info("start");
 		
 		double[] lastWeight = new double[weight.length];
+		
+		double[] empiricalE = new double[functionSize];
+		for(int i=0;i<functionSize;++i)
+		{
+			empiricalE[i] = (double)featureFunctionNumb.get(i)/instanceSet.size();
+		}
 		
 		for(int i=0;i<ITERATIONS_NUMB;++i)
 		{
 			lastWeight = weight;
 			double[] delta = new double[functionSize];
 			
-			for(int j=0;j<instanceSet.size();++j)
-			{
-				delta = calculateDelta(instanceSet.get(i).getType(),instanceSet.get(i).getVector());
-				weight = VectorOperation.addition(weight, delta);
-			}
-						
-			lastWeight = weight;
+			
+			delta = calculateDelta(empiricalE);
+			weight = VectorOperation.addition(weight, delta);
+			
 			
 			double eps = DistanceCalculation.EuclideanDistance(lastWeight,weight);
+			
 			if(eps<ITERATIONS_VALUE)
 			{
 				break;
-			}
+			}			
 		}
+		
+		logger.info(Arrays.toString(weight));
 	}
 	
-	private double[] calculateDelta(int typeid,int[] vector){
-		double[] EEmp = new double[functionSize];
-		double[] EReal = new double[functionSize];	
+	private double[] calculateDelta(double[] empiricalE){
+		
+		double[] modelE = new double[functionSize];	
 		double[] delta = new double[functionSize];
 		
-		Arrays.fill(EEmp, 0);
-		Arrays.fill(EReal, 0);
+		Arrays.fill(modelE, 0);
 		Arrays.fill(delta, 0);
 		
-		for(int i=0;i<length;++i)
-		{
-			int temp = featuresID[i][vector[i]];
-			Pair pair = new Pair(temp,typeid);
-			int index = featureFunctionList.indexOf(pair);
-			EEmp[index] = featureFunctionNumb.get(index);
-			
-		}
 		
+		modelE = calculateModelE();
+		
+		
+		for(int i=0;i<functionSize;++i)
+		{
+			delta[i] = (1/C)*(empiricalE[i]/modelE[i]);
+		}
 		return delta;
 	}
 	
-	private double[] calculateRealEstimation(int x,int typeid)
+	private double[] calculateModelE()
 	{
+		double[] modelE = new double[functionSize];
+		Arrays.fill(modelE, 0);
 		
+		for(InstanceI instance:instanceSet)
+		{
+			double[] porb = infer(instance.getVector());
+			for(int j = 0;j<classNumb;++j)
+			{
+				for(int i=0;i<length;++i)
+				{
+					int tempid = instance.getVector()[i];
+					tempid  = featuresID[i][tempid];
+					Pair<Integer,Integer> pair = new Pair<Integer,Integer>(tempid,j);
+					int index = featureFunctionList.indexOf(pair);
+					if(index != -1)
+					{
+						modelE[index] += porb[j]* (1.0 / instanceSet.size());
+					}
+					
+				}
+			}
+			
+			System.out.println(instance);
+		}
+		
+		return modelE;
 	}
 	
-	private double infer(int[] vector,int typeid)
+	private double[] infer(int[] vector)
 	{
-		double[] porb = new double[functionSize];
+		double[] porb = new double[classNumb];
 		double sum = 0;
 		
-		for(int i=0;i<length;++i)
+		for(int j=0;j<classNumb;++j)
 		{
-			for(int j=0;j<classNumb;++j)
-			{
-				int temp
+			double tempSum = 0;
+		      for(int i=0;i<length;++i)
+		      {
+			
+				int tempid = featuresID[i][vector[j]];
+				Pair<Integer,Integer> pair = new Pair<Integer,Integer>(tempid,j);
+				int index = featureFunctionList.indexOf(pair);
+				if(index == -1)
+				{
+					logger.error("Error,no exist pair！");
+				}
+				else
+				{
+					tempSum+= weight[index];
+				}
 			}
-			porb[i] = 
+		      
+		    porb[j] =  Math.exp(tempSum);
+		    sum += porb[j];
 		}
+		
+		for(int j=0;j<classNumb;++j)
+		{
+			porb[j] = porb[j]/sum;
+		}
+		
+		return porb;
 	}
 
 	@Override
@@ -197,6 +258,28 @@ public class MaxEntropyTrainer extends AbstractTrainer {
 	public void clear() {
 		// TODO Auto-generated method stub
 
+	}
+	
+	public void saveModel(String path) throws IOException
+	{
+		model = new MaxEntropyModel(features, featuresID,
+				weight, classNumb, length,
+				featureFunctionList);
+		
+		super.saveModel(path, model);
+	}
+	
+	public static void main(String args) throws IOException
+	{
+		String path = "data/corpus/maxent.data";
+	    Maxent maxent = new Maxent();
+	    maxent.readData(path);	    
+	    InstanceSetI inputFeature = maxent.getInputFeature();
+	    
+		MaxEntropyTrainer maxEntropy = new MaxEntropyTrainer();
+		maxEntropy.init(inputFeature);
+		maxEntropy.train();
+		
 	}
 
 }

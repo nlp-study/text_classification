@@ -21,7 +21,7 @@ public class InstanceSetCensus {
 Logger logger = Logger.getLogger(InstanceSetCensus.class);
 	
 	// 类别的数量
-	private int K = 0;
+	private int classNumb = 0;
 	
 	//特征总的维度
 	private int dim;
@@ -50,13 +50,12 @@ Logger logger = Logger.getLogger(InstanceSetCensus.class);
 		}	
 	}
 	
-	
-	public int getK() {
-		return K;
+	public int getClassNumb() {
+		return classNumb;
 	}
 
-	public void setK(int k) {
-		K = k;
+	public void setClassNumb(int k) {
+		classNumb = k;
 	}
 
 	public int getDim() {
@@ -114,7 +113,7 @@ Logger logger = Logger.getLogger(InstanceSetCensus.class);
 		{
 			temp.add(instanceSet.get(i).getType());
 		}
-		K = temp.size();
+		classNumb = temp.size();
 	}
 
 	
@@ -183,7 +182,7 @@ Logger logger = Logger.getLogger(InstanceSetCensus.class);
 	public String toString()
 	{
 		String str = "";
-		str += K+"\r\n ";
+		str += classNumb+"\r\n ";
 		str += dim+"\r\n ";
 		str += Arrays.deepToString(features)+"\r\n";
 		str += Arrays.deepToString(featuresNumb)+"\r\n";
