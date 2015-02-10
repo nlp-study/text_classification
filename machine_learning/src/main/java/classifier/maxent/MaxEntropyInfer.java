@@ -44,6 +44,8 @@ public class MaxEntropyInfer extends AbstractInfer {
 		
 		classNumb = model.getClassNumb();
 		
+		featureFunctionList = model.getFeatureFunctionList();
+		
 		length = model.getLength();
 	}
 
@@ -73,14 +75,11 @@ public class MaxEntropyInfer extends AbstractInfer {
 				{
 					Pair<Integer,Integer> pair = new Pair<Integer,Integer>(tempid,j);
 					int index = featureFunctionList.indexOf(pair);
-					if(index == -1)
-					{
-						logger.error("Error,no exist pair！");
-					}
-					else
+					if(index != -1)
 					{
 						tempSum+= weight[index];
 					}
+					
 				}				
 			}
 		      
@@ -106,16 +105,22 @@ public class MaxEntropyInfer extends AbstractInfer {
 	
 	public int selectFeatureFunctionID(int dim,int value)
 	{
-		
 		for(int i=0;i<features[dim].length;++i)
 		{
 		   if(value == features[dim][i])
-		   {
-			   return i;
+		   {  
+			   if(i<featuresID[dim].length)
+			   {
+				   int id = featuresID[dim][i];
+				   return id;
+			   }
+			   else
+			   {
+				   return -1;
+			   }
 		   }
 		}
 		return -1;
-		
 	}
 	
 	

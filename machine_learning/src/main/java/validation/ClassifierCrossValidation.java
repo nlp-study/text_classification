@@ -14,6 +14,8 @@ import classifier.AbstractInfer;
 import classifier.AbstractTrainer;
 import classifier.bayes.BayesInfer;
 import classifier.bayes.BayesTrainer;
+import classifier.maxent.MaxEntropyInfer;
+import classifier.maxent.MaxEntropyTrainer;
 import classifier.util.FeatureDoubleToInt;
 import evaluation.ClassifyEvaluation;
 import base.ClassifyResult;
@@ -185,13 +187,19 @@ public class ClassifierCrossValidation {
 		iris.readData(path);
 		InstanceSetD inputFeature = iris.getInputFeature();
 		
+		/**************使用的不同分类器分类器******************/
+//		AbstractTrainer trainer = new BayesTrainer();
+//		AbstractInfer infer = new BayesInfer();
+		
+		AbstractTrainer trainer = new MaxEntropyTrainer();
+		AbstractInfer infer = new MaxEntropyInfer();
+		
+		/*************使用的不同分类器分类器******************/
+		
 		ClassifierCrossValidation crossValidation = new ClassifierCrossValidation(inputFeature);
 		DataSlice dataSlice = new KFolderDataSlice();
 		crossValidation.sliceData(dataSlice);
-		AbstractTrainer trainer = new BayesTrainer();
-		AbstractInfer infer = new BayesInfer();
 		String modelPath = "data/result/model.m";
-		List<ValidationID> validationIDs = crossValidation.getVerificationIDs();
 		crossValidation.crossCheck(trainer,infer,modelPath);
 		crossValidation.showResult();
 	}

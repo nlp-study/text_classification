@@ -28,7 +28,6 @@ public class MaxEntropyTrainerTest {
 	    Maxent maxent = new Maxent();
 	    maxent.readData(path);	    
 	    InstanceSetI inputFeature = maxent.getInputFeature();
-	    
 	
 		maxEntropy.init(inputFeature);
 	}

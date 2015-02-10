@@ -23,7 +23,7 @@ public class MaxEntropyTrainer extends AbstractTrainer {
 	//最大迭代次数
 	static final int ITERATIONS_NUMB = 1000;
 		
-	static final double ITERATIONS_VALUE = 0.1;
+	static final double ITERATIONS_VALUE = 0.001;
 	
 	double[] weight;
 	
@@ -51,7 +51,7 @@ public class MaxEntropyTrainer extends AbstractTrainer {
   	private int C = 0;
   	
   	//不同特征函数的数量，不是特征函数的总数
-  	private int functionSize = 0;
+  	private int functionSize;
   	
   	//特征向量的长度
   	int length;
@@ -80,7 +80,7 @@ public class MaxEntropyTrainer extends AbstractTrainer {
 		weight = new double[functionSize];
 		Arrays.fill(weight, 0);
 		
-		this.C = length*instanceSet.getSize();
+		this.C = length;
 		
 		
 	}
@@ -144,6 +144,7 @@ public class MaxEntropyTrainer extends AbstractTrainer {
 		
 		for(int i=0;i<ITERATIONS_NUMB;++i)
 		{
+			logger.info("iteration:"+i);
 			lastWeight = weight;
 			double[] delta = new double[functionSize];
 			
@@ -156,8 +157,14 @@ public class MaxEntropyTrainer extends AbstractTrainer {
 			
 			if(eps<ITERATIONS_VALUE)
 			{
+				logger.info(eps);
 				break;
-			}			
+			}	
+			
+//			if(checkConvergence(lastWeight,weight))
+//			{
+//				break;
+//			}
 		}
 		
 		logger.info(Arrays.toString(weight));
@@ -177,7 +184,7 @@ public class MaxEntropyTrainer extends AbstractTrainer {
 		
 		for(int i=0;i<functionSize;++i)
 		{
-			delta[i] = (1/C)*(empiricalE[i]/modelE[i]);
+			delta[i] = (1.0/(double)3)*Math.log(((double)empiricalE[i]/modelE[i]));
 		}
 		return delta;
 	}
@@ -205,8 +212,6 @@ public class MaxEntropyTrainer extends AbstractTrainer {
 					
 				}
 			}
-			
-			System.out.println(instance);
 		}
 		
 		return modelE;
@@ -222,18 +227,14 @@ public class MaxEntropyTrainer extends AbstractTrainer {
 			double tempSum = 0;
 		      for(int i=0;i<length;++i)
 		      {
-			
-				int tempid = featuresID[i][vector[j]];
+			    int tempid = featuresID[i][vector[i]];
 				Pair<Integer,Integer> pair = new Pair<Integer,Integer>(tempid,j);
 				int index = featureFunctionList.indexOf(pair);
-				if(index == -1)
-				{
-					logger.error("Error,no exist pair！");
-				}
-				else
+				if(index != -1)
 				{
 					tempSum+= weight[index];
 				}
+				
 			}
 		      
 		    porb[j] =  Math.exp(tempSum);
@@ -247,6 +248,16 @@ public class MaxEntropyTrainer extends AbstractTrainer {
 		
 		return porb;
 	}
+	
+	public boolean checkConvergence(double[] w1, double[] w2)
+    {
+        for (int i = 0; i < w1.length; ++i)
+        {
+            if (Math.abs(w1[i] - w2[i]) >= 0.01)    // 收敛阀值0.01可自行调整
+                return false;
+        }
+        return true;
+    }
 
 	@Override
 	public int getClassNumb() {
@@ -256,7 +267,25 @@ public class MaxEntropyTrainer extends AbstractTrainer {
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
+		weight = null;
+		
+		features = null;
+		
+		featuresID = null;
+		
+		featureSize = 0;
+		
+		featureFunctionList.clear();
+		
+		featureFunctionNumb.clear();
+	    
+	  	instanceSet.clear();
+	  	
+	  	C = 0;
+	  	
+	  	functionSize = 0;
+	  	
+	  	length = 0;
 
 	}
 	
