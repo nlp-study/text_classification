@@ -14,8 +14,6 @@ import base.InstanceSetI;
 /**
  * @author xiaohe
  * 创建于：2015年2月9日
- * 代码中出现的问题：
- * 1. modelE除考虑的问题不全面，应该是所有类别的概率，这里单独以为是指定的类别
  */
 public class MaxEntropyTrainerTest {
 	private static MaxEntropyTrainer maxEntropy = new MaxEntropyTrainer();

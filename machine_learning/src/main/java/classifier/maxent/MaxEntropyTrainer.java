@@ -47,7 +47,7 @@ public class MaxEntropyTrainer extends AbstractTrainer {
     //经过处理的特征向量，特征值都是features中的id
   	private List<InstanceI> instanceSet = new ArrayList<InstanceI>();
   	
-  	//所有特征函数数量的和
+  	//输入特征维度的最大值，这里输入的特征都是定维度的因此是一个固定的值
   	private int C = 0;
   	
   	//不同特征函数的数量，不是特征函数的总数
