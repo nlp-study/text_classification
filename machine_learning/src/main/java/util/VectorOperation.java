@@ -20,6 +20,7 @@ public class VectorOperation {
 		if(v1.length != v2.length)
 		{
 			logger.error("输入的两个向量维度不等！");
+			return -1;
 		}
 		
 		double result = 0;
@@ -96,6 +97,23 @@ public class VectorOperation {
 		}
 		
 		return result;
+	}
+	
+	public static double  errorSumSquares(double[] v1 , double[] v2)
+	{
+		if(v1.length != v2.length)
+		{
+			logger.error("输入的两个向量维度不等！");
+			return -1;
+		}
+		double sum = 0;
+		
+		for(int i=0;i<v1.length;++i)
+		{
+			sum+= Math.pow((v1[i] - v2[i]),2);
+		}
+		
+		return sum;
 	}
 
 }

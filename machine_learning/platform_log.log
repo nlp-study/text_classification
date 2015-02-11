@@ -1,0 +1,471 @@
+
+2015-02-11 16:10:47
+[ERROR]-[Thread: main]-[util.VectorOperation.errorSumSquares()]: 输入的两个向量维度不等！
+
+2015-02-11 18:11:44
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: 准确率：0.3333333333333333
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:0
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:1
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:2
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:3
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:4
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:5
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:6
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:7
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:8
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:9
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:10
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:11
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:12
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:13
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:14
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:15
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:16
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:17
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:18
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:19
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:20
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:21
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:22
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:23
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:24
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:25
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:26
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:27
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:28
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:29
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:30
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:31
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:32
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:33
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:34
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:35
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:36
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:37
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:38
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:39
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:40
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:41
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:42
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:43
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:44
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:45
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:46
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:47
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:48
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:49
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:50
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:51
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:52
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:53
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:54
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:55
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:56
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:57
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:58
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:59
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:60
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:61
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:62
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:63
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:64
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:65
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:66
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:67
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:68
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:69
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:70
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:71
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:72
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:73
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:74
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:75
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:76
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:77
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:78
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:79
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:80
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:81
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:82
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:83
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:84
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:85
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:86
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:87
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:88
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:89
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:90
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:91
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:92
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:93
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:94
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:95
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:96
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:97
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:98
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:99
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:100
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:101
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:102
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:103
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:104
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:105
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:106
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:107
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:108
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:109
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:110
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:111
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:112
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:113
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:114
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:115
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:116
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:117
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:118
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:119
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:120
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:121
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:122
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:123
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:124
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:125
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:126
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:127
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:128
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:129
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:130
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:131
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:132
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:133
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:134
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:135
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:136
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:137
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:138
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:139
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:140
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:141
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:142
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:143
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:144
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:145
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:146
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:147
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:148
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:149
+
+2015-02-11 18:13:26
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: 准确率：0.3333333333333333
+
+2015-02-11 18:16:34
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:0
+
+2015-02-11 18:16:34
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: ok:1
+
+2015-02-11 18:16:34
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: wrong:2
+
+2015-02-11 18:16:34
+[INFO]-[Thread: main]-[cluster.kmeans.KMeansTrainer.main()]: 准确率：0.6666666666666666
