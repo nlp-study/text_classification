@@ -4,24 +4,24 @@ import java.io.Serializable;
 
 public class Pair<S,T> implements Serializable
 {
-	public S s;
-	public T t;
+	public S key;
+	public T value;
 	
 	public Pair(S s,T t)
 	{
-		this.s = s;
-		this.t = t;
+		this.key = s;
+		this.value = t;
 	}
 	
 	public String toString()
 	{
-		String str = s.toString()+" "+t.toString();
+		String str = key.toString()+" "+value.toString();
 		return str;
 	}
 	
 	public boolean equals(Object obj){
 		Pair tempPair = (Pair)obj;
-		if(this.s.equals(tempPair.s) && this.t.equals(tempPair.t))
+		if(this.key.equals(tempPair.key) && this.value.equals(tempPair.value))
 		{
 			return true;
 		}
