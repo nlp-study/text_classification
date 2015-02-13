@@ -228,8 +228,7 @@ public class KMeansTrainer {
 		logger.info("准确率："+p);
 		
 	}
-	
-	
+		
 	public static Map<Integer,Integer> correspondResult(int K,
 			Map<Integer,Integer> classes,InstanceSetD instances)
 	{

@@ -7,6 +7,11 @@ public class Pair<S,T> implements Serializable
 	public S key;
 	public T value;
 	
+	public Pair()
+	{
+		
+	}
+	
 	public Pair(S s,T t)
 	{
 		this.key = s;
