@@ -1,5 +1,6 @@
 package base;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -12,8 +13,7 @@ import org.apache.log4j.Logger;
  * 创建于：2015年1月29日
  * 连续型特征，用于回归
  */
-public class InstanceSetD {
-	Logger logger = Logger.getLogger(InstanceSetD.class);
+public class InstanceSetD implements Serializable{
 		
 	List<InstanceD> instances = new ArrayList<InstanceD>();
 	
@@ -65,7 +65,7 @@ public class InstanceSetD {
 	{
 		if(index>instances.size()-1)
 		{
-			logger.error("out of size!");
+			System.out.println("out of size!");
 		}
 		
 		return instances.get(index);
@@ -75,7 +75,7 @@ public class InstanceSetD {
 	{
 		if(index>instances.size()-1)
 		{
-			logger.error("out of size!");
+			System.out.println("out of size!");
 		}
 		
 		return instances.get(index).getType();
@@ -91,5 +91,12 @@ public class InstanceSetD {
 		}
 		
 		return numb.size();
+	}
+	
+	public void setClassID(int id,int value)
+	{
+		InstanceD instance = instances.get(id);
+		instance.setType(value);
+		instances.set(id, instance);
 	}
 }

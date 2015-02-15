@@ -21,8 +21,8 @@ import base.InstanceSetD;
  * 1. 算法不能自动停止
  * 2. 对E为0，但是精度达不到要求的情况没有考虑到
  */
-public class SVMTrainer extends AbstractRegressTrainer {
-	Logger logger = Logger.getLogger(SVMTrainer.class);
+public class CopyOfSVMTrainer extends AbstractRegressTrainer {
+	Logger logger = Logger.getLogger(CopyOfSVMTrainer.class);
 	
 	//最大迭代次数		
 	static final int ITERATIONS_NUMB = 1000;
@@ -90,13 +90,13 @@ public class SVMTrainer extends AbstractRegressTrainer {
 		while(isKeppingRun())
 		{
 			logger.info("iteration:"+i);
-			if(i == 4)
+			if(i == 3)
 			{
 				System.out.println();
 			}
 			iteration();
 //			logger.info("E:"+Arrays.toString(E));
-			logger.info("α:"+Arrays.toString(alpha));
+//			logger.info("α:"+Arrays.toString(alpha));
 			++i;
 			if(i == ITERATIONS_NUMB)
 			{
@@ -116,18 +116,32 @@ public class SVMTrainer extends AbstractRegressTrainer {
 		calculateE();
 		logger.info("E:"+Arrays.toString(E));
 		
-		int alpha1ID = selectPeriphery();
-		int alpha2ID = selectSubcoat(alpha1ID);
 		
-		logger.info("α1 id:"+alpha1ID+" "+"α2 id:"+alpha2ID);
-		
-		double alpha2 = clipAlpha2(alpha1ID, alpha2ID);
-		double alpha1 = calculateAlpha1(alpha1ID, alpha2ID,alpha2);
+		for(int i=0;i<featureSize;++i)
+		{
+			if(selectPeriphery(i))
+			{
+				int alpha1ID = i;
 				
-		b = calculateB(alpha1ID,alpha2ID,alpha1,alpha2);
-		
-		alpha[alpha1ID] = alpha1;
-		alpha[alpha2ID] = alpha2;
+				int alpha2ID = selectSubcoat(alpha1ID);
+				
+				if(alpha1ID == 98)
+				{
+					System.out.println();
+				}
+				logger.info("α1 id:"+alpha1ID+" "+"α2 id:"+alpha2ID);
+				
+				double alpha2 = clipAlpha2(alpha1ID, alpha2ID);
+				double alpha1 = calculateAlpha1(alpha1ID, alpha2ID,alpha2);
+						
+				b = calculateB(alpha1ID,alpha2ID,alpha1,alpha2);
+				
+				alpha[alpha1ID] = alpha1;
+				alpha[alpha2ID] = alpha2;
+				logger.info("α:"+Arrays.toString(alpha));
+			}
+			
+		}
 	}
 	
 	public void calculateE()
@@ -159,46 +173,38 @@ public class SVMTrainer extends AbstractRegressTrainer {
 	}
 	
 	//外层循环
-	public int selectPeriphery()
+	public boolean selectPeriphery(int i)
 	{
-		for(int i=0;i<featureSize;++i)
+		
+		if(alpha[i]<C && alpha[i]>0)
 		{
-			if(alpha[i]<C && alpha[i]>0)
-			{
 				double pred = predict(i);
 				int y = instanceSet.getClassID(i);
 				if(pred*y != 1)
 				{
-					return i;
+					return true;
 				}
-			}
-		}
-		
-		for(int i=0;i<featureSize;++i)
+		}else if(alpha[i] == C )
 		{
-			if(alpha[i] == C )
-			{
 				double pred = predict(i);
 				int y = instanceSet.getClassID(i);
 				if(pred*y > 1-tolerance)
 				{
-					return i;
+					return true;
 				}
-			}
-			else if(alpha[i] == 0)
-			{
+		}
+		else if(alpha[i] == 0)
+		{
 				double pred = predict(i);
 				int y = instanceSet.getClassID(i);
 				if(pred*y < 1 +tolerance)
 				{
-					return i;
+					return true;
 				}
-			}
-			
 		}
 		
-		logger.info("所有的输入特征都满足了要求！");
-		return 0;
+		return false;
+				
 	}
 	
 	
@@ -230,12 +236,12 @@ public class SVMTrainer extends AbstractRegressTrainer {
 	
 	public int arrayMaxID(double[] array,int excludedID)
 	{
-		double max = Double.MIN_VALUE;
+		double max = -Double.MAX_VALUE;
 		int id = 0;
 		
 		for(int i=0;i<array.length;++i)
 		{
-			if(array[i]>max && i!=excludedID)
+			if(i!=excludedID && array[i]>max)
 			{
 				max = array[i];
 				id = i;
