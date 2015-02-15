@@ -12,6 +12,7 @@ import regress.AbstractRegressInfer;
 import regress.AbstractRegressTrainer;
 import regress.softmax.SoftmaxInfer;
 import regress.softmax.SoftmaxTrainer;
+import regress.svm.CopyOfSVMTrainer;
 import regress.svm.SVMInfer;
 import regress.svm.SVMTrainer;
 import validation.slice.DataSlice;
@@ -276,6 +277,7 @@ Logger logger = Logger.getLogger(BinaryRegreeCrossValidation.class);
 		
 		//softmax
 		AbstractRegressTrainer trainer = new SVMTrainer();
+//		AbstractRegressTrainer trainer = new CopyOfSVMTrainer();
 		AbstractRegressInfer infer = new SVMInfer();
 		
 		/**********************使用的回归模型********************/

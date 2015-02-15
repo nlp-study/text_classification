@@ -89,7 +89,7 @@ public class CopyOfSVMTrainer extends AbstractRegressTrainer {
 		double bLast = 0;
 		while(isKeppingRun())
 		{
-			logger.info("iteration:"+i);
+//			logger.info("iteration:"+i);
 			if(i == 3)
 			{
 				System.out.println();
@@ -113,12 +113,15 @@ public class CopyOfSVMTrainer extends AbstractRegressTrainer {
 	 */
 	public void iteration()
 	{
-		calculateE();
-		logger.info("E:"+Arrays.toString(E));
+		
 		
 		
 		for(int i=0;i<featureSize;++i)
 		{
+			
+			calculateE();
+//			logger.info("E:"+Arrays.toString(E));
+			
 			if(selectPeriphery(i))
 			{
 				int alpha1ID = i;
@@ -129,7 +132,7 @@ public class CopyOfSVMTrainer extends AbstractRegressTrainer {
 				{
 					System.out.println();
 				}
-				logger.info("α1 id:"+alpha1ID+" "+"α2 id:"+alpha2ID);
+//				logger.info("α1 id:"+alpha1ID+" "+"α2 id:"+alpha2ID);
 				
 				double alpha2 = clipAlpha2(alpha1ID, alpha2ID);
 				double alpha1 = calculateAlpha1(alpha1ID, alpha2ID,alpha2);
@@ -138,7 +141,7 @@ public class CopyOfSVMTrainer extends AbstractRegressTrainer {
 				
 				alpha[alpha1ID] = alpha1;
 				alpha[alpha2ID] = alpha2;
-				logger.info("α:"+Arrays.toString(alpha));
+//				logger.info("α:"+Arrays.toString(alpha));
 			}
 			
 		}

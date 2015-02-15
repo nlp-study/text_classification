@@ -95,7 +95,7 @@ public class SVMTrainer extends AbstractRegressTrainer {
 				System.out.println();
 			}
 			iteration();
-//			logger.info("E:"+Arrays.toString(E));
+
 			logger.info("α:"+Arrays.toString(alpha));
 			++i;
 			if(i == ITERATIONS_NUMB)
@@ -113,6 +113,7 @@ public class SVMTrainer extends AbstractRegressTrainer {
 	 */
 	public void iteration()
 	{
+		
 		calculateE();
 		logger.info("E:"+Arrays.toString(E));
 		
@@ -230,7 +231,7 @@ public class SVMTrainer extends AbstractRegressTrainer {
 	
 	public int arrayMaxID(double[] array,int excludedID)
 	{
-		double max = Double.MIN_VALUE;
+		double max = -Double.MAX_VALUE;
 		int id = 0;
 		
 		for(int i=0;i<array.length;++i)
