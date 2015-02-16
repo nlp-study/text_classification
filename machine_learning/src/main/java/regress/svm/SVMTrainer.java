@@ -20,6 +20,7 @@ import base.InstanceSetD;
  * 实现中遇到的问题：
  * 1. 算法不能自动停止
  * 2. 对E为0，但是精度达不到要求的情况没有考虑到
+ * 3. 迭代次数非常少，估计是实现中有什么问题没有考虑到，还需要改进
  */
 public class SVMTrainer extends AbstractRegressTrainer {
 	Logger logger = Logger.getLogger(SVMTrainer.class);
@@ -84,28 +85,34 @@ public class SVMTrainer extends AbstractRegressTrainer {
 	public void train() {
 		
 		int i = 0;
-		double[] alphalast = new double[featureSize];
+		double[] alphaLast = new double[featureSize];
 		double[] ELast = new double[featureSize];
 		double bLast = 0;
+		
 		while(isKeppingRun())
 		{
+			System.arraycopy(alpha, 0, alphaLast, 0, alpha.length);
+			System.arraycopy(E, 0, ELast, 0, E.length);
+			bLast = b;
+			
 			logger.info("iteration:"+i);
-			if(i == 4)
-			{
-				System.out.println();
-			}
+			
 			iteration();
 
-			logger.info("α:"+Arrays.toString(alpha));
+//			logger.info("α:"+Arrays.toString(alpha));
 			++i;
 			if(i == ITERATIONS_NUMB)
 			{
 				break;
 			}
-			
+			if(Arrays.equals(alphaLast, alpha) && Arrays.equals(ELast, E) && bLast == b)
+			{
+				break;
+			}
 		}
 		
 	}
+	
 	
 	/**
 	 * @comment:一次迭代过程
@@ -115,12 +122,12 @@ public class SVMTrainer extends AbstractRegressTrainer {
 	{
 		
 		calculateE();
-		logger.info("E:"+Arrays.toString(E));
+//		logger.info("E:"+Arrays.toString(E));
 		
 		int alpha1ID = selectPeriphery();
 		int alpha2ID = selectSubcoat(alpha1ID);
 		
-		logger.info("α1 id:"+alpha1ID+" "+"α2 id:"+alpha2ID);
+//		logger.info("α1 id:"+alpha1ID+" "+"α2 id:"+alpha2ID);
 		
 		double alpha2 = clipAlpha2(alpha1ID, alpha2ID);
 		double alpha1 = calculateAlpha1(alpha1ID, alpha2ID,alpha2);

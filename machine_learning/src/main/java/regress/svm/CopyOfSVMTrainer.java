@@ -9,17 +9,11 @@ import regress.AbstractRegressTrainer;
 import util.Pair;
 import base.InstanceSetD;
 
+
 /**
  * @author xiaohe
- * 创建于：2015年2月13日
- * 注：用smo算法进行学习
- *
- * 基本公式：
- * f(x) = sign(w·x+b)
- * 
- * 实现中遇到的问题：
- * 1. 算法不能自动停止
- * 2. 对E为0，但是精度达不到要求的情况没有考虑到
+ * 创建于：2015年2月16日
+ * 迭代的机制不同
  */
 public class CopyOfSVMTrainer extends AbstractRegressTrainer {
 	Logger logger = Logger.getLogger(CopyOfSVMTrainer.class);
@@ -84,21 +78,27 @@ public class CopyOfSVMTrainer extends AbstractRegressTrainer {
 	public void train() {
 		
 		int i = 0;
-		double[] alphalast = new double[featureSize];
+		double[] alphaLast = new double[featureSize];
 		double[] ELast = new double[featureSize];
 		double bLast = 0;
+		
 		while(isKeppingRun())
 		{
-//			logger.info("iteration:"+i);
-			if(i == 3)
-			{
-				System.out.println();
-			}
+			System.arraycopy(alpha, 0, alphaLast, 0, alpha.length);
+			System.arraycopy(E, 0, ELast, 0, E.length);
+			bLast = b;
+			
+			logger.info("iteration:"+i);
 			iteration();
-//			logger.info("E:"+Arrays.toString(E));
-//			logger.info("α:"+Arrays.toString(alpha));
+			logger.info("E:"+Arrays.toString(E));
+			logger.info("α:"+Arrays.toString(alpha));
 			++i;
 			if(i == ITERATIONS_NUMB)
+			{
+				break;
+			}
+			
+			if(Arrays.equals(alphaLast, alpha) && Arrays.equals(ELast, E) && bLast == b)
 			{
 				break;
 			}
@@ -113,12 +113,8 @@ public class CopyOfSVMTrainer extends AbstractRegressTrainer {
 	 */
 	public void iteration()
 	{
-		
-		
-		
 		for(int i=0;i<featureSize;++i)
 		{
-			
 			calculateE();
 //			logger.info("E:"+Arrays.toString(E));
 			
@@ -143,7 +139,6 @@ public class CopyOfSVMTrainer extends AbstractRegressTrainer {
 				alpha[alpha2ID] = alpha2;
 //				logger.info("α:"+Arrays.toString(alpha));
 			}
-			
 		}
 	}
 	

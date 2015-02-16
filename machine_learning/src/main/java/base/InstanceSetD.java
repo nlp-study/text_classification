@@ -53,7 +53,12 @@ public class InstanceSetD implements Serializable{
 	
 	public String toString()
 	{
-		return instances.toString();
+		StringBuilder sb = new StringBuilder();
+		for(InstanceD instance:instances)
+		{
+			sb.append(instance.toString()+"\n");
+		}
+		return sb.toString();
 	}
 	
 	public void clear()
