@@ -240,10 +240,10 @@ public class BinaryRegreeCrossValidation {
 		PropertyConfigurator.configure("log4j.properties");
 
 		// 产生数据
-		// String path = "data/corpus/iris_bin.data";
-		// Iris iris = new Iris();
-		// iris.readData(path);
-		// InstanceSetD inputFeature = iris.getInputFeature();
+//		 String path = "data/corpus/iris_bin.data";
+//		 Iris iris = new Iris();
+//		 iris.readData(path);
+//		 InstanceSetD inputFeature = iris.getInputFeature();
 
 		String path = "data/corpus/heart_scale.txt";
 		HeartScale heartScale = new HeartScale();
@@ -252,13 +252,13 @@ public class BinaryRegreeCrossValidation {
 
 		/********************** 使用的回归模型 ********************/
 		// perceptron
-		AbstractRegressTrainer trainer = new PerceptronTrainer();
-		AbstractRegressInfer infer = new PerceptronInfer();
+//		AbstractRegressTrainer trainer = new PerceptronTrainer();
+//		AbstractRegressInfer infer = new PerceptronInfer();
 
 		// svm
-		// AbstractRegressTrainer trainer = new SVMTrainer();
-		// AbstractRegressTrainer trainer = new CopyOfSVMTrainer();
-		// AbstractRegressInfer infer = new SVMInfer();
+		 AbstractRegressTrainer trainer = new SVMTrainer();
+//		 AbstractRegressTrainer trainer = new CopyOfSVMTrainer();
+		 AbstractRegressInfer infer = new SVMInfer();
 
 		/********************** 使用的回归模型 ********************/
 
@@ -274,5 +274,4 @@ public class BinaryRegreeCrossValidation {
 		crossValidation.crossCheck(trainer, infer, modelPath);
 		crossValidation.showResult();
 	}
-
 }

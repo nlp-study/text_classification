@@ -17,6 +17,11 @@ import util.Pair;
 import util.VectorOperation;
 import validation.Maxent;
 
+/**
+ * @author xiaohe
+ * 创建于：2015年2月28日
+ * 最大熵模型
+ */
 public class MaxEntropyTrainer extends AbstractTrainer {
 	Logger logger = Logger.getLogger(MaxEntropyTrainer.class);
 
