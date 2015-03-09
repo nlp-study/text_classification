@@ -1,17 +1,11 @@
-package regress;
-
-
+package tagging;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.util.List;
 
-/**
- * @author xiaohe
- * 创建于：2014年12月29日
- * 抽象的推理类
- */
-public abstract class AbstractRegressInfer {
+public abstract class TaggingInfer {
 	
 	/**
 	 * @param path
@@ -48,6 +42,6 @@ public abstract class AbstractRegressInfer {
 	 * @return:Object
 	 * @comment:推导
 	 */
-	public abstract int infer(double[] input);
-	
+	public abstract List<TaggingInput> infer(int[] input);
+
 }

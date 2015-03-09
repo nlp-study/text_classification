@@ -1,20 +1,15 @@
-package regress;
+package tagging;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.List;
 
 import base.InstanceSetD;
 
-
-/**
- * @author xiaohe
- * 创建于：2014年12月29日
- * 抽象的训练类
- */
-public abstract class AbstractRegressTrainer {
-	
-	public abstract void init(InstanceSetD inputFeature);
+public abstract class TaggingTrainer
+{
+	public abstract void init(TaggingInstance instances);
 	
 	public  abstract void train();
 
@@ -25,14 +20,15 @@ public abstract class AbstractRegressTrainer {
 	public <T> void saveModel(String path,T model) throws IOException
 	{
 		FileOutputStream fo = new FileOutputStream(path);   
-	    ObjectOutputStream so = new ObjectOutputStream(fo);   
+	     ObjectOutputStream so = new ObjectOutputStream(fo);   
 	  
-	    try {   
+	     try {   
 	            so.writeObject(model);   
 	            so.close();   
 	  
-	    } catch (IOException e) {   
+	     } catch (IOException e) {   
 	            System.out.println(e);   
-	    }   
+	     }   
 	}
+	
 }

@@ -240,15 +240,15 @@ public class BinaryRegreeCrossValidation {
 		PropertyConfigurator.configure("log4j.properties");
 
 		// 产生数据
-//		 String path = "data/corpus/iris_bin.data";
-//		 Iris iris = new Iris();
-//		 iris.readData(path);
-//		 InstanceSetD inputFeature = iris.getInputFeature();
+		 String path = "data/corpus/iris_bin.data";
+		 Iris iris = new Iris();
+		 iris.readData(path);
+		 InstanceSetD inputFeature = iris.getInputFeature();
 
-		String path = "data/corpus/heart_scale.txt";
-		HeartScale heartScale = new HeartScale();
-		heartScale.readData(path);
-		InstanceSetD inputFeature = heartScale.getInputFeature();
+//		String path = "data/corpus/heart_scale.txt";
+//		HeartScale heartScale = new HeartScale();
+//		heartScale.readData(path);
+//		InstanceSetD inputFeature = heartScale.getInputFeature();
 
 		/********************** 使用的回归模型 ********************/
 		// perceptron
