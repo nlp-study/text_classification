@@ -17,6 +17,16 @@ public class TaggingInput implements Serializable{
 	 * 词语的id,0~m
 	 */
 	int word;
+	
+	public TaggingInput()
+	{
+		
+	}
+	
+	public TaggingInput(int word,int tagging) {
+		this.tagging = tagging;
+		this.word = word;
+	}
 
 	public int getTagging() {
 		return tagging;

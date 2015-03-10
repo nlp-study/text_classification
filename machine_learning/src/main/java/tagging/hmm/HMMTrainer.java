@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 
 import evaluation.ClassifyEvaluation;
 import tagging.TaggingInput;
@@ -85,7 +86,8 @@ public class HMMTrainer extends TaggingTrainer {
 	 * 临时的初始化，用于测试前向后向算法
 	 */
 	public void temporaryInit(double[][] A,double[][] B,
-			double[] pi,int stateSize,int inputSize)
+			double[] pi,int stateSize,int inputSize,
+			List<TaggingInput> instances)
 	{
 		this.A = A;
 		this.B = B;
@@ -96,6 +98,7 @@ public class HMMTrainer extends TaggingTrainer {
 		
 		this.inputSize = inputSize;
 		this.stateSize = stateSize;
+		this.instances = instances;
 	}
 
 
@@ -117,7 +120,6 @@ public class HMMTrainer extends TaggingTrainer {
 			}
 			else
 			{
-				
 				for(int i=0;i<stateSize;++i)
 				{
 					alpha[t][i] = 0;
@@ -126,12 +128,23 @@ public class HMMTrainer extends TaggingTrainer {
 					{
 						alpha[t][i] += alpha[t-1][j]*A[j][i];
 					}
+					logger.info("t:"+t+" i:"+i+" alpha[t][i]:"+alpha[t][i]);
 					alpha[t][i] *= B[i][instances.get(t).getWord()];
+					logger.info("t:"+t+" i:"+i+" B[t][j]:"+B[i][instances.get(t).getWord()]);
 				}
 			}
 			
 			logger.info(Arrays.toString(alpha[t]));
 		}
+		
+		double sum = 0;
+		
+		for(int i=0;i<stateSize;++i)
+		{
+			sum+= alpha[inputSize-1][i];
+		}
+		
+		logger.info("prob is:"+sum);
 		
 	}
 	
@@ -147,12 +160,25 @@ public class HMMTrainer extends TaggingTrainer {
 	
 	public static void main(String[] args)
 	{
+		PropertyConfigurator.configure("log4j.properties");
+		
 		HMMTrainer hmmTrainer = new HMMTrainer();
+		double[][] A = {{0.5,0.2,0.3},{0.3,0.5,0.2},{0.2,0.3,0.5}};
+		double[][] B = {{0.5,0.5},{0.4,0.6},{0.7,0.3}};
+		double[] pi= {0.2,0.4,0.4};
+		int stateSize = 3;
+		int inputSize = 3;
 		
+		TaggingInput taggingInput1 = new TaggingInput(0,-1);
+		TaggingInput taggingInput2 = new TaggingInput(1,-1);
+		TaggingInput taggingInput3 = new TaggingInput(0,-1);
 		
+		List<TaggingInput> instances = new ArrayList<TaggingInput>();
+		instances.add(taggingInput1);
+		instances.add(taggingInput2);
+		instances.add(taggingInput3);
 		
+		hmmTrainer.temporaryInit(A, B, pi, stateSize, inputSize,instances);
+		hmmTrainer.forward();
 	}
-	
-	
-
 }
