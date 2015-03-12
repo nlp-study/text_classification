@@ -4,8 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaggingInstance {
-	List<TaggingInput> instances = new ArrayList<TaggingInput>();
+	private List<TaggingInput> instances = new ArrayList<TaggingInput>();
+	private boolean isTagging = false;
 	
+	
+	public TaggingInstance(List<TaggingInput> instances, boolean isTagging) {
+		this.instances = instances;
+		this.isTagging = isTagging;
+	}
+
+	public boolean isTagging() {
+		return isTagging;
+	}
 	
 	public int getMaxTaggingID()
 	{
@@ -45,9 +55,5 @@ public class TaggingInstance {
 
 	public List<TaggingInput> getInstances() {
 		return instances;
-	}
-
-	public void setInstances(List<TaggingInput> instances) {
-		this.instances = instances;
-	}
+	}	
 }

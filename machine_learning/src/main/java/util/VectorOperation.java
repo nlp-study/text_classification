@@ -99,6 +99,13 @@ public class VectorOperation {
 		return result;
 	}
 	
+	/**
+	 * @comment:计算向量间的距离
+	 * @param v1
+	 * @param v2
+	 * @return
+	 * @return:double
+	 */
 	public static double  errorSumSquares(double[] v1 , double[] v2)
 	{
 		if(v1.length != v2.length)
