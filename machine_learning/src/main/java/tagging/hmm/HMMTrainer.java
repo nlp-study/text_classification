@@ -183,7 +183,7 @@ public class HMMTrainer extends TaggingTrainer {
 	 * @return:void
 	*/
 	public void trainWithoutTagging() {
-		parameterInit();
+//		parameterInit();
 
 		double[][] lastA = new double[stateSize][stateSize];
 		double[][] lastB = new double[stateSize][wordSize];
