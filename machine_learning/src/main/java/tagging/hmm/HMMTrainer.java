@@ -20,7 +20,7 @@ public class HMMTrainer extends TaggingTrainer {
 	Logger logger = Logger.getLogger(HMMTrainer.class);
 
 	// 最大迭代次数
-	private static final int ITERATIONS_NUMB = 1000;
+	private static final int ITERATIONS_NUMB = 100;
 	private static final double ITERATIONS_VALUE = 0.1;
 
 	/**
@@ -95,6 +95,22 @@ public class HMMTrainer extends TaggingTrainer {
 		this.inputSize = inputSize;
 		this.stateSize = stateSize;
 		this.instances = instances;
+	}
+	
+	public void tempTrainInit(double[][] A, double[][] B, double[] pi,
+			int stateSize, int inputSize,int wordSize, List<TaggingInput> instances,boolean isTagging) {
+		this.A = A;
+		this.B = B;
+		this.pi = pi;
+
+		alpha = new double[inputSize][stateSize];
+		beta = new double[inputSize][stateSize];
+
+		this.inputSize = inputSize;
+		this.stateSize = stateSize;
+		this.instances = instances;
+		this.isTagging = isTagging;
+		this.wordSize = wordSize;
 	}
 
 	private void parameterInit() {
@@ -193,17 +209,23 @@ public class HMMTrainer extends TaggingTrainer {
 
 		do {
 			++iteratNumb;
-			for (int i = 0; i < 2; ++i) {
+			logger.info("iteration numb:"+iteratNumb);
+			logger.info("1");
+			for (int i = 0; i < stateSize; ++i) {
 				System.arraycopy(A[i], 0, lastA[i], 0, A[i].length);
 				System.arraycopy(B[i], 0, lastB[i], 0, B[i].length);
-				System.arraycopy(pi, 0, lastPi, 0, pi.length);
 			}
+			System.arraycopy(pi, 0, lastPi, 0, pi.length);
 
+			logger.info("1");
 			iteration();
+			logger.info("2");
 
 			if (ITERATIONS_NUMB < iteratNumb) {
 				break;
 			}
+			logger.info("3");
+			
 		} while (isStop(lastA, lastB, lastPi));
 	}
 
@@ -299,7 +321,7 @@ public class HMMTrainer extends TaggingTrainer {
 	}
 
 	/**
-	 * @comment:前端算法
+	 * @comment:前向算法
 	 * @return:void
 	 */
 	public void forward() {
@@ -311,15 +333,36 @@ public class HMMTrainer extends TaggingTrainer {
 			} else {
 				for (int i = 0; i < stateSize; ++i) {
 					alpha[t][i] = 0;
+					
+					//测试用
+//					if(t == 539)
+//					{
+//						logger.info("alpha is zero! t:"+t+" i:"+i);
+//					}
 
 					for (int j = 0; j < stateSize; ++j) {
 						alpha[t][i] += alpha[t - 1][j] * A[j][i];
 					}
 					alpha[t][i] *= B[i][instances.get(t).getWord()];
+					//测试用
+//					if(alpha[t][i] == 0)
+//					{
+//						logger.info("alpha is zero! t:"+t+" i:"+i);
+//					}
+//					logger.info("alpha t:"+t+" i:"+i+" value:"+alpha[t][i]);
+//					if(t == 10)
+//					{
+//						break;
+//					}
+					
+					if(alpha[t][i] == 0)
+					{
+						alpha[t][i] = Double.MIN_NORMAL;
+					}
 				}
 			}
 
-			logger.info(Arrays.toString(alpha[t]));
+//			logger.info(Arrays.toString(alpha[t]));
 		}
 
 		double sum = 0;
@@ -347,11 +390,18 @@ public class HMMTrainer extends TaggingTrainer {
 						beta[t][i] += A[i][j]
 								* B[j][instances.get(t + 1).getWord()]
 								* beta[t + 1][j];
+
 					}
+					
+					if(beta[t][i] == 0)
+					{
+						beta[t][i] = Double.MIN_NORMAL;
+					}
+					
 				}
 			}
 
-			logger.info(Arrays.toString(beta[t]));
+//			logger.info(Arrays.toString(beta[t]));
 		}
 
 		double sum = 0;

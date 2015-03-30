@@ -37,6 +37,7 @@ public class HMMTrainerTest {
 		double[] pi = dataFactory.getPi();
 		int stateSize = 4;
 		int inputSize = dataFactory.getInputSize();
+		int wordSize = 4;
 
 		List<TaggingInput> instances = new ArrayList<TaggingInput>();
 		for(int i=0;i<inputSize;++i)
@@ -45,9 +46,8 @@ public class HMMTrainerTest {
 			instances.add(taggingInput);
 		}
 	
-		hmmTrainer.temporaryInit(A, B, pi, stateSize, inputSize, instances);
-		hmmTrainer.forward();
-		hmmTrainer.backward();
+		hmmTrainer.tempTrainInit(A, B, pi, stateSize, inputSize, wordSize,instances,false);
+		hmmTrainer.train();
 		
 	}
 	
