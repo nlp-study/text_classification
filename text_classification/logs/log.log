@@ -1,0 +1,168 @@
+
+2015-04-08 12:00:45
+[INFO]-[Thread: main]-[manager.DictManager.createEveryClassDict()]: index:0className:AGRICULTURE
+
+2015-04-08 12:00:45
+[INFO]-[Thread: main]-[manager.DictManager.createEveryClassDict()]: filename:data/corpus/C3-AGRICULTURE/C3-Art0002.txt
+
+2015-04-08 12:00:45
+[INFO]-[Thread: main]-[manager.DictManager.inputDoc()]: 0-data/corpus/C3-AGRICULTURE/C3-Art0002.txt
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[manager.DictManager.createEveryClassDict()]: filename:data/corpus/C3-AGRICULTURE/C3-Art0003.txt
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[manager.DictManager.inputDoc()]: 1-data/corpus/C3-AGRICULTURE/C3-Art0003.txt
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[manager.DictManager.createEveryClassDict()]: filename:data/corpus/C3-AGRICULTURE/C3-Art0005.txt
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[manager.DictManager.inputDoc()]: 2-data/corpus/C3-AGRICULTURE/C3-Art0005.txt
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[dict.inverted_index.DictBuilder.buildWordFreq()]: start
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[manager.DictManager.writeToFile()]: path:data/result/dict/AGRICULTURE-
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[dict.inverted_index.InvertedIndexBuilder.saveInvertedIndex()]: path:data/result/dict/AGRICULTURE-
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[dict.inverted_index.DictBuilder.saveDict()]: path:data/result/dict/AGRICULTURE-
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[manager.DictManager.createEveryClassDict()]: index:0className:POLITICS
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[manager.DictManager.createEveryClassDict()]: filename:data/corpus/C4-POLITICS/C4-Literature01.txt
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[manager.DictManager.inputDoc()]: 3-data/corpus/C4-POLITICS/C4-Literature01.txt
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[manager.DictManager.createEveryClassDict()]: filename:data/corpus/C4-POLITICS/C4-Literature03.txt
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[manager.DictManager.inputDoc()]: 4-data/corpus/C4-POLITICS/C4-Literature03.txt
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[dict.inverted_index.DictBuilder.buildWordFreq()]: start
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[manager.DictManager.writeToFile()]: path:data/result/dict/POLITICS-
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[dict.inverted_index.InvertedIndexBuilder.saveInvertedIndex()]: path:data/result/dict/POLITICS-
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[dict.inverted_index.DictBuilder.saveDict()]: path:data/result/dict/POLITICS-
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[manager.DictManager.mergeIndex()]: data/result/dict/AGRICULTURE-invertedIndex.txt
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[dict.inverted_index.MergeIndex.readInvertedIndex()]: input file:data/result/dict/AGRICULTURE-invertedIndex.txt id:0
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[dict.inverted_index.MergeIndex.readInvertedIndex()]: input file:data/result/dict/AGRICULTURE-invertedIndex.txt id:1
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[dict.inverted_index.MergeIndex.readInvertedIndex()]: input file:data/result/dict/AGRICULTURE-invertedIndex.txt id:2
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[dict.inverted_index.MergeIndex.readInvertedIndex()]: input file:data/result/dict/AGRICULTURE-invertedIndex.txt id:3
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[manager.DictManager.mergeIndex()]: data/result/dict/POLITICS-invertedIndex.txt
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[dict.inverted_index.MergeIndex.readInvertedIndex()]: input file:data/result/dict/POLITICS-invertedIndex.txt id:0
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[dict.inverted_index.MergeIndex.readInvertedIndex()]: input file:data/result/dict/POLITICS-invertedIndex.txt id:1
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[dict.inverted_index.MergeIndex.readInvertedIndex()]: input file:data/result/dict/POLITICS-invertedIndex.txt id:2
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[dict.inverted_index.MergeIndex.readInvertedIndex()]: input file:data/result/dict/POLITICS-invertedIndex.txt id:3
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[dict.inverted_index.MergeIndex.readInvertedIndex()]: input file:data/result/dict/POLITICS-invertedIndex.txt id:4
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[dict.inverted_index.DictBuilder.buildWordFreq()]: start
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[dict.inverted_index.MergeIndex.writeDict()]: path:data/result/dict/
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[dict.inverted_index.DictBuilder.saveDict()]: path:data/result/dict/
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[manager.CHiSquareManager.init()]: start
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[manager.CHiSquareManager.inputInvertedIndex()]: start
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[manager.CHiSquareManager.excute()]: start
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[manager.CHiSquareManager.excute()]: process names:AGRICULTURE
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[manager.CHiSquareManager.excute()]: 处理完之后：5
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[feature_selection.chi_square.ChiSquareBuilder.init()]: start:'data/result/dict/AGRICULTURE-invertedIndex.txt'
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[feature_selection.chi_square.ChiSquareBuilder.init()]: totalInvertedIndex:9 invertedIndex:4
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[feature_selection.chi_square.ChiSquareBuilder.calculateValue()]: start
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[manager.CHiSquareManager.excute()]: process names:POLITICS
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[manager.CHiSquareManager.excute()]: 处理完之后：5
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[feature_selection.chi_square.ChiSquareBuilder.init()]: start:'data/result/dict/POLITICS-invertedIndex.txt'
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[feature_selection.chi_square.ChiSquareBuilder.init()]: totalInvertedIndex:9 invertedIndex:5
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[feature_selection.chi_square.ChiSquareBuilder.calculateValue()]: start
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[vsm.DocWordSelector.buildTypes()]: AGRICULTURE.txt
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[vsm.DocWordSelector.buildTypes()]: POLITICS.txt
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[vsm.DocWordSelector.buildTypes()]: [POLITICS, AGRICULTURE]
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[vsm.VSMWordSelector.setNumbForFeature()]: 特征词的数量：9
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[vsm.VSMBuilder.docs2vsms()]: 共5个文件，第0条
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[vsm.VSMBuilder.docs2vsms()]: 共5个文件，第1条
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[vsm.VSMBuilder.docs2vsms()]: 共5个文件，第2条
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[vsm.VSMBuilder.docs2vsms()]: 共5个文件，第3条
+
+2015-04-08 12:00:54
+[INFO]-[Thread: main]-[vsm.VSMBuilder.docs2vsms()]: 共5个文件，第4条

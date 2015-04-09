@@ -79,6 +79,12 @@ public class DictManager {
 	}
 	
 	
+	/**
+	 * @comment:合并倒排索引
+	 * @param path
+	 * @throws IOException
+	 * @return:void
+	 */
 	public void mergeIndex(String path) throws IOException
 	{
 		File file = new File(path);
@@ -136,8 +142,8 @@ public class DictManager {
 		CleanResultFolder.cleanFolder("logs/");
 				
 //		String sourcePath = "C:/projectStudy/data/text_classify/data/answer/";
-//		String sourcePath = "data/corpus/";
-		String sourcePath = "F:/分类数据/复旦语料库/answer/";
+		String sourcePath = "data/corpus/";
+//		String sourcePath = "F:/分类数据/复旦语料库/answer/";
 		FileClassifyList fileProcess = new FileClassifyList();
 		fileProcess.processFolder(sourcePath);
 		fileProcess.writeFileAndClass("data/result/file/");

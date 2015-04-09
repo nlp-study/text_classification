@@ -15,6 +15,11 @@ import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 
+/**
+ * @author xiaohe
+ * 创建于：2015年4月8日
+ * 词的频率，该词的数量/所有的词的数量
+ */
 public class WordFreq {
 	Logger logger = Logger.getLogger(WordFreq.class);
 

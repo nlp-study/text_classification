@@ -15,6 +15,11 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
 
+/**
+ * @author xiaohe
+ * 创建于：2015年4月8日
+ * 词的数量
+ */
 public class WordNumb {
 	private Map<String,Integer> wordNumb = new LinkedHashMap<String,Integer>();
 	

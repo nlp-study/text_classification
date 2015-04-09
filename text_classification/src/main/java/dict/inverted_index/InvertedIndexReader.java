@@ -10,6 +10,11 @@ import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 
+/**
+ * @author xiaohe
+ * 创建于：2015年4月8日
+ * 读取倒排表的类，将倒排表的文档处理成对应的对象，以后成熟之后将改用java自带的序列文件
+ */
 public class InvertedIndexReader {
 	Logger logger = Logger.getLogger(InvertedIndexReader.class);
 	

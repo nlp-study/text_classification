@@ -31,7 +31,7 @@ public class VSMBuilder {
 	// key是词，value是词在词典中的编号
 	Map<String, Integer> featureWords = new HashMap<String, Integer>();
 
-	// 给每一个class赋予一个id
+	// 给每一个类别赋予一个id
 	Map<String, Integer> classIDs = new HashMap<String, Integer>();
 
 	// 每篇文档对应的vsm
@@ -128,7 +128,7 @@ public class VSMBuilder {
 
 			List<String> words = docPreprocess.doc2Words(fileProcess.get(i)
 					.getFileame());
-			VSM vsm = createSVM(words, classid);
+			VSM vsm = createBinarySVM(words, classid);
 			vsms.add(vsm);
 			words.clear();
 			logger.info("共" + fileProcess.size() + "个文件，第" + i + "条");
@@ -142,7 +142,7 @@ public class VSMBuilder {
 
 			List<String> words = docPreprocess.doc2Words(fileProcess.get(i)
 					.getFileame());
-			VSM vsm = createSVM(words, classid);
+			VSM vsm = createBinarySVM(words, classid);
 			writeSingleVSMs(path, vsm);
 			words.clear();
 			logger.info("共" + fileProcess.size() + "个文件，第" + i + "条");
@@ -170,7 +170,7 @@ public class VSMBuilder {
 	 * @throws IOException
 	 * @return VSM
 	 */
-	public VSM createSVM(List<String> words, int typeID) throws IOException {
+	public VSM createBinarySVM(List<String> words, int typeID) throws IOException {
 
 		VSM vsm = new VSM();
 		double[] vector = words2vector(words);
@@ -180,8 +180,44 @@ public class VSMBuilder {
 
 		return vsm;
 	}
+	
+	/**
+	 * @comment:创建TFIDF类型的svm模型
+	 * @param words
+	 * @param typeID
+	 * @return
+	 * @throws IOException
+	 * @return:VSM
+	 */
+	public VSM createTFIDFSVM(List<String> words, int typeID) throws IOException {
+
+		VSM vsm = new VSM();
+		double[] vector = words2TFIDFvector(words);
+
+		vsm.setType(typeID);
+		vsm.setVector(vector);
+
+		return vsm;
+	}
 
 	public double[] words2vector(List<String> words) {
+		double[] vector = new double[featureSize];
+
+		for (int i = 0; i < vector.length; ++i) {
+			vector[i] = 0.0;
+		}
+
+		for (String word : words) {
+			Integer pos = featureWords.get(word);
+			if (pos == null) {
+				continue;
+			}
+			vector[pos] = 1.0;
+		}
+		return vector;
+	}
+	
+	public double[] words2TFIDFvector(List<String> words) {
 		double[] vector = new double[featureSize];
 
 		for (int i = 0; i < vector.length; ++i) {
