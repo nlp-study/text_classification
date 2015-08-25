@@ -1,4 +1,4 @@
-package neural_networks.bp;
+package neural_networks;
 import java.lang.Math;
 
 import util.VectorOperation;
@@ -9,6 +9,23 @@ public class NeuralNetworkNode {
 	private int feature_len = 0;
 	//	特征向量
 	private double[] feature_vec;
+	
+	private double result = 0;
+	
+	public double getResult()
+	{
+		return result;
+	}
+	
+	public double[] getFeatureVec()
+	{
+		return feature_vec;
+	}
+	
+	public void setFeatureVec(double[] inputVector)
+	{
+		this.feature_vec = inputVector; 
+	}
 	
 	public NeuralNetworkNode(int input_len)
 	{
@@ -29,7 +46,8 @@ public class NeuralNetworkNode {
 	public double transferFunction(double[] input)
 	{
 		double temp_value = VectorOperation.innerProduct(this.feature_vec, input);
-		return sigmod(temp_value);
+		result = sigmod(temp_value);
+		return result;
 	}
 	
 	

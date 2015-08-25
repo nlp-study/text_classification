@@ -1,114 +1,122 @@
 package neural_networks.bp;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+import neural_networks.BaseThreeLayerNN;
 import base.InstanceSetD;
 import regress.AbstractRegressTrainer;
 import validation.Iris;
 
-/**
- * @author Administrator
- * 需要注意的问题：
- * 1. 因为输入和隐藏层的向量都进行了扩展，这块很容易出错。
- */
 public class BPNNTrain extends AbstractRegressTrainer {
 	//	误差率	
 	private final double ERROR_RATE = 0.1;
 	//迭代次数
-	private final int ITER_NUM = 1000;
+	private final int ITER_NUM = 100;
+	
+	BaseThreeLayerNN threeLayerNN;	
+	
+	InstanceSetD inputFeature;  //输入的数据	
+	int input_size; //输入数据的总量
+	
+	double[] token_tag;	
+	double eta_1 = 0.1;
+	double eta_2 = 0.1;
+	double errorRate = 0;
 	
 	int inputNumb;
 	int hiddenNumb;
 	int outputNumber;
 	
-	double[] inputLayer;
-	NeuralNetworkNode[] hiddenLayer;
-	NeuralNetworkNode[] outputLayer;
-	InstanceSetD inputFeature;
-	double[] hiddenResult;
-	double[] outputResult;
+	ArrayList<double[]> deltaV;
+	ArrayList<double[]> deltaW;
 	
-	int input_size = 0;
-	double eta_1 = 0.1;
-	double eta_2 = 0.1;
-	
-	/**
-	 * @param inputNumb  输入层数量
-	 * @param hiddenNumb  隐藏层数量
-	 * @param outputNumber  输出层数量
-	 */
-	public BPNNTrain(int inputNumb, int hiddenNumb, int outputNumber) 
-	{ 
+	public BPNNTrain(int inputNumb, int hiddenNumb, int outputNumber)
+	{
 		this.inputNumb = inputNumb;
 		this.hiddenNumb = hiddenNumb;
-		this.outputNumber = outputNumber;		
-		inputLayer = new double[inputNumb+1];
-		hiddenResult = new double[hiddenNumb+1];
-		outputResult = new double[outputNumber];
-		hiddenLayer = new NeuralNetworkNode[hiddenNumb];
-		for(int k=0;k<hiddenNumb;++k)
+		this.outputNumber = outputNumber;
+		threeLayerNN = new BaseThreeLayerNN(inputNumb,hiddenNumb,outputNumber);
+		token_tag = new double[outputNumber];
+		deltaV = new ArrayList<double[]>();
+		deltaW = new ArrayList<double[]>();
+		for(int i=0;i<hiddenNumb;++i)
 		{
-			hiddenLayer[k] = new NeuralNetworkNode(inputNumb+1);
-		}
-		outputLayer = new NeuralNetworkNode[outputNumber];
-		for(int j=0;j<outputNumber;++j)
+			double[] tempArray = new double[inputNumb+1];
+			deltaV.add(tempArray);
+		}		
+		for(int i=0;i<outputNumber;++i)
 		{
-			outputLayer[j] = new NeuralNetworkNode(hiddenNumb+1);
+			double[] tempArray = new double[hiddenNumb+1];
+			deltaW.add(tempArray);
 		}
 	}
 
 	@Override
 	public void init(InstanceSetD inputFeature) {
+		// TODO Auto-generated method stub
+		
 		this.inputFeature = inputFeature;
 		input_size = inputFeature.getSize();
+		if(this.inputNumb != inputFeature.getLength())
+		{
+			System.out.println("Error:input train data length is not equal inputNumber");
+			System.exit(0);
+		}
 	}
 
 	@Override
 	public void train() {
-		double errorRate = 0;
+		// TODO Auto-generated method stub
+		
+		
+		int iter_numb = 0;
 		while(true)
 		{			
-			double[] hiddenGradient = new double[this.inputNumb];
-			double[] outputGradient = new double[this.hiddenNumb];
+			errorRate = 0;
 			for(int i = 0;i<input_size;++i)
 			{
-				double[] raw_inputlayer = this.inputFeature.getInstanceD(i).getVector();
-				inputLayer = vectorLengthen(raw_inputlayer);
-				calculateNetwork(inputLayer);
-				calculateW();
-				calcualteV();				
+				
+				double[] inputVector = inputFeature.getInstanceD(i).getVector();
+				setTokenValue(inputFeature.getInstanceD(i).getType());
+				threeLayerNN.infer(inputVector);
+				calculateDelta();	
+				calculateGlobalError();
 			}
-			
-			errorRate = calculateGlobalError();
+					
 			System.out.println("global error: "+errorRate);
 			
 			if(errorRate < ERROR_RATE)
 			{
 				break;
 			}
+			if(++iter_numb > ITER_NUM)
+			{
+				break;
+			}
+			
+			iterateWightVector();  //迭代权重向量
 		}
+
 	}
 	
-	private double[] vectorLengthen(double[] input)
+	private void calculateDelta()
 	{
-		double[] temp_vector = new double[input.length+1];
-		temp_vector[0] = 1;
-		for(int i=1;i<temp_vector.length;++i)
-		{
-			temp_vector[i] = input[i-1];
-		}	
-		return temp_vector;
+		calculateW();
+		calcualteV();
 	}
 	
 	private void calculateW()
 	{
 		for(int j=0;j<this.outputNumber;++j)
 		{
-			for(int k=0;k<this.hiddenNumb;++k)
+			for(int k=0;k<this.hiddenNumb+1;++k)
 			{
 				double deltaWjk = calculateDeltaWjk(j,k);
-				double Wjk = outputLayer[j].getFeautureVecByIndex(j) + deltaWjk;
-				outputLayer[j].setFeautureVecByIndex(k, Wjk);
+				double[] tempArray = deltaW.get(j);
+				double Wjk = deltaW.get(j)[k] + deltaWjk;
+				tempArray[k] = Wjk;
+				deltaW.set(j, tempArray);
 			}
 		}
 	}
@@ -116,18 +124,23 @@ public class BPNNTrain extends AbstractRegressTrainer {
 	//calculate output layer gradient Wjk
 	private double calculateDeltaWjk(int j,int k)
 	{
-		double Wjk = eta_2 * (getSingleError(j))*this.outputResult[j]*(1-this.outputResult[j])*this.hiddenResult[k];
+		
+		double Wjk = eta_2 * (getSingleError(j))*threeLayerNN.getOutputVector()[j]*(1-threeLayerNN.getOutputVector()[j])*threeLayerNN.getHiddenVector()[k];
 		return Wjk;
 	}
 	
 	private void calcualteV(){
 		for(int k=0;k<this.hiddenNumb;++k)
 		{
-			for(int i=0;i<this.inputNumb;++i)
+			for(int i=0;i<this.inputNumb+1;++i)
 			{
+//				System.out.println("input k: "+k+" i: "+i+" length of deltaV: "+deltaV.size());
 				double deltaVki = calcualteDeltaVki(k, i);
-				double Vki = hiddenLayer[k].getFeautureVecByIndex(i) + deltaVki;
-				hiddenLayer[k].setFeautureVecByIndex(k, Vki);				
+				
+				double[] tempArray = deltaV.get(k);
+				double Vki = deltaV.get(k)[i] + deltaVki;
+				tempArray[i] = Vki;
+				deltaV.set(k, tempArray);
 			}
 		}
 	}
@@ -137,61 +150,82 @@ public class BPNNTrain extends AbstractRegressTrainer {
 		double hiddenImpactFactor = 0.0;
 		for(int j=0;j<this.outputNumber;++j)
 		{
-			hiddenImpactFactor += getSingleError(j)*this.outputResult[j]*(1-this.outputResult[j])*this.outputLayer[j].getFeautureVecByIndex(k);
+			hiddenImpactFactor += getSingleError(j)*threeLayerNN.getOutputVector()[j]*(1-threeLayerNN.getOutputVector()[j])*threeLayerNN.getOutputLayerWightVector(j)[k];
 		}
-		double deltaVki = hiddenImpactFactor * this.hiddenResult[k]*(1-this.hiddenResult[k])*this.inputLayer[i];
+		double deltaVki = eta_1 * hiddenImpactFactor * threeLayerNN.getHiddenLayerValue()[k]*(1-threeLayerNN.getHiddenLayerValue()[k])*threeLayerNN.getInputVector()[i];
 		return deltaVki;
-	}
-	
-	private void calculateNetwork(double[] tempInputLayer)
-	{
-		getHiddenResult(tempInputLayer);
-		getOutputResult();		
-	}
-	
-	private void getHiddenResult(double[] tempInputLayer)
-	{
-		for(int i=0;i<hiddenNumb;++i)    //note that the hiddenResult length is hideng_length+1
-		{
-			hiddenResult[i+1] = hiddenLayer[i].transferFunction(tempInputLayer);
-		}
-	}
-	
-	private void getOutputResult()
-	{
-		for(int i=0;i<outputNumber;++i)
-		{
-			outputResult[i] = outputLayer[i].transferFunction(hiddenResult);
-		}
-	}
-	
-	private double calculateGlobalError()
-	{
-		double globalError = 0;
-		for(int j=0;j<this.outputNumber;++j)
-		{
-			globalError += getSingleError(j)*getSingleError(j);
-		}
-		globalError = globalError /2;
-		return globalError;
 	}
 	
 	private double getSingleError(int j)
 	{
-		return this.inputFeature.getClassID(j) - this.outputResult[j];
-	}
-	private double getHiddenGradient(double[] input)
-	{
-		return 0.0;
+		return token_tag[j] - threeLayerNN.getOutputVector()[j];
 	}
 	
-	private double getOutputGradient(double[] input)
+	private void calculateGlobalError()
 	{
-		return 0.0;
+		double temp = 0;
+		for(int j=0;j<this.outputNumber;++j)
+		{
+			temp += getSingleError(j) * getSingleError(j);
+		}
+		temp = temp * 0.5;
+		errorRate += temp;		
+	}
+	
+	private void iterateWightVector()
+	{
+		iterateW();
+		iterateV();
+	}
+	
+	private void iterateW()
+	{
+		for(int i=0;i<this.outputNumber;++i)
+		{
+			double[] tempWightVector = this.threeLayerNN.getOutputLayerWightVector(i);
+			double[] tempDeltaVector = this.deltaW.get(i);
+			double[] resultVector = addDoubleArray(tempWightVector,tempDeltaVector);
+			this.threeLayerNN.setOutputLayerWightVector(i, resultVector);
+		}
+	}
+	
+	private void iterateV()
+	{
+		for(int i=0;i<this.hiddenNumb;++i)
+		{
+			double[] tempWightVector = this.threeLayerNN.getHiddenLayerWightVector(i);
+			double[] tempDeltaVector = this.deltaV.get(i);
+			double[] resultVector = addDoubleArray(tempWightVector,tempDeltaVector);
+			this.threeLayerNN.setHiddenLayerWightVector(i, resultVector);
+		}
+	}
+	
+	private double[] addDoubleArray(double[] array1,double[] array2)
+	{
+		if(array1.length != array2.length)
+		{
+			System.out.println("Error:input array size is not equal!!!");
+		}
+		double[] temp = new double[array1.length];
+		for(int i=0;i<temp.length;++i)
+		{
+			temp[i] = array1[i] + array2[i];
+		}
+		return temp;
+	}
+	
+	private void setTokenValue(int token)
+	{
+		for(int i=0;i<outputNumber;++i)
+		{
+			token_tag[i] = 0;
+		}
+		token_tag[token] = 1;
 	}
 
 	@Override
 	public void clear() {
+		// TODO Auto-generated method stub
 
 	}
 	
@@ -209,5 +243,6 @@ public class BPNNTrain extends AbstractRegressTrainer {
 		bpNNTrain.init(inputFeature);
 		bpNNTrain.train();
 	}
+
 
 }
