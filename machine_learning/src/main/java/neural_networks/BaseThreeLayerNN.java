@@ -10,8 +10,8 @@ public class BaseThreeLayerNN {
 	int outputNumber;
 	
 	double[] inputLayer;
-	NeuralNetworkNode[] hiddenLayer;
-	NeuralNetworkNode[] outputLayer;
+	Neuron_1[] hiddenLayer;
+	Neuron_1[] outputLayer;
 
 	double[] inputVector;
 	double[] hiddenVector;
@@ -21,7 +21,7 @@ public class BaseThreeLayerNN {
 
 	
 		
-	public NeuralNetworkNode[] getHiddenLayer() {
+	public Neuron_1[] getHiddenLayer() {
 		return hiddenLayer;
 	}
 	
@@ -76,7 +76,7 @@ public class BaseThreeLayerNN {
 		inputLayer = new double[inputNumb];		
 		inputVector = new double[inputNumb+1];
 		hiddenVector = new double[hiddenNumb+1];
-		hiddenLayer = new NeuralNetworkNode[hiddenNumb];
+		hiddenLayer = new Neuron_1[hiddenNumb];
 		hiddenLayerValue = new double[hiddenNumb];
 		outputVector = new double[outputNumber];
 		
@@ -84,12 +84,12 @@ public class BaseThreeLayerNN {
 		
 		for(int k=0;k<hiddenNumb;++k)
 		{
-			hiddenLayer[k] = new NeuralNetworkNode(inputNumb+1);
+			hiddenLayer[k] = new Neuron_1(inputNumb+1);
 		}
-		outputLayer = new NeuralNetworkNode[outputNumber];
+		outputLayer = new Neuron_1[outputNumber];
 		for(int j=0;j<outputNumber;++j)
 		{
-			outputLayer[j] = new NeuralNetworkNode(hiddenNumb+1);
+			outputLayer[j] = new Neuron_1(hiddenNumb+1);
 		}
 	}
 
@@ -106,9 +106,9 @@ public class BaseThreeLayerNN {
 		inputVector = extendVector(inputVector);
 		calcualteHiddenLayer();
 		calculateOutputLayer();		
-//		System.out.println(Arrays.toString(inputVector));
-//		System.out.println(Arrays.toString(hiddenVector));
-//		System.out.println(Arrays.toString(outputVector));	
+//		System.out.println("input vector:"+Arrays.toString(inputVector));
+//		System.out.println("hidden vector:"+Arrays.toString(hiddenVector));
+//		System.out.println("output vector:"+Arrays.toString(outputVector));	
 	}
 	
 	private void calcualteHiddenLayer()

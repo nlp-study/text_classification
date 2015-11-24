@@ -2,6 +2,7 @@ package neural_networks.bp;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import neural_networks.BaseThreeLayerNN;
 import base.InstanceSetD;
@@ -12,7 +13,7 @@ public class BPNNTrain extends AbstractRegressTrainer {
 	//	误差率	
 	private final double ERROR_RATE = 0.1;
 	//迭代次数
-	private final int ITER_NUM = 100;
+	private final int ITER_NUM = 70;
 	
 	BaseThreeLayerNN threeLayerNN;	
 	
@@ -30,6 +31,11 @@ public class BPNNTrain extends AbstractRegressTrainer {
 	
 	ArrayList<double[]> deltaV;
 	ArrayList<double[]> deltaW;
+	
+	public BaseThreeLayerNN getBaseThreeLayerNN()
+	{
+		return threeLayerNN;
+	}
 	
 	public BPNNTrain(int inputNumb, int hiddenNumb, int outputNumber)
 	{
@@ -74,6 +80,7 @@ public class BPNNTrain extends AbstractRegressTrainer {
 		while(true)
 		{			
 			errorRate = 0;
+//			System.out.println("global error: "+errorRate);
 			for(int i = 0;i<input_size;++i)
 			{
 				
@@ -82,6 +89,12 @@ public class BPNNTrain extends AbstractRegressTrainer {
 				threeLayerNN.infer(inputVector);
 				calculateDelta();	
 				calculateGlobalError();
+//				System.out.println("global error: "+errorRate);
+				
+//				if(i>3)
+//				{
+//					System.exit(0);
+//				}
 			}
 					
 			System.out.println("global error: "+errorRate);
@@ -115,6 +128,7 @@ public class BPNNTrain extends AbstractRegressTrainer {
 				double deltaWjk = calculateDeltaWjk(j,k);
 				double[] tempArray = deltaW.get(j);
 				double Wjk = deltaW.get(j)[k] + deltaWjk;
+//				System.out.println("j:"+j+" k:"+k+" deltaWjk:"+deltaWjk);
 				tempArray[k] = Wjk;
 				deltaW.set(j, tempArray);
 			}
@@ -221,6 +235,7 @@ public class BPNNTrain extends AbstractRegressTrainer {
 			token_tag[i] = 0;
 		}
 		token_tag[token] = 1;
+//		System.out.println("tokens:"+Arrays.toString(token_tag));
 	}
 
 	@Override
@@ -237,11 +252,16 @@ public class BPNNTrain extends AbstractRegressTrainer {
 		InstanceSetD inputFeature = iris.getInputFeature();
 		
 		int inputNumb = 4;
-		int hiddenNumb = 7;
-		int outputNumber = 3;
+		int hiddenNumb = 4;
+		int outputNumber = 2;
 		BPNNTrain bpNNTrain = new BPNNTrain(inputNumb,hiddenNumb,outputNumber);
 		bpNNTrain.init(inputFeature);
 		bpNNTrain.train();
+		
+		BaseThreeLayerNN threeLayerNN = bpNNTrain.getBaseThreeLayerNN();
+		double[] inputVector = {5.7,2.8,4.1,1.3};
+		threeLayerNN.infer(inputVector);
+		System.out.println("infer result:"+Arrays.toString(threeLayerNN.getOutputVector()));
 	}
 
 

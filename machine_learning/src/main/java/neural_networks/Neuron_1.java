@@ -1,10 +1,11 @@
 package neural_networks;
 import java.lang.Math;
+import java.util.Random;
 
 import util.VectorOperation;
 
 
-public class NeuralNetworkNode {
+public class Neuron_1 {
 	//	特征向量的长度 
 	private int feature_len = 0;
 	//	特征向量
@@ -27,10 +28,15 @@ public class NeuralNetworkNode {
 		this.feature_vec = inputVector; 
 	}
 	
-	public NeuralNetworkNode(int input_len)
+	public Neuron_1(int input_len)
 	{
 		this.feature_len = input_len ;
 		this.feature_vec = new double[this.feature_len];
+		Random random = new Random();
+		for(int i=0;i<this.feature_len;++i)
+		{
+			this.feature_vec[0] = random.nextFloat();
+		}
 	}
 	
 	public double getFeautureVecByIndex(int index)
@@ -47,6 +53,7 @@ public class NeuralNetworkNode {
 	{
 		double temp_value = VectorOperation.innerProduct(this.feature_vec, input);
 		result = sigmod(temp_value);
+//		System.out.println("sigmod result:" + result);
 		return result;
 	}
 	

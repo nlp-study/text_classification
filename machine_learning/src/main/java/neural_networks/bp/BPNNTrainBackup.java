@@ -2,7 +2,7 @@ package neural_networks.bp;
 
 import java.io.IOException;
 
-import neural_networks.NeuralNetworkNode;
+import neural_networks.Neuron_1;
 import base.InstanceSetD;
 import regress.AbstractRegressTrainer;
 import validation.Iris;
@@ -25,8 +25,8 @@ public class BPNNTrainBackup extends AbstractRegressTrainer {
 	InstanceSetD inputFeature;  //输入的数据
 	
 	double[] inputLayer;
-	NeuralNetworkNode[] hiddenLayer;
-	NeuralNetworkNode[] outputLayer;
+	Neuron_1[] hiddenLayer;
+	Neuron_1[] outputLayer;
 	
 	double[] hiddenResult;
 	double[] outputResult;
@@ -53,17 +53,17 @@ public class BPNNTrainBackup extends AbstractRegressTrainer {
 		outputResult = new double[outputNumber];
 		inputVector = new double[inputNumb+1];
 		hiddenVector = new double[hiddenNumb+1];
-		hiddenLayer = new NeuralNetworkNode[hiddenNumb];
+		hiddenLayer = new Neuron_1[hiddenNumb];
 		token_tag = new double[outputNumber];
 		
 		for(int k=0;k<hiddenNumb;++k)
 		{
-			hiddenLayer[k] = new NeuralNetworkNode(inputNumb+1);
+			hiddenLayer[k] = new Neuron_1(inputNumb+1);
 		}
-		outputLayer = new NeuralNetworkNode[outputNumber];
+		outputLayer = new Neuron_1[outputNumber];
 		for(int j=0;j<outputNumber;++j)
 		{
-			outputLayer[j] = new NeuralNetworkNode(hiddenNumb+1);
+			outputLayer[j] = new Neuron_1(hiddenNumb+1);
 		}
 	}
 
@@ -227,7 +227,7 @@ public class BPNNTrainBackup extends AbstractRegressTrainer {
 		InstanceSetD inputFeature = iris.getInputFeature();
 		
 		int inputNumb = 4;
-		int hiddenNumb = 7;
+		int hiddenNumb = 12;
 		int outputNumber = 3;
 		BPNNTrainBackup bpNNTrain = new BPNNTrainBackup(inputNumb,hiddenNumb,outputNumber);
 		bpNNTrain.init(inputFeature);
