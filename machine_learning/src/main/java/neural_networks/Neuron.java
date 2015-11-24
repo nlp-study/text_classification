@@ -4,17 +4,18 @@ import java.util.ArrayList;
 
 
 public class Neuron {
-	double[] weights ;
-	double bias;
-	double[] inputs;
-	double output;
-	int inputNumb;
+	public ArrayList<Double> weights;
+	public double bias;
+	public double[] inputs;
+	public double output;
+	public int inputNumb;
 	
-	public Neuron(int inputNumb)
+	public Neuron(double bias)
 	{
-		this.inputNumb = inputNumb;
-		double[] weights = new double[inputNumb];
+		this.bias = bias;
+		ArrayList<Double> weights = new ArrayList<Double>();
 	}
+	
 	double calculateOutput(double[] inputs)
 	{
 		this.inputs = inputs;
@@ -28,7 +29,7 @@ public class Neuron {
         double total = 0;
         for(int i=0;i<inputs.length;++i)
         {
-        	total += inputs[i] * this.weights[i];
+        	total += inputs[i] * this.weights.get(i);
         }
             
         return total + bias;
@@ -43,7 +44,7 @@ public class Neuron {
         
 
     
-    double calculatePdErrorWrtTotalNetInput(double target_output)
+    public double calculate_pd_error_wrt_total_net_input(double target_output)
     {
     	return calculatePdErrorWrtOutput(target_output) * calculatePdPotalNetInputWrtInput();
     }
