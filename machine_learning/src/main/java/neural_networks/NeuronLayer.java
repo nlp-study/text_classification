@@ -1,6 +1,7 @@
 package neural_networks;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class NeuronLayer {
 	double bias = 0;
@@ -9,11 +10,20 @@ public class NeuronLayer {
 
 	public NeuronLayer(int neuronsNumb, double bias) {
 		// Every neuron in a layer shares the same bias
-		this.bias = bias;
+		Random random = new Random();
+		if(bias == 0)
+		{
+			this.bias = random.nextDouble();
+		}
+		else
+		{
+			this.bias = bias;
+		}
 		this.neuronsNumb = neuronsNumb;
 
 		for (int i = 0; i < neuronsNumb; ++i) {
-			this.neurons.add(new Neuron(bias));
+			double temp_bias = random.nextDouble();
+			this.neurons.add(new Neuron(temp_bias));
 		}
 
 	}

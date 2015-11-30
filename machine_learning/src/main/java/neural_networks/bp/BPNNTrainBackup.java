@@ -2,7 +2,7 @@ package neural_networks.bp;
 
 import java.io.IOException;
 
-import neural_networks.Neuron_1;
+import neural_networks.NeuronOriginal;
 import base.InstanceSetD;
 import regress.AbstractRegressTrainer;
 import validation.Iris;
@@ -25,8 +25,8 @@ public class BPNNTrainBackup extends AbstractRegressTrainer {
 	InstanceSetD inputFeature;  //输入的数据
 	
 	double[] inputLayer;
-	Neuron_1[] hiddenLayer;
-	Neuron_1[] outputLayer;
+	NeuronOriginal[] hiddenLayer;
+	NeuronOriginal[] outputLayer;
 	
 	double[] hiddenResult;
 	double[] outputResult;
@@ -53,17 +53,17 @@ public class BPNNTrainBackup extends AbstractRegressTrainer {
 		outputResult = new double[outputNumber];
 		inputVector = new double[inputNumb+1];
 		hiddenVector = new double[hiddenNumb+1];
-		hiddenLayer = new Neuron_1[hiddenNumb];
+		hiddenLayer = new NeuronOriginal[hiddenNumb];
 		token_tag = new double[outputNumber];
 		
 		for(int k=0;k<hiddenNumb;++k)
 		{
-			hiddenLayer[k] = new Neuron_1(inputNumb+1);
+			hiddenLayer[k] = new NeuronOriginal(inputNumb+1);
 		}
-		outputLayer = new Neuron_1[outputNumber];
+		outputLayer = new NeuronOriginal[outputNumber];
 		for(int j=0;j<outputNumber;++j)
 		{
-			outputLayer[j] = new Neuron_1(hiddenNumb+1);
+			outputLayer[j] = new NeuronOriginal(hiddenNumb+1);
 		}
 	}
 
@@ -183,7 +183,7 @@ public class BPNNTrainBackup extends AbstractRegressTrainer {
 	{
 		for(int i=0;i<hiddenNumb;++i)    //note that the hiddenResult length is hideng_length+1
 		{
-			hiddenResult[i] = hiddenLayer[i].transferFunction(inputVector);
+			hiddenResult[i] = hiddenLayer[i].feedForward(inputVector);
 			hiddenVector[i+1] = hiddenResult[i];
 		}
 		
@@ -193,7 +193,7 @@ public class BPNNTrainBackup extends AbstractRegressTrainer {
 	{
 		for(int i=0;i<outputNumber;++i)
 		{
-			outputResult[i] = outputLayer[i].transferFunction(hiddenVector);
+			outputResult[i] = outputLayer[i].feedForward(hiddenVector);
 		}
 	}
 	
