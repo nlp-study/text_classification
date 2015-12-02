@@ -13,9 +13,9 @@ import validation.Iris;
 
 public class BPNNTrain extends AbstractRegressTrainer {
 	//	误差率	
-	private final double ERROR_RATE = 1;
+	private final double ERROR_RATE = 0.01;
 	//迭代次数
-	private final int ITER_NUM = 1;
+	private final int ITER_NUM = 1000;
 	
 	BaseThreeLayerNN threeLayerNN;	
 	
@@ -117,27 +117,26 @@ public class BPNNTrain extends AbstractRegressTrainer {
 				
 				calculateDelta();	
 				calculateGlobalError();
-				System.out.println("global error: "+errorRate);
+				
 				iterateWightVector();  //迭代权重向量
-				threeLayerNN.showNeuronLayerWeight();
+//				threeLayerNN.showNeuronLayerWeight();
 				
 
-				if(i==1)
-				{
-//					System.exit(0);
-					break;
-				}
+//				if(i==1)
+//				{
+//					break;
+//				}
 			}
-			
-			break;
-//			if(errorRate < ERROR_RATE)
-//			{
-//				break;
-//			}
-//			if(++iter_numb > ITER_NUM)
-//			{
-//				break;
-//			}	
+			System.out.println("global error: "+errorRate);
+			System.out.println("iter_numb:"+iter_numb);
+			if(errorRate < ERROR_RATE)
+			{
+				break;
+			}
+			else if(++iter_numb > ITER_NUM)
+			{
+				break;
+			}	
 		}
 
 	}
@@ -159,7 +158,7 @@ public class BPNNTrain extends AbstractRegressTrainer {
 				double[] tempArray = deltaW.get(j);
 				double Wjk = deltaW.get(j)[k] + deltaWjk;
 //				System.out.println("j:"+j+" k:"+k+" deltaWjk:"+deltaWjk);
-				tempArray[k] = Wjk;
+				tempArray[k] = Wjk / 2;
 				deltaW.set(j, tempArray);
 			}
 			
@@ -182,9 +181,12 @@ public class BPNNTrain extends AbstractRegressTrainer {
 //				System.out.println("input k: "+k+" i: "+i+" length of deltaV: "+deltaV.size());
 				double deltaVki = calcualteDeltaVki(k, i);
 //				System.out.println("output deltaVki:"+deltaVki);
+//				System.out.println("output deltaV.get(k)[i]:"+deltaV.get(k)[i]);
 				double[] tempArray = deltaV.get(k);
 				double Vki = deltaV.get(k)[i] + deltaVki;
-				tempArray[i] = Vki;
+//				System.out.println("output Vki:"+Vki);
+				tempArray[i] = Vki / 2;
+//				tempArray[i] = deltaVki;
 				deltaV.set(k, tempArray);
 			}
 		}
@@ -282,7 +284,7 @@ public class BPNNTrain extends AbstractRegressTrainer {
 		Iris iris = new Iris();
 		iris.readData(path);
 		InstanceSetD inputFeature = iris.getInputFeature();
-		System.out.println(inputFeature);
+//		System.out.println(inputFeature);
 
 		
 //		double[][][] input_vector =   {{{0.0, 0.0}, {0.0}},
@@ -310,13 +312,13 @@ public class BPNNTrain extends AbstractRegressTrainer {
 		
 		int inputNumb = 4;
 		int hiddenNumb = 8;
-		int outputNumber = 1;
-		BPNNTrain bpNNTrain = new BPNNTrain(inputNumb,hiddenLayer,outputLayer);
+		int outputNumb = 1;
+		BPNNTrain bpNNTrain = new BPNNTrain(inputNumb,hiddenNumb,outputNumb);
 		bpNNTrain.init(inputFeature);
 		bpNNTrain.train();
 		
 		BaseThreeLayerNN threeLayerNN = bpNNTrain.getBaseThreeLayerNN();
-		double[] inputVector = {5.7, 2.9, 4.2, 1.3};
+		double[] inputVector = {5.7, 2.6, 3.5, 1.0};
 		threeLayerNN.infer(inputVector);
 		System.out.println("infer result:"+Arrays.toString(threeLayerNN.getOutputVector()));
 	}
