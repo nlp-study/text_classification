@@ -15,7 +15,8 @@ public class BPNNTrain extends AbstractRegressTrainer {
 	//	误差率	
 	private final double ERROR_RATE = 0.01;
 	//迭代次数
-	private final int ITER_NUM = 1000;
+	private final int ITER_NUM = 5000;
+	private final double RAGULARIZATION_RATE = 0.000001;
 	
 	BaseThreeLayerNN threeLayerNN;	
 	
@@ -127,7 +128,7 @@ public class BPNNTrain extends AbstractRegressTrainer {
 //					break;
 //				}
 			}
-//			System.out.println("global error: "+errorRate);
+			System.out.println("global error: "+errorRate);
 //			System.out.println("iter_numb:"+iter_numb);
 			if(errorRate < ERROR_RATE)
 			{
@@ -170,6 +171,10 @@ public class BPNNTrain extends AbstractRegressTrainer {
 	private double calculateDeltaWjk(int j,int k)
 	{
 		double Wjk = eta_2 * (getSingleError(j))*threeLayerNN.getOutputVector()[j]*(1-threeLayerNN.getOutputVector()[j])*threeLayerNN.getHiddenVector()[k];
+		if(k != 0)
+		{
+			Wjk = Wjk - RAGULARIZATION_RATE*threeLayerNN.getOutputLayerWightVector(j)[k];
+		}
 		return Wjk;
 	}
 	
@@ -199,7 +204,11 @@ public class BPNNTrain extends AbstractRegressTrainer {
 		{
 			hiddenImpactFactor += getSingleError(j)*threeLayerNN.getOutputVector()[j]*(1-threeLayerNN.getOutputVector()[j])*threeLayerNN.getOutputLayerWightVector(j)[k];
 		}
-		double deltaVki = eta_1 * hiddenImpactFactor * threeLayerNN.getHiddenLayerValue()[k]*(1-threeLayerNN.getHiddenLayerValue()[k])*threeLayerNN.getInputVector()[i];
+		double deltaVki = eta_1 * hiddenImpactFactor * threeLayerNN.getHiddenLayerValue()[k]*(1-threeLayerNN.getHiddenLayerValue()[k])*threeLayerNN.getInputVector()[i] ;
+		if(i != 0)
+		{
+			deltaVki = deltaVki - RAGULARIZATION_RATE*threeLayerNN.getHiddenLayerWightVector(k)[i];
+		}
 		return deltaVki;
 	}
 	

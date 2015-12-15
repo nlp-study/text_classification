@@ -63,13 +63,8 @@ public class NeuronOriginal {
 	
 	public double feedForward(double[] input)
 	{
-//		System.out.println("input:"+Arrays.toString(input));
-//		System.out.println("wieghts:"+Arrays.toString(wieghts));
 		double temp_value = VectorOperation.innerProduct(this.wieghts, input);
-//		System.out.println("temp_value:"+temp_value);
 		result = sigmod(temp_value);
-//		System.out.println("sigmod temp_value:"+result);
-//		System.out.println("sigmod result:" + result);
 		return result;
 	}
 	
