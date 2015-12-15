@@ -127,8 +127,8 @@ public class BPNNTrain extends AbstractRegressTrainer {
 //					break;
 //				}
 			}
-			System.out.println("global error: "+errorRate);
-			System.out.println("iter_numb:"+iter_numb);
+//			System.out.println("global error: "+errorRate);
+//			System.out.println("iter_numb:"+iter_numb);
 			if(errorRate < ERROR_RATE)
 			{
 				break;
@@ -263,12 +263,19 @@ public class BPNNTrain extends AbstractRegressTrainer {
 	
 	private void setTokenValue(int token)
 	{
-//		System.out.println(token);
+//		System.out.println(outputNumber);
 		for(int i=0;i<outputNumber;++i)
 		{
-			token_tag[i] = 0;
+			if(i == token)
+			{
+				token_tag[i] = 1;
+			}
+			else
+			{
+				token_tag[i] = 0;
+			}
 		}
-		token_tag[0] = token;
+		
 //		System.out.println("tokens:"+Arrays.toString(token_tag));
 	}
 
@@ -276,6 +283,43 @@ public class BPNNTrain extends AbstractRegressTrainer {
 	public void clear() {
 		// TODO Auto-generated method stub
 
+	}
+	
+	public static void testNeuralNetwork(BaseThreeLayerNN threeLayerNN,
+			InstanceSetD inputFeature,int outputNumb)
+	{ 
+		double[] inferResult = new double[outputNumb];
+		int rightNumb = 0;
+		for(int i=0;i<inputFeature.getSize();++i)
+		{
+			threeLayerNN.infer(inputFeature.getInstanceD(i).getVector());
+			inferResult = threeLayerNN.getOutputVector();
+			if(inputFeature.getClassID(i) == whichMax(inferResult))
+			{
+				rightNumb++; 
+			}
+		}
+		
+		double accuracy =(double)rightNumb/ inputFeature.getSize();
+		System.out.println("accuracy:"+accuracy);
+	}
+	
+	private static int whichMax(double[] inputVector)
+	{
+		if(inputVector.length == 1)
+		{
+			return 0;
+		}
+		int maxPos = 0;
+		double max = 0;
+		for(int i=1;i<inputVector.length;++i)
+		{
+			if(inputVector[i] > inputVector[maxPos])
+			{
+				maxPos = i;
+			}
+		}
+		return maxPos;
 	}
 	
 	public static void main(String[] args) throws IOException
@@ -312,15 +356,18 @@ public class BPNNTrain extends AbstractRegressTrainer {
 		
 		int inputNumb = 4;
 		int hiddenNumb = 8;
-		int outputNumb = 1;
+		int outputNumb = 3;
 		BPNNTrain bpNNTrain = new BPNNTrain(inputNumb,hiddenNumb,outputNumb);
 		bpNNTrain.init(inputFeature);
 		bpNNTrain.train();
 		
 		BaseThreeLayerNN threeLayerNN = bpNNTrain.getBaseThreeLayerNN();
-		double[] inputVector = {5.7, 2.6, 3.5, 1.0};
-		threeLayerNN.infer(inputVector);
-		System.out.println("infer result:"+Arrays.toString(threeLayerNN.getOutputVector()));
+//		double[] inputVector = {5.9,3.0,5.1,1.8};
+		
+//		threeLayerNN.infer(inputVector);
+//		System.out.println("infer result:"+Arrays.toString(threeLayerNN.getOutputVector()));
+		
+		testNeuralNetwork(threeLayerNN,inputFeature,outputNumb);
 	}
 
 

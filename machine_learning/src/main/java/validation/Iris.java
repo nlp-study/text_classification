@@ -53,15 +53,17 @@ public class Iris {
 			{
 				classid = 1;
 			}
-			else
+			else if(temp[4].equals("Iris-virginica"))
 			{
 				classid = 2;
+			}
+			else
+			{
+				classid = 3;
 			}
 			InstanceD instance = new InstanceD(classid,4,vector);
 			inputFeature.add(instance);
 		}
-		
-		
 	}
 	
 	public static void main(String[] args) throws IOException
